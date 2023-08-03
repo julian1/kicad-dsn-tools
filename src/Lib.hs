@@ -2,6 +2,9 @@
 
 module Lib where
 
+
+import Data.Text (Text, unpack)
+
 import qualified Data.Map as Map
 
 type Var = String
@@ -9,41 +12,25 @@ type Var = String
 -- data type for expression
 
 data Expr
-    -- Constructors for "Boolean expression"
-    = FalseLit
-    | TrueLit
-    | Not Expr
-    | And Expr Expr
-    | Or Expr Expr
-
     -- Constructors for "Floating-point expression"
-    | NumLit Double
-    | Add Expr Expr
-    | Minus Expr Expr
-    | Mult Expr Expr
-    | Div Expr Expr
+    = 
+    NumLit Double
 
-    -- Constructors for "Floating-point comparison"
-    | Eq Expr Expr
-    | Less Expr Expr
-    | LessEq Expr Expr
-    | Greater Expr Expr
-    | GreaterEq Expr Expr
+    | List [ Expr ]      
 
-    -- Constructors for "Lists & Strings"
-    -- We don't have "StringLit" here, because string literals are translated to lists of char literals
-    | CharLit Char
-    | Nil
-    | Cons Expr Expr
-    | Car Expr
-    | Cdr Expr
+    | StringLit Text 
 
-    -- Reference the value of a variable. If the variable doesn't exist, it's an error
-    | VarRef Var
+    | Var Text
+
     deriving (Eq, Show)
+
+
+
+
 
 -- data type for evaluation result
 
+{-
 data Val
     = BoolVal Bool
     | NumVal Double
@@ -80,3 +67,5 @@ type Prog = Stmt
 
 -- A memory is a mapping from variable names to values
 type Mem = Map.Map Var Val
+
+-}

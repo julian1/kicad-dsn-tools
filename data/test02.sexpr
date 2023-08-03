@@ -1,0 +1,28 @@
+
+  (pcb "/home/me/devel/kicad6/projects/dmm05/spectra-test/main.dsn"
+    (parser
+      (space_in_quoted_tokens on)
+      (resolution um 10)
+      (unit um)
+      (structure
+        (layer F.Cu
+          (type signal)
+          (property
+            (index 0)
+          )
+        )
+      )
+       (boundary
+        (path pcb 0  303530 -202565  17145 -202565  17145 -16510  303530 -16510
+              303530 -202565)
+      )
+
+      (keepout "" (polygon signal 0  102960 -185234  102806 -185298  102675 -185399  102574 -185530))
+
+    (plane @:no_net_3 (polygon In4.Cu 0  282575 -198743  273685 -198743  273685 -196203  282575 -196203
+            282575 -198743))
+ 
+
+    )
+  )
+
