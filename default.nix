@@ -1,11 +1,18 @@
-{ mkDerivation, base, stdenv }:
+{ mkDerivation, attoparsec, base, containers, mtl, raw-strings-qq
+, stdenv, text
+}:
 mkDerivation {
-  pname = "test01";
+  pname = "main";
   version = "0.1.0.0";
   src = ./.;
-  isLibrary = false;
+  isLibrary = true;
   isExecutable = true;
-  executableHaskellDepends = [ base ];
+  libraryHaskellDepends = [
+    attoparsec base containers mtl raw-strings-qq text
+  ];
+  executableHaskellDepends = [
+    attoparsec base containers raw-strings-qq text
+  ];
   license = "unknown";
   hydraPlatforms = stdenv.lib.platforms.none;
 }
