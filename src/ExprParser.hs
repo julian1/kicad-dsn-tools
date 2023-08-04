@@ -50,7 +50,7 @@ listParser = do
 stringParser = do
     lexeme $ char '"'
 
-    -- has to be able to consume ()
+    -- has to be able to consume brackets ()
     j <- Data.Attoparsec.Text.takeWhile (\c -> c /= '"' && c /= '\n'  )
     lexeme $ char '"'
     return (StringLit  j)

@@ -16,7 +16,7 @@ import ExprParser
 import Text.RawString.QQ
 
 --------
--- putStr 
+-- putStr
 import Data.Text.IO as T
 
 -- if all the elements are list elements then print it flat...
@@ -24,18 +24,18 @@ import Data.Text.IO as T
 {-
 
   - we have nets with brackets in them, which are not being treated correctly.
-  - done - change name Symbol to Symbol 
+  - done - change name Symbol to Symbol
   - need a integer parser
 
  "Net-(C1201-Pad1)"
 -}
 
 
-output :: Expr ->  IO () 
+output :: Expr ->  IO ()
 output expr = do
 
   T.putStr " "
-  case expr of 
+  case expr of
 
       NumLit x -> Prelude.putStr $ show x
 
@@ -47,9 +47,10 @@ output expr = do
           T.putStr "\""
 
       -- Symbol s -> putStr $ show s
-      Symbol s -> T.putStr s
+      Symbol s -> do
+        T.putStr s
 
-      List xs -> do   
+      List xs -> do
         T.putStrLn "" -- new line
         T.putStr "("
         mapM output xs    -- ignore return value
@@ -67,9 +68,9 @@ main :: IO ()
 main =  do
 
 
-  s <- T.readFile "data/test01.sexpr"
+  -- s <- T.readFile "data/test01.sexpr"
   -- s <- readFile "data/test02.sexpr"
-  -- s <- T.readFile "data/main.dsn"
+  s <- T.readFile "data/main.dsn"
 
   -- putStrLn s
 
@@ -84,7 +85,7 @@ main =  do
 
   if isLeft exprParseResult
     then do
-        T.putStrLn $ "not a valid experssion or statemet"
+      T.putStrLn $ "not a valid experssion or statemet"
     else do
       T.putStrLn "ok"
       -- putStrLn $ show  exprParseResult
@@ -93,6 +94,28 @@ main =  do
       output expr
 
       T.putStrLn "\n\ndone"
-      
+
+
+
+
+{-
+  -- either :: (a -> c) -> (b -> c) -> Either a b -> c
+  either
+    (\x ->
+        T.putStrLn $ "not a valid experssion or statemet"
+    )
+
+    (\x ->
+          T.putStrLn "ok"
+          -- putStrLn $ show  exprParseResult
+
+          -- // let Right expr = exprParseResult
+          -- output x
+
+          -- T.putStrLn "\n\ndone"
+    )
+  exprParseResult
+-}
+
 
 
