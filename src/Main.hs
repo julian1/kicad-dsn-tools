@@ -39,7 +39,10 @@ output expr = do
 
       NumLit x -> Prelude.putStr $ show x
 
-      StringLit s -> T.putStr s
+      StringLit s -> do
+          T.putStr "\""
+          T.putStr s
+          T.putStr "\""
 
       -- Symbol s -> putStr $ show s
       Symbol s -> T.putStr s

@@ -15,6 +15,8 @@ data Expr
     -- Constructors for "Floating-point expression"
     = 
     NumLit Double
+    
+    | SignedLit Integer
 
     | List [ Expr ]      
 

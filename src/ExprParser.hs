@@ -6,6 +6,8 @@
   we can probably get the position on error, by having a catch-all that slurps up the rest of the file.
   then count the characters, number of newlines.
 
+  https://hackage.haskell.org/package/attoparsec-0.14.4/docs/src/Data.Attoparsec.Text.Internal.html#Parser
+
 -}
 
 module ExprParser
@@ -16,7 +18,7 @@ module ExprParser
     ) where
 
 import Control.Applicative ((<|>), some, many ) -- JA
-import Data.Attoparsec.Text (Parser, skipSpace, char, double, string, anyChar, takeWhile1, letter)
+import Data.Attoparsec.Text (Parser, skipSpace, char, double, decimal , string, anyChar, takeWhile1, letter)
 import Data.Functor (($>))
 -- import Data.Text (unpack)
 import Lib (Expr(..))
@@ -46,7 +48,9 @@ listParser = do
 
 stringParser = do
     lexeme $ char '"'
-    j <- takeWhile1 (\c -> c /= '"' && c /= ')' )
+
+    -- has to be able to consume ()
+    j <- takeWhile1 (\c -> c /= '"' && c /= '\n'  )
     lexeme $ char '"'
     return (StringLit  j)
 
@@ -114,5 +118,14 @@ doubleParser = do
     x <- double
     return (NumLit x)
 
+{-
 
+signedParser :: Parser Expr
+signedParser = do
+    skipSpace
+    x <- decimal
+    return (SignedLit x)
+
+
+-}
 
