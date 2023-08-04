@@ -1,12 +1,13 @@
 
 {-# LANGUAGE QuasiQuotes,  OverloadedStrings #-}
+-- {-# LANGUAGE ScopedTypeVariables #-}
 
 module Main where
 
 
 
 import Data.Attoparsec.Text
-import System.IO
+-- import System.IO
 import Data.Either
 import Data.Text
 import Lib
@@ -14,28 +15,32 @@ import ExprParser
 
 import Text.RawString.QQ
 
+--------
+-- putStr 
+import Data.Text.IO as T
 
 -- if all the elements are list elements then print it flat...
 
 output :: Expr ->  IO () 
 output expr = do
 
-  putStr " "
+  T.putStr " "
   case expr of 
 
-      NumLit x -> putStr $ show x
+      NumLit x -> Prelude.putStr $ show x
 
-      StringLit s -> putStr $ show s
+      StringLit s -> T.putStr s
 
-      Var s -> putStr $ show s
+      -- Var s -> putStr $ show s
+      Var s -> T.putStr s
 
       List xs -> do   
-        putStrLn "" -- // new line
-        putStr "("
+        T.putStrLn "" -- // new line
+        T.putStr "("
         mapM output xs 
         return ()
 
-        putStr ")"
+        T.putStr ")"
 
 
 
@@ -55,7 +60,7 @@ main =  do
   -- // readFile :: FilePath -> IO Text
   -- Data.Text.IO
   -- s <- readFile "data/test02.sexpr"
-  s <- readFile "data/main.dsn"
+  s <- T.readFile "data/main.dsn"
 
   -- putStrLn s
 
@@ -65,20 +70,20 @@ main =  do
   -- hFlush stdout
   -- ls <- getLine
 
-  let exprParseResult = parseOnly exprParser (pack s)
+  let exprParseResult = parseOnly exprParser (s)
 
 
   if isLeft exprParseResult
     then do
-        putStrLn $ "not a valid experssion or statemet"
+        T.putStrLn $ "not a valid experssion or statemet"
     else do
-      putStrLn "ok"
+      T.putStrLn "ok"
       -- putStrLn $ show  exprParseResult
 
       let Right expr = exprParseResult
       output expr
 
-      putStrLn "done"
+      T.putStrLn "done"
       
 
 

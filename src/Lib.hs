@@ -7,7 +7,7 @@ import Data.Text (Text, unpack)
 
 import qualified Data.Map as Map
 
-type Var = String
+-- type Var = String
 
 -- data type for expression
 
