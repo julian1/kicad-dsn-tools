@@ -9,7 +9,24 @@
 
   https://hackage.haskell.org/package/attoparsec-0.14.4/docs/src/Data.Attoparsec.Text.Internal.html#Parser
 
+  https://hackage.haskell.org/package/attoparsec-0.14.4/docs/Data-Attoparsec-Text.html              <- doc
+
+  https://hackage.haskell.org/package/attoparsec-0.14.4/docs/src/Data.Attoparsec.Text.html#decimal    <- source.
+
   takeWhile1 faster than many1.
+
+  we have to parse a double first.   
+  and only accept if has '.'
+  otherwise parse as signed decimal.
+
+
+A numeric type that can represent integers accurately, and floating point numbers to the precision of a Double.
+Note: this type is deprecated, and will be removed in the next major release. Use the Scientific type instead.
+
+Constructors
+I !Integer   
+D !Double  
+
 -}
 
 module ExprParser
@@ -20,7 +37,7 @@ module ExprParser
     ) where
 
 import Control.Applicative ((<|>), some, many ) -- JA
-import Data.Attoparsec.Text (Parser, skipSpace, char, double, decimal , signed, string, anyChar, takeWhile1, takeWhile, letter)
+import Data.Attoparsec.Text (Parser, Number, skipSpace, char,  number  {- double, rational, decimal, signed -}, string, anyChar, takeWhile1, takeWhile, letter)
 import Data.Functor (($>))
 -- import Data.Text (unpack)
 import Lib (Expr(..))
@@ -78,7 +95,7 @@ symbolParser = do
         || c >= 'A' && c <= 'Z'
         || c =='_'
         || c >= '0' && c <= '9'
-        || c == '.'
+        || c == '.'                 -- think issue here.
         || c == '*' || c == '-'
         || c == '@' || c == ':'
         || c == '[' || c == ']'
@@ -89,15 +106,31 @@ symbolParser = do
     return (Symbol symbol )
 
 
+-- a integer will be picked up as a double.
+-- the only way to do this is parse integer , and check the final digit is not a dot '.'.
 
+
+numParser ::  Parser Expr
+
+numParser = do 
+    skipSpace
+    x <- number
+    return (Num x)
+
+
+
+
+{-
 numParser :: Parser Expr
-numParser = signedParser  <|>  doubleParser
+-- numParser = signedParser  <|>  doubleParser
+numParser = doubleParser <|> signedParser
 
 
 doubleParser :: Parser Expr
 doubleParser = do
     skipSpace
-    x <- double
+    -- x <- double
+    x <- rational
     return (DoubleLit x)
 
 
@@ -109,6 +142,6 @@ signedParser = do
     x <- signed decimal   -- ok.
     return (SignedLit x)
 
-
+-}
 
 

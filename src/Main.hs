@@ -7,6 +7,10 @@ module Main where
 
 
 import Data.Attoparsec.Text
+
+
+import Data.Attoparsec.Number
+
 -- import System.IO
 import Data.Either
 import Data.Text
@@ -28,6 +32,11 @@ import Data.Text.IO as T
   - need a integer parser
 
  "Net-(C1201-Pad1)"
+
+
+  ok. looks like '.' is being picked up as an identifier.
+  and the integer parsing, is parsing the integer before a double , 
+
 -}
 
 
@@ -37,17 +46,28 @@ output expr = do
   T.putStr " "
   case expr of
 
+  {-
       DoubleLit x -> do
         -- why on earth isn't this working ????
-        Prelude.putStr "y"
+        -- Prelude.putStr "y"
         Prelude.putStr $ show x
-        Prelude.putStr "y"
+        -- Prelude.putStr "y"
 
       SignedLit x -> do
 
-        Prelude.putStr "x"
+        -- Prelude.putStr "x"
         Prelude.putStr $ show x
-        Prelude.putStr "x"
+        -- Prelude.putStr "x"
+
+    -}
+      -- https://hackage.haskell.org/package/attoparsec-0.14.4/docs/Data-Attoparsec-Number.html
+
+      Num (I x) -> do 
+        Prelude.putStr $ show x
+
+      Num (D x) -> do 
+        Prelude.putStr $ show x
+
 
 
       -- SingleQuote -> T.putStr "SINGLEQUOTE"
@@ -71,14 +91,9 @@ output expr = do
 
 
 
-xx :: Double
-xx =  95249.5
-
-
 main :: IO ()
 main =  do
 
-  Prelude.putStr $ show xx;
 
   -- s <- T.readFile "data/test01.sexpr"
   -- s <- readFile "data/test02.sexpr"

@@ -3,6 +3,8 @@
 module Lib where
 
 
+import Data.Attoparsec.Text (Number)    -- Comes from where???
+
 import Data.Text (Text, unpack)
 
 import qualified Data.Map as Map
@@ -14,11 +16,15 @@ import qualified Data.Map as Map
 data Expr
     -- Constructors for "Floating-point expression"
     =
-    DoubleLit Double
+    -- DoubleLit Double
+    -- | SignedLit Integer
 
-    | SingleQuote
 
-    | SignedLit Integer
+    SingleQuote
+
+
+    | Num Number 
+
 
     | List [ Expr ]
 
