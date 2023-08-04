@@ -27,15 +27,8 @@ import Data.Text.IO as T
 
 {-
 
-  - we have nets with brackets in them, which are not being treated correctly.
-  - done - change name Symbol to Symbol
-  - need a integer parser
 
- "Net-(C1201-Pad1)"
-
-
-  ok. looks like '.' is being picked up as an identifier.
-  and the integer parsing, is parsing the integer before a double , 
+  designformats/specctra/Package.java:                    System.out.println("Package.read_pin_info: number expected");
 
 -}
 
@@ -46,22 +39,7 @@ output expr = do
   T.putStr " "
   case expr of
 
-  {-
-      DoubleLit x -> do
-        -- why on earth isn't this working ????
-        -- Prelude.putStr "y"
-        Prelude.putStr $ show x
-        -- Prelude.putStr "y"
-
-      SignedLit x -> do
-
-        -- Prelude.putStr "x"
-        Prelude.putStr $ show x
-        -- Prelude.putStr "x"
-
-    -}
       -- https://hackage.haskell.org/package/attoparsec-0.14.4/docs/Data-Attoparsec-Number.html
-
       Num (I x) -> do 
         Prelude.putStr $ show x
 
@@ -97,7 +75,8 @@ main =  do
 
   -- s <- T.readFile "data/test01.sexpr"
   -- s <- readFile "data/test02.sexpr"
-  s <- T.readFile "data/main.dsn"
+  -- s <- T.readFile "data/main.dsn"
+  s <- T.readFile "data/main-simple.dsn"
 
   -- putStrLn s
 
