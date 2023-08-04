@@ -37,7 +37,10 @@ output expr = do
   T.putStr " "
   case expr of
 
-      NumLit x -> Prelude.putStr $ show x
+      DoubleLit x -> Prelude.putStr $ show x
+
+      SignedLit x -> Prelude.putStr $ show x
+
 
       SingleQuote -> T.putStr "SINGLEQUOTE"
 
@@ -46,16 +49,14 @@ output expr = do
           T.putStr s
           T.putStr "\""
 
-      -- Symbol s -> putStr $ show s
       Symbol s -> do
         T.putStr s
 
       List xs -> do
-        T.putStrLn "" -- new line
+        T.putStrLn ""
         T.putStr "("
         mapM output xs    -- ignore return value
         -- return ()
-
         T.putStr ")"
 
 

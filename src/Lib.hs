@@ -13,16 +13,16 @@ import qualified Data.Map as Map
 
 data Expr
     -- Constructors for "Floating-point expression"
-    = 
-    NumLit Double
-    
+    =
+    DoubleLit Double
+
     | SingleQuote
 
     | SignedLit Integer
 
-    | List [ Expr ]      
+    | List [ Expr ]
 
-    | StringLit Text 
+    | StringLit Text
 
     | Symbol Text
 
