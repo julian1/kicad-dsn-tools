@@ -15,7 +15,7 @@
 
   takeWhile1 faster than many1.
 
-  we have to parse a double first.   
+  we have to parse a double first.
   and only accept if has '.'
   otherwise parse as signed decimal.
 
@@ -24,8 +24,8 @@ A numeric type that can represent integers accurately, and floating point number
 Note: this type is deprecated, and will be removed in the next major release. Use the Scientific type instead.
 
 Constructors
-I !Integer   
-D !Double  
+I !Integer
+D !Double
 
 -}
 
@@ -36,14 +36,14 @@ module ExprParser
     , symbolParser
     ) where
 
-import Control.Applicative ((<|>), some, many ) -- JA
-import Data.Attoparsec.Text (Parser, Number, skipSpace, char,  number  {- double, rational, decimal, signed -}, string, anyChar, takeWhile1, takeWhile, letter)
+import Control.Applicative ((<|>), (<$>), some, many ) -- JA
+import Data.Attoparsec.Text (Parser, Number, skipSpace, digit, char,  number  {- double, rational, decimal, signed -}, string, anyChar, takeWhile1, takeWhile, letter)
 import Data.Functor (($>))
 -- import Data.Text (unpack)
 import Lib (Expr(..))
 
 exprParser :: Parser Expr
-exprParser = numParser <|>  listParser <|> stringParser <|> symbolParser  <|> singleQuoteParser
+exprParser = ampParser <|> numParser <|>  listParser <|> stringParser <|> symbolParser  <|> singleQuoteParser
 
 -- | parse bool expression
 
@@ -112,11 +112,39 @@ symbolParser = do
 
 numParser ::  Parser Expr
 
-numParser = do 
+numParser = do
     skipSpace
     x <- number
     return (Num x)
 
+
+
+
+------------
+
+-- NO. it cannot be OR it must include the '@' to avoid being parsed as regular number
+-- special digit index with ampersand in the middle
+-- must be before numParser
+
+isDecimal :: Char -> Bool
+isDecimal c = c >= '0' && c <= '9'
+
+
+
+ampParser :: Parser Expr
+ampParser = do
+  skipSpace
+  -- this parses correctly, but doesn't give us the concatenated result
+  -- j <- takeWhile1 isDecimal *> takeWhile1 (\c -> c == '@') *> takeWhile1 isDecimal
+
+  first     <- takeWhile1 isDecimal
+  -- ampersand <- take (\c -> c == '@')
+  ampersand <- char '@' -- take (\c -> c == '@')
+  last      <- takeWhile1 isDecimal
+
+  -- // return (Amp (first <|> ampersand <|> last ))
+  -- return (Amp (append first last ))
+  return (Amp first last )
 
 
 

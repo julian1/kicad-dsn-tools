@@ -31,6 +31,8 @@ data Expr
     | StringLit Text
 
     | Symbol Text
+    
+    | Amp Text Text 
 
     deriving (Eq, Show)
 
