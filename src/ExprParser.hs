@@ -12,7 +12,7 @@ module ExprParser
     (
       exprParser
     , lexeme
-    , varParser
+    , symbolParser
     ) where
 
 import Control.Applicative ((<|>), some, many ) -- JA
@@ -22,7 +22,7 @@ import Data.Functor (($>))
 import Lib (Expr(..))
 
 exprParser :: Parser Expr
-exprParser = numParser <|>  listParser <|> stringParser <|> varParser  <|> singleQuoteParser
+exprParser = numParser <|>  listParser <|> stringParser <|> symbolParser  <|> singleQuoteParser
 
 -- | parse bool expression
 
@@ -67,13 +67,13 @@ lexeme p = do
     skipSpace
     p
 
--- | parse variabel
+-- | parse symboliabel
 
 
-varParser :: Parser Expr
-varParser = do
+symbolParser :: Parser Expr
+symbolParser = do
     skipSpace
-    var <- takeWhile1 (\c ->
+    symbol <- takeWhile1 (\c ->
         c >= 'a' && c <= 'z'
         || c >= 'A' && c <= 'Z'
         || c =='_'
@@ -86,23 +86,23 @@ varParser = do
         || c == '~' 
 
       )
-    -- // return (Var $ unpack var)  -- not sure why we want to unpack here.
-    return (Var var )  -- not sure why we want to unpack here.
+    -- // return (Symbol $ unpack symbol)  -- not sure why we want to unpack here.
+    return (Symbol symbol )  -- not sure why we want to unpack here.
 
 {-
 
 
-varParser :: Parser Expr
-varParser = do
+symbolParser :: Parser Expr
+symbolParser = do
     skipSpace
-    var_head <- letter
-    var <- takeWhile1 (\c ->
+    symbol_head <- letter
+    symbol <- takeWhile1 (\c ->
         c >= 'a' && c <= 'z'
         || c >= 'A' && c <= 'Z'
         || c =='_'
         || c >= '0' && c <= '9'
         || c == '.')
-    return (Var $ var_head : (unpack var))
+    return (Symbol $ symbol_head : (unpack symbol))
 -}
 
 numParser :: Parser Expr

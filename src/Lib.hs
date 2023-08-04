@@ -7,7 +7,7 @@ import Data.Text (Text, unpack)
 
 import qualified Data.Map as Map
 
--- type Var = String
+-- type Symbol = String
 
 -- data type for expression
 
@@ -20,7 +20,7 @@ data Expr
 
     | StringLit Text 
 
-    | Var Text
+    | Symbol Text
 
     deriving (Eq, Show)
 
@@ -47,7 +47,7 @@ data Stmt
     = StmtList [Stmt]
 
     -- Evaluate an expression, assign the result value to a variable; create the variable if it doesn't exist
-    | VarSet Var Expr
+    | SymbolSet Symbol Expr
 
     -- Evaluate the expression, if result is true, execute the left statement, otherwise if it's false, execute the right statement. If the expression doesn't return a boolean, it's an error
     | If Expr Stmt Stmt
@@ -66,6 +66,6 @@ data Stmt
 type Prog = Stmt
 
 -- A memory is a mapping from variable names to values
-type Mem = Map.Map Var Val
+type Mem = Map.Map Symbol Val
 
 -}

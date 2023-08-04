@@ -1,6 +1,6 @@
 
 {-# LANGUAGE QuasiQuotes,  OverloadedStrings #-}
--- {-# LANGUAGE ScopedTypeVariables #-}
+-- {-# LANGUAGE ScopedTypeSymboliables #-}
 
 module Main where
 
@@ -23,7 +23,9 @@ import Data.Text.IO as T
 
 {-
 
-  we have nets with brackets in them, which are not being treated correctly.
+  - we have nets with brackets in them, which are not being treated correctly.
+  - done - change name Symbol to Symbol 
+  - need a integer parser
 
  "Net-(C1201-Pad1)"
 -}
@@ -39,8 +41,8 @@ output expr = do
 
       StringLit s -> T.putStr s
 
-      -- Var s -> putStr $ show s
-      Var s -> T.putStr s
+      -- Symbol s -> putStr $ show s
+      Symbol s -> T.putStr s
 
       List xs -> do   
         T.putStrLn "" -- // new line
