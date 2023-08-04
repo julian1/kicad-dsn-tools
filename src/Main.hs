@@ -42,7 +42,8 @@ output expr = do
       SignedLit x -> Prelude.putStr $ show x
 
 
-      SingleQuote -> T.putStr "SINGLEQUOTE"
+      -- SingleQuote -> T.putStr "SINGLEQUOTE"
+      SingleQuote -> T.putStr "\""
 
       StringLit s -> do
           T.putStr "\""
@@ -88,13 +89,13 @@ main =  do
     then do
       T.putStrLn $ "not a valid experssion or statemet"
     else do
-      T.putStrLn "ok"
+      -- T.putStrLn "ok"
       -- putStrLn $ show  exprParseResult
 
       let Right expr = exprParseResult
       output expr
 
-      T.putStrLn "\n\ndone"
+      -- T.putStrLn "\n\ndone"
 
 
 
