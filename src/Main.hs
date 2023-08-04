@@ -37,9 +37,17 @@ output expr = do
   T.putStr " "
   case expr of
 
-      DoubleLit x -> Prelude.putStr $ show x
+      DoubleLit x -> do
+        -- why on earth isn't this working ????
+        Prelude.putStr "y"
+        Prelude.putStr $ show x
+        Prelude.putStr "y"
 
-      SignedLit x -> Prelude.putStr $ show x
+      SignedLit x -> do
+
+        Prelude.putStr "x"
+        Prelude.putStr $ show x
+        Prelude.putStr "x"
 
 
       -- SingleQuote -> T.putStr "SINGLEQUOTE"
@@ -63,12 +71,14 @@ output expr = do
 
 
 
-
+xx :: Double
+xx =  95249.5
 
 
 main :: IO ()
 main =  do
 
+  Prelude.putStr $ show xx;
 
   -- s <- T.readFile "data/test01.sexpr"
   -- s <- readFile "data/test02.sexpr"
