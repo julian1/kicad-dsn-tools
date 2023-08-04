@@ -21,6 +21,14 @@ import Data.Text.IO as T
 
 -- if all the elements are list elements then print it flat...
 
+{-
+
+  we have nets with brackets in them, which are not being treated correctly.
+
+ "Net-(C1201-Pad1)"
+-}
+
+
 output :: Expr ->  IO () 
 output expr = do
 
@@ -83,7 +91,7 @@ main =  do
       let Right expr = exprParseResult
       output expr
 
-      T.putStrLn "done"
+      T.putStrLn "\n\ndone"
       
 
 
