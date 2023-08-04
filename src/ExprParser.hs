@@ -8,6 +8,7 @@
 
   https://hackage.haskell.org/package/attoparsec-0.14.4/docs/src/Data.Attoparsec.Text.Internal.html#Parser
 
+  takeWhile1 faster than many1.
 -}
 
 module ExprParser
@@ -18,7 +19,7 @@ module ExprParser
     ) where
 
 import Control.Applicative ((<|>), some, many ) -- JA
-import Data.Attoparsec.Text (Parser, skipSpace, char, double, decimal , string, anyChar, takeWhile1, letter)
+import Data.Attoparsec.Text (Parser, skipSpace, char, double, decimal , string, anyChar, takeWhile1, takeWhile, letter)
 import Data.Functor (($>))
 -- import Data.Text (unpack)
 import Lib (Expr(..))
@@ -50,19 +51,18 @@ stringParser = do
     lexeme $ char '"'
 
     -- has to be able to consume ()
-    j <- takeWhile1 (\c -> c /= '"' && c /= '\n'  )
+    j <- Data.Attoparsec.Text.takeWhile (\c -> c /= '"' && c /= '\n'  )
     lexeme $ char '"'
     return (StringLit  j)
 
 
 {-
-  handle  quotation directive.
+  to handle quotation directive.
     (string_quote ")
 -}
-
 singleQuoteParser = do
   lexeme $ char '"'
-  return (StringLit "\"")
+  return SingleQuote
 
 
 

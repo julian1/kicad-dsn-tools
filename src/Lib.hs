@@ -16,6 +16,8 @@ data Expr
     = 
     NumLit Double
     
+    | SingleQuote
+
     | SignedLit Integer
 
     | List [ Expr ]      

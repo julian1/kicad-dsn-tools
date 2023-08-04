@@ -39,6 +39,8 @@ output expr = do
 
       NumLit x -> Prelude.putStr $ show x
 
+      SingleQuote -> T.putStr "SINGLEQUOTE"
+
       StringLit s -> do
           T.putStr "\""
           T.putStr s
@@ -48,10 +50,10 @@ output expr = do
       Symbol s -> T.putStr s
 
       List xs -> do   
-        T.putStrLn "" -- // new line
+        T.putStrLn "" -- new line
         T.putStr "("
-        mapM output xs 
-        return ()
+        mapM output xs    -- ignore return value
+        -- return ()
 
         T.putStr ")"
 
@@ -64,16 +66,10 @@ output expr = do
 main :: IO ()
 main =  do
 
-{-
-  let s = [r|
-    (blue xxx "app" 1 (+ 1 1 ) )
-   |]
--}
 
-  -- // readFile :: FilePath -> IO Text
-  -- Data.Text.IO
+  s <- T.readFile "data/test01.sexpr"
   -- s <- readFile "data/test02.sexpr"
-  s <- T.readFile "data/main.dsn"
+  -- s <- T.readFile "data/main.dsn"
 
   -- putStrLn s
 

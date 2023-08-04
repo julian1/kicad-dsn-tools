@@ -1,5 +1,9 @@
-
+(
 (defun factorial (x)
    (if (zerop x)
        1
        (* x (factorial (- x 1)))))
+
+    (keepout "" (polygon signal 0  22225 -187972  22225 -195961  54610 -195961  54610 -187972
+            22225 -187972))
+)
