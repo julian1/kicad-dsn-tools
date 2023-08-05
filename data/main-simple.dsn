@@ -1,0 +1,420 @@
+(pcb /home/me/devel/kicad6/projects/simple/spectra229/main.dsn
+  (parser
+    (string_quote ")
+    (space_in_quoted_tokens on)
+    (host_cad "KiCad's Pcbnew")
+    (host_version "6.0.11")
+  )
+  (resolution um 10)
+  (unit um)
+  (structure
+    (layer F.Cu
+      (type signal)
+      (property
+        (index 0)
+      )
+    )
+    (layer In1.Cu
+      (type power)
+      (property
+        (index 1)
+      )
+    )
+    (layer In2.Cu
+      (type signal)
+      (property
+        (index 2)
+      )
+    )
+    (layer B.Cu
+      (type signal)
+      (property
+        (index 3)
+      )
+    )
+    (boundary
+      (path pcb 0  121285 -118745  21590 -118745  21590 -19050  121285 -19050
+            121285 -118745)
+    )
+    (plane AGND (polygon F.Cu 0  121219 -118745  21524 -118745  21524 -19050  121219 -19050
+            121219 -118745))
+    (via "Via[0-3]_800:400_um" "Via[0-3]_3000:1500_um" "Via[0-3]_1500:750_um")
+    (rule
+      (width 250)
+      (clearance 200.1)
+      (clearance 200.1 (type default_smd))
+      (clearance 50 (type smd_smd))
+    )
+  )
+  (placement
+    (component myfootprint:0805_2012Metric
+      (place R411 100330.000000 -48895.000000 front 0.000000 (PN 10k))
+    )
+    (component "myfootprint:SOIC-8_3.9x4.9mm_P1.27mm"
+      (place U402 93980.000000 -53914.000000 front 0.000000 (PN Opamp_Dual))
+    )
+    (component myfootprint:MountingHole_3.2mm_M3_ISO7380
+      (place H301 25400.000000 -22860.000000 front 0.000000 (PN MountingHole))
+      (place H302 117475.000000 -22860.000000 front 0.000000 (PN MountingHole))
+      (place H304 25400.000000 -114935.000000 front 0.000000 (PN MountingHole))
+      (place H303 117475.000000 -114935.000000 front 0.000000 (PN MountingHole))
+    )
+    (component myfootprint:0805_2012Metric::1
+      (place R419 100330.000000 -50800.000000 front 0.000000 (PN 1.52k))
+    )
+    (component myfootprint:0805_2012Metric::2
+      (place R412 100330.000000 -53975.000000 front 180.000000 (PN 159k))
+    )
+    (component myfootprint:0805_2012Metric::3
+      (place R410 100330.000000 -55880.000000 front 180.000000 (PN 159k))
+    )
+    (component myfootprint:C_B32928
+      (place C409 83185.000000 -113030.000000 back 270.000000 (PN 10u/film))
+    )
+    (component myfootprint:0805_2012Metric::4
+      (place C407 96012.000000 -52009.000000 back 180.000000 (PN 100n))
+    )
+    (component myfootprint:0805_2012Metric::5
+      (place C408 92075.000000 -55819.000000 back 180.000000 (PN 100n))
+    )
+    (component myfootprint:C_B32928::1
+      (place C418 94000.000000 -60530.000000 back 90.000000 (PN 10u/film))
+    )
+  )
+  (library
+    (image myfootprint:0805_2012Metric
+      (outline (path signal 120  -258.578 710  258.578 710))
+      (outline (path signal 120  -258.578 -710  258.578 -710))
+      (outline (path signal 50  -1680 950  1680 950))
+      (outline (path signal 50  1680 -950  -1680 -950))
+      (outline (path signal 50  1680 950  1680 -950))
+      (outline (path signal 50  -1680 -950  -1680 950))
+      (outline (path signal 100  -1000 -600  -1000 600))
+      (outline (path signal 100  -1000 600  1000 600))
+      (outline (path signal 100  1000 600  1000 -600))
+      (outline (path signal 100  1000 -600  -1000 -600))
+      (pin RoundRect[T]Pad_975x1400_244.678_um_0.000000_0 1 -937.5 0)
+      (pin RoundRect[T]Pad_975x1400_244.678_um_0.000000_0 2 937.5 0)
+    )
+    (image "myfootprint:SOIC-8_3.9x4.9mm_P1.27mm"
+      (outline (path signal 150  -2075 2575  2075 2575))
+      (outline (path signal 150  -2075 2575  -2075 2525))
+      (outline (path signal 150  -2075 -2575  2075 -2575))
+      (outline (path signal 150  -2075 -2575  -2075 -2430))
+      (outline (path signal 150  2075 -2575  2075 -2430))
+      (outline (path signal 150  2075 2575  2075 2430))
+      (outline (path signal 150  -2075 2525  -3475 2525))
+      (outline (path signal 50  -3730 -2700  3730 -2700))
+      (outline (path signal 50  -3730 2700  3730 2700))
+      (outline (path signal 50  -3730 2700  -3730 -2700))
+      (outline (path signal 50  3730 2700  3730 -2700))
+      (outline (path signal 100  -950 2450  1950 2450))
+      (outline (path signal 100  1950 2450  1950 -2450))
+      (outline (path signal 100  -1950 1450  -950 2450))
+      (outline (path signal 100  1950 -2450  -1950 -2450))
+      (outline (path signal 100  -1950 -2450  -1950 1450))
+      (pin Rect[T]Pad_1550x600_um 1 -2700 1905)
+      (pin Rect[T]Pad_1550x600_um 2 -2700 635)
+      (pin Rect[T]Pad_1550x600_um 3 -2700 -635)
+      (pin Rect[T]Pad_1550x600_um 4 -2700 -1905)
+      (pin Rect[T]Pad_1550x600_um 5 2700 -1905)
+      (pin Rect[T]Pad_1550x600_um 6 2700 -635)
+      (pin Rect[T]Pad_1550x600_um 7 2700 635)
+      (pin Rect[T]Pad_1550x600_um 8 2700 1905)
+    )
+    (image myfootprint:MountingHole_3.2mm_M3_ISO7380
+      (outline (path signal 150  2850 0  2830.73 -330.865  2773.18 -657.255  2678.12 -974.757
+            2546.85 -1279.08  2381.14 -1566.1  2183.23 -1831.94  1955.79 -2073.01
+            1701.9 -2286.05  1425 -2468.17  1128.83 -2616.92  817.389 -2730.27
+            494.897 -2806.7  165.713 -2845.18  -165.713 -2845.18  -494.897 -2806.7
+            -817.389 -2730.27  -1128.83 -2616.92  -1425 -2468.17  -1701.9 -2286.05
+            -1955.79 -2073.01  -2183.23 -1831.94  -2381.14 -1566.1  -2546.85 -1279.08
+            -2678.12 -974.757  -2773.18 -657.255  -2830.73 -330.865  -2850 0
+            -2830.73 330.865  -2773.18 657.255  -2678.12 974.757  -2546.85 1279.08
+            -2381.14 1566.1  -2183.23 1831.94  -1955.79 2073.01  -1701.9 2286.05
+            -1425 2468.17  -1128.83 2616.92  -817.389 2730.27  -494.897 2806.7
+            -165.713 2845.18  165.713 2845.18  494.897 2806.7  817.389 2730.27
+            1128.83 2616.92  1425 2468.17  1701.9 2286.05  1955.79 2073.01
+            2183.23 1831.94  2381.14 1566.1  2546.85 1279.08  2678.12 974.757
+            2773.18 657.255  2830.73 330.865  2850 0))
+      (outline (path signal 50  3100 0  3080.51 -347.09  3022.28 -689.815  2926.04 -1023.87
+            2793 -1345.04  2624.84 -1649.3  2423.68 -1932.82  2192.03 -2192.03
+            1932.82 -2423.68  1649.3 -2624.84  1345.04 -2793  1023.87 -2926.04
+            689.815 -3022.28  347.09 -3080.51  0 -3100  -347.09 -3080.51
+            -689.815 -3022.28  -1023.87 -2926.04  -1345.04 -2793  -1649.3 -2624.84
+            -1932.82 -2423.68  -2192.03 -2192.03  -2423.68 -1932.82  -2624.84 -1649.3
+            -2793 -1345.04  -2926.04 -1023.87  -3022.28 -689.815  -3080.51 -347.09
+            -3100 0  -3080.51 347.09  -3022.28 689.815  -2926.04 1023.87
+            -2793 1345.04  -2624.84 1649.3  -2423.68 1932.82  -2192.03 2192.03
+            -1932.82 2423.68  -1649.3 2624.84  -1345.04 2793  -1023.87 2926.04
+            -689.815 3022.28  -347.09 3080.51  0 3100  347.09 3080.51  689.815 3022.28
+            1023.87 2926.04  1345.04 2793  1649.3 2624.84  1932.82 2423.68
+            2192.03 2192.03  2423.68 1932.82  2624.84 1649.3  2793 1345.04
+            2926.04 1023.87  3022.28 689.815  3080.51 347.09  3100 0))
+      (keepout "" (circle F.Cu 3200))
+      (keepout "" (circle In1.Cu 3200))
+      (keepout "" (circle In2.Cu 3200))
+      (keepout "" (circle B.Cu 3200))
+    )
+    (image myfootprint:0805_2012Metric::1
+      (outline (path signal 120  -258.578 -710  258.578 -710))
+      (outline (path signal 120  -258.578 710  258.578 710))
+      (outline (path signal 50  1680 -950  -1680 -950))
+      (outline (path signal 50  -1680 -950  -1680 950))
+      (outline (path signal 50  1680 950  1680 -950))
+      (outline (path signal 50  -1680 950  1680 950))
+      (outline (path signal 100  1000 -600  -1000 -600))
+      (outline (path signal 100  -1000 -600  -1000 600))
+      (outline (path signal 100  -1000 600  1000 600))
+      (outline (path signal 100  1000 600  1000 -600))
+      (pin RoundRect[T]Pad_975x1400_244.678_um_0.000000_0 1 -937.5 0)
+      (pin RoundRect[T]Pad_975x1400_244.678_um_0.000000_0 2 937.5 0)
+    )
+    (image myfootprint:0805_2012Metric::2
+      (outline (path signal 120  -258.578 -710  258.578 -710))
+      (outline (path signal 120  -258.578 710  258.578 710))
+      (outline (path signal 50  -1680 950  1680 950))
+      (outline (path signal 50  1680 -950  -1680 -950))
+      (outline (path signal 50  1680 950  1680 -950))
+      (outline (path signal 50  -1680 -950  -1680 950))
+      (outline (path signal 100  -1000 600  1000 600))
+      (outline (path signal 100  1000 600  1000 -600))
+      (outline (path signal 100  1000 -600  -1000 -600))
+      (outline (path signal 100  -1000 -600  -1000 600))
+      (pin RoundRect[T]Pad_975x1400_244.678_um_0.000000_0 1 -937.5 0)
+      (pin RoundRect[T]Pad_975x1400_244.678_um_0.000000_0 2 937.5 0)
+    )
+    (image myfootprint:0805_2012Metric::3
+      (outline (path signal 120  -258.578 -710  258.578 -710))
+      (outline (path signal 120  -258.578 710  258.578 710))
+      (outline (path signal 50  -1680 950  1680 950))
+      (outline (path signal 50  1680 950  1680 -950))
+      (outline (path signal 50  1680 -950  -1680 -950))
+      (outline (path signal 50  -1680 -950  -1680 950))
+      (outline (path signal 100  -1000 600  1000 600))
+      (outline (path signal 100  1000 -600  -1000 -600))
+      (outline (path signal 100  -1000 -600  -1000 600))
+      (outline (path signal 100  1000 600  1000 -600))
+      (pin RoundRect[T]Pad_975x1400_244.678_um_0.000000_0 1 -937.5 0)
+      (pin RoundRect[T]Pad_975x1400_244.678_um_0.000000_0 2 937.5 0)
+    )
+    (image myfootprint:C_B32928
+      (outline (path signal 120  55120 4800  55120 -25100))
+      (outline (path signal 120  -2600 -25120  55100 -25120))
+      (outline (path signal 120  -2620 4800  -2620 -25100))
+      (outline (path signal 120  -2600 4820  55100 4820))
+      (outline (path signal 50  -2750 4950  -2750 -25250))
+      (outline (path signal 50  55250 -25250  55250 4950))
+      (outline (path signal 50  55250 4950  -2750 4950))
+      (outline (path signal 50  -2750 -25250  55250 -25250))
+      (outline (path signal 100  -2500 -25000  55000 -25000))
+      (outline (path signal 100  -2500 4700  -2500 -25000))
+      (outline (path signal 100  55000 4700  -2500 4700))
+      (outline (path signal 100  55000 -25000  55000 4700))
+      (pin Round[A]Pad_2700_um 1 0 -20300)
+      (pin Round[A]Pad_2700_um 1@1 0 0)
+      (pin Round[A]Pad_2700_um 2 52500 -20300)
+      (pin Round[A]Pad_2700_um 2@1 52500 0)
+    )
+    (image myfootprint:0805_2012Metric::4
+      (outline (path signal 120  -258.578 710  258.578 710))
+      (outline (path signal 120  -258.578 -710  258.578 -710))
+      (outline (path signal 50  -1680 -950  -1680 950))
+      (outline (path signal 50  -1680 950  1680 950))
+      (outline (path signal 50  1680 -950  -1680 -950))
+      (outline (path signal 50  1680 950  1680 -950))
+      (outline (path signal 100  -1000 -600  -1000 600))
+      (outline (path signal 100  1000 -600  -1000 -600))
+      (outline (path signal 100  -1000 600  1000 600))
+      (outline (path signal 100  1000 600  1000 -600))
+      (pin RoundRect[T]Pad_975x1400_244.678_um_0.000000_0 1 -937.5 0)
+      (pin RoundRect[T]Pad_975x1400_244.678_um_0.000000_0 2 937.5 0)
+    )
+    (image myfootprint:0805_2012Metric::5
+      (outline (path signal 120  -258.578 -710  258.578 -710))
+      (outline (path signal 120  -258.578 710  258.578 710))
+      (outline (path signal 50  1680 -950  -1680 -950))
+      (outline (path signal 50  -1680 950  1680 950))
+      (outline (path signal 50  -1680 -950  -1680 950))
+      (outline (path signal 50  1680 950  1680 -950))
+      (outline (path signal 100  -1000 600  1000 600))
+      (outline (path signal 100  -1000 -600  -1000 600))
+      (outline (path signal 100  1000 600  1000 -600))
+      (outline (path signal 100  1000 -600  -1000 -600))
+      (pin RoundRect[T]Pad_975x1400_244.678_um_0.000000_0 1 -937.5 0)
+      (pin RoundRect[T]Pad_975x1400_244.678_um_0.000000_0 2 937.5 0)
+    )
+    (image myfootprint:C_B32928::1
+      (outline (path signal 120  -2600 -25120  55100 -25120))
+      (outline (path signal 120  -2620 4800  -2620 -25100))
+      (outline (path signal 120  55120 4800  55120 -25100))
+      (outline (path signal 120  -2600 4820  55100 4820))
+      (outline (path signal 50  -2750 -25250  55250 -25250))
+      (outline (path signal 50  55250 4950  -2750 4950))
+      (outline (path signal 50  55250 -25250  55250 4950))
+      (outline (path signal 50  -2750 4950  -2750 -25250))
+      (outline (path signal 100  55000 4700  -2500 4700))
+      (outline (path signal 100  -2500 4700  -2500 -25000))
+      (outline (path signal 100  -2500 -25000  55000 -25000))
+      (outline (path signal 100  55000 -25000  55000 4700))
+      (pin Round[A]Pad_2700_um 1 0 -20300)
+      (pin Round[A]Pad_2700_um 1@1 0 0)
+      (pin Round[A]Pad_2700_um 2 52500 0)
+      (pin Round[A]Pad_2700_um 2@1 52500 -20300)
+    )
+    (padstack Round[A]Pad_2700_um
+      (shape (circle F.Cu 2700))
+      (shape (circle In1.Cu 2700))
+      (shape (circle In2.Cu 2700))
+      (shape (circle B.Cu 2700))
+      (attach off)
+    )
+    (padstack RoundRect[T]Pad_975x1400_244.678_um_0.000000_0
+      (shape (polygon F.Cu 0  -488.428 456.25  -469.803 549.884  -416.763 629.263  -337.384 682.303
+            -243.75 700.928  243.75 700.928  337.384 682.303  416.763 629.263
+            469.803 549.884  488.428 456.25  488.428 -456.25  469.803 -549.884
+            416.763 -629.263  337.384 -682.303  243.75 -700.928  -243.75 -700.928
+            -337.384 -682.303  -416.763 -629.263  -469.803 -549.884  -488.428 -456.25
+            -488.428 456.25))
+      (attach off)
+    )
+    (padstack Rect[T]Pad_1550x600_um
+      (shape (rect F.Cu -775 -300 775 300))
+      (attach off)
+    )
+    (padstack "Via[0-3]_800:400_um"
+      (shape (circle F.Cu 800))
+      (shape (circle In1.Cu 800))
+      (shape (circle In2.Cu 800))
+      (shape (circle B.Cu 800))
+      (attach off)
+    )
+    (padstack "Via[0-3]_3000:1500_um"
+      (shape (circle F.Cu 3000))
+      (shape (circle In1.Cu 3000))
+      (shape (circle In2.Cu 3000))
+      (shape (circle B.Cu 3000))
+      (attach off)
+    )
+    (padstack "Via[0-3]_1500:750_um"
+      (shape (circle F.Cu 1500))
+      (shape (circle In1.Cu 1500))
+      (shape (circle In2.Cu 1500))
+      (shape (circle B.Cu 1500))
+      (attach off)
+    )
+  )
+  (network
+    (net "Net-(R412-Pad2)"
+      (pins U402-7 R419-1 R412-2)
+    )
+    (net "AMP-OUT"
+      (pins C409-2 C409-2@1)
+    )
+    (net "Net-(C409-Pad1)"
+      (pins R412-1 C409-1 C409-1@1 C418-2 C418-2@1)
+    )
+    (net "Net-(C418-Pad1)"
+      (pins U402-5 R410-2 C418-1 C418-1@1)
+    )
+    (net AGND
+      (pins C407-1 C408-2)
+    )
+    (net LP18V
+      (pins U402-8 C407-2)
+    )
+    (net "A400-2"
+      (pins R411-1 R410-1)
+    )
+    (net LN18V
+      (pins U402-4 C408-1)
+    )
+    (net "Net-(R411-Pad2)"
+      (pins R411-2 U402-6 R419-2)
+    )
+    (class kicad_default
+      (circuit
+        (use_via Via[0-3]_800:400_um)
+      )
+      (rule
+        (width 250)
+        (clearance 200.1)
+      )
+    )
+    (class analog "A400-2" AGND "AMP-OUT" LN18V "Net-(C409-Pad1)" "Net-(C418-Pad1)"
+      "Net-(R411-Pad2)"
+      (circuit
+        (use_via Via[0-3]_800:400_um)
+      )
+      (rule
+        (width 400)
+        (clearance 400.1)
+      )
+    )
+    (class analog2 LP18V
+      (circuit
+        (use_via Via[0-3]_800:400_um)
+      )
+      (rule
+        (width 400)
+        (clearance 200.1)
+      )
+    )
+    (class digital
+      (circuit
+        (use_via Via[0-3]_800:400_um)
+      )
+      (rule
+        (width 240)
+        (clearance 200.1)
+      )
+    )
+    (class hv
+      (circuit
+        (use_via Via[0-3]_800:400_um)
+      )
+      (rule
+        (width 400)
+        (clearance 1400.1)
+      )
+    )
+    (class nc
+      (circuit
+        (use_via Via[0-3]_800:400_um)
+      )
+      (rule
+        (width 250)
+        (clearance 200.1)
+      )
+    )
+    (class "no-clearance"
+      (circuit
+        (use_via Via[0-3]_800:400_um)
+      )
+      (rule
+        (width 250)
+        (clearance 0.1)
+      )
+    )
+    (class power
+      (circuit
+        (use_via Via[0-3]_3000:1500_um)
+      )
+      (rule
+        (width 3000)
+        (clearance 800.1)
+      )
+    )
+    (class power2
+      (circuit
+        (use_via Via[0-3]_1500:750_um)
+      )
+      (rule
+        (width 750)
+        (clearance 750.1)
+      )
+    )
+  )
+  (wiring
+  )
+)

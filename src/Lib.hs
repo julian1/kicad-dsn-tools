@@ -3,28 +3,21 @@
 module Lib where
 
 
+-- Peerhaps move this structure into the actual parser.
+
 import Data.Attoparsec.Text (Number)    -- Comes from where???
-
 import Data.Text (Text, unpack)
-
 import qualified Data.Map as Map
 
 -- type Symbol = String
 
 -- data type for expression
 
-data Expr
-    -- Constructors for "Floating-point expression"
-    =
-    -- DoubleLit Double
-    -- | SignedLit Integer
-
+data Expr =
 
     SingleQuote
 
-
     | Num Number 
-
 
     | List [ Expr ]
 
@@ -34,10 +27,32 @@ data Expr
     
     | Amp Text Text 
 
+    | Foo_  Foo
+
     deriving (Eq, Show)
 
 
 
+
+
+
+data Foo = Foo { 
+
+
+  _position :: Text,
+
+  _padNum :: Integer ,
+  
+  _netClass :: Text,
+
+  _component :: Text,
+  
+  _layer :: Text
+
+
+  -- fooID     :: Int, 
+  -- fooName   :: String 
+} deriving (Eq, Show)
 
 
 -- data type for evaluation result

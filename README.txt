@@ -9,7 +9,6 @@ cabal run
 
 ---
 
-
 nix-shell --packages cabal2nix --run "cabal2nix ." > default.nix
 touch LICENSE
 nix-build release.nix 

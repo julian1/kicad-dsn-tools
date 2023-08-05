@@ -7,6 +7,8 @@
   then count the number of newline chars til the end.
   then subtract from file size
 
+  see, takeText :: Parser Text
+
   https://hackage.haskell.org/package/attoparsec-0.14.4/docs/src/Data.Attoparsec.Text.Internal.html#Parser
 
   https://hackage.haskell.org/package/attoparsec-0.14.4/docs/Data-Attoparsec-Text.html              <- doc
@@ -19,13 +21,17 @@
   and only accept if has '.'
   otherwise parse as signed decimal.
 
+  ---
 
-A numeric type that can represent integers accurately, and floating point numbers to the precision of a Double.
-Note: this type is deprecated, and will be removed in the next major release. Use the Scientific type instead.
+  should test on non-spectra files also.
 
-Constructors
-I !Integer
-D !Double
+  ---
+  A numeric type that can represent integers accurately, and floating point numbers to the precision of a Double.
+  Note: this type is deprecated, and will be removed in the next major release. Use the Scientific type instead.
+
+  Constructors
+  I !Integer
+  D !Double
 
 -}
 

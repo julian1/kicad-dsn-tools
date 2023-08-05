@@ -45,3 +45,18 @@ executable main
                      , containers
   -- hs-source-dirs:
   default-language:    Haskell2010
+
+
+executable main02
+
+  hs-source-dirs:      src
+  main-is:             Main02.hs
+  -- other-modules:
+  -- other-extensions:
+  build-depends:       base >=4.13 && <4.14
+                     , text
+                     , raw-strings-qq
+                     , attoparsec
+                     , containers
+  -- hs-source-dirs:
+  default-language:    Haskell2010
