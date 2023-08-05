@@ -12,87 +12,100 @@ import qualified Data.Map as Map
 -- type Symbol = String
 
 -- data type for expression
+-- change name Sexpr.
 
 data Expr =
 
     SingleQuote
 
-    | Num Number 
+    | Num Number
 
     | List [ Expr ]
 
     | StringLit Text
 
     | Symbol Text
-    
-    | Amp Text Text 
 
-    | Foo_  Foo
+    | Amp Text Text
+
+    -- | PCBFeatureItem_  PCBFeatureItem
 
     deriving (Eq, Show)
 
 
 
+------------------------
+
+{-
+    rather than imposing this structure.
+    Might be easier to just have named data constructors, for each element.
+
+    Item, Pad, Layer  etc.
+
+    and let the DRCExpr be recursive.
+    name, val.
+    or
+    name ( val )
+    name [ ] then list.
+    value probably
+    ----
+    - key value pairs can be pattern matched... OK. but not easily. because they have to be in order.
+    - so i think using structure.
+-}
 
 
 
-data Foo = Foo { 
 
+-- change name to PCBFeatureItem, and the FeatureItem.  as a tuple...
+
+data PCBFeature  =
+  -- or Via.
+
+  --- pad num, netclass, component, layer
+  Pad_  Integer  Text Text Text
+
+  -- netclass, layer, length
+  | Track_  Text Text Text
+
+  -- netclass, layer
+  | Via_ Text Text
+
+  deriving (Eq, Show)
+
+
+
+
+
+
+data PCBFeatureItem = PCBFeatureItem {
+  -- Change this to a tuple object ?
 
   _position :: Text,
 
-  _padNum :: Integer ,
-  
-  _netClass :: Text,
 
-  _component :: Text,
-  
-  _layer :: Text
+  _feature :: PCBFeature
 
 
-  -- fooID     :: Int, 
-  -- fooName   :: String 
+
 } deriving (Eq, Show)
 
 
--- data type for evaluation result
 
-{-
-data Val
-    = BoolVal Bool
-    | NumVal Double
-    | CharVal Char
-    | NilVal
-    | ConsVal Val Val
-    deriving (Eq, Show)
 
--- data type for statement
+-- change to tupple
 
-data Stmt
+data DRCError = DRCError {
 
-    -- Execute a list of statements from left to right
-    = StmtList [Stmt]
+  _name :: Text,
 
-    -- Evaluate an expression, assign the result value to a variable; create the variable if it doesn't exist
-    | SymbolSet Symbol Expr
+  _explanation :: Text,
 
-    -- Evaluate the expression, if result is true, execute the left statement, otherwise if it's false, execute the right statement. If the expression doesn't return a boolean, it's an error
-    | If Expr Stmt Stmt
+  _item1 :: PCBFeatureItem,
 
-    -- Repeatedly evaluate the expression, if result is true then execute the statement and repeat. The expression must return a boolean
-    | While Expr Stmt
+  _item2 :: PCBFeatureItem
 
-    -- Skip out one level of "while" loop. It's an error if currently we are not in a loop
-    | Skip
-
-    deriving (Show, Eq)
+} deriving (Eq, Show)
 
 
 
--- A program is a single statement
-type Prog = Stmt
 
--- A memory is a mapping from variable names to values
-type Mem = Map.Map Symbol Val
-
--}
