@@ -86,6 +86,7 @@ main =  do
   -- s <- T.readFile "data/test01.sexpr"
   -- s <- readFile "data/test02.sexpr"
   s <- T.readFile "data/main.dsn"
+  -- s <- T.readFile "data/main.ses"
   -- s <- T.readFile "data/main-simple.dsn"
 
   -- putStrLn s

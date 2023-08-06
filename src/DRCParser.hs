@@ -275,7 +275,7 @@ drcErrorParser = do
   return $ DRCError {
     _name = name,
     _explanation = explanation,
-    _items = items
+    _features = items
     }
 
 

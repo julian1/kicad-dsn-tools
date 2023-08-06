@@ -26,9 +26,9 @@ data Expr =
 
     | Symbol Text
 
+    -- if index - was treated as string - then we wouldn't require this.
     | Amp Text Text
 
-    -- | PCBFeatureItem_  PCBFeatureItem
 
     deriving (Eq, Show)
 
@@ -78,14 +78,12 @@ data PCBFeature  =
 
 
 data PCBFeatureItem = PCBFeatureItem {
-  -- Change this to a tuple object ?
+
+  -- Change this to a tuple?
 
   _position :: Text,
 
-
   _feature :: PCBFeature
-
-
 
 } deriving (Eq, Show)
 
@@ -100,10 +98,8 @@ data DRCError = DRCError {
 
   _explanation :: Text,
 
-  -- _item1 :: PCBFeatureItem,
-  -- _item2 :: PCBFeatureItem
-  
-  _items :: [ PCBFeatureItem ]
+  -- change name _features to _features plural.
+  _features :: [ PCBFeatureItem ]
 
 } deriving (Eq, Show)
 
