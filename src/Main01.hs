@@ -7,47 +7,31 @@ module Main where
 
 
 import Data.Attoparsec.Text
-
-
 import Data.Attoparsec.Number
 
 -- import System.IO
 import Data.Either
-import Data.Text as T
 import Lib
 import ExprParser
 
 import Text.RawString.QQ
 
 --------
--- putStr
+
+import Data.Text as T
 import Data.Text.IO as T
 
--- if all the elements are list elements then print it flat...
-
-{-
-  designformats/specctra/Package.java:                    System.out.println("Package.read_pin_info: number expected");
-
-  - ampersand is used for specifying duplicate pins. so value is an index/integer.
-  - or probably needs special case handling.
-
-  247 ( pin Round[A]Pad_2700_um 1 0 -20300)
-  248 ( pin Round[A]Pad_2700_um 1@1 0 0)
-  249 ( pin Round[A]Pad_2700_um 2 52500 -20300)
-  250 ( pin Round[A]Pad_2700_um 2@1 52500 0))
--}
-
-
--- change name.
--- and moove into ExprParser.
 
 
 printExpr :: Int -> Expr ->  IO ()
 printExpr level expr = do
 
+  -- change name.
+  -- and moove to ExprParser.hs
+
+  -- only want this if it's not the first entry... in the list.
+  -- ACTUALLY it should be done by changing mapM_ mapM with index
   T.putStr " "
-  -- pad count = LT.justifyRight count ' ' LT.empty
-  -- Text justify isn't right. unless we are constructing a string.
 
   case expr of
 
@@ -55,6 +39,7 @@ printExpr level expr = do
       -- https://hackage.haskell.org/package/attoparsec-0.14.4/docs/Data-Attoparsec-Number.html
       -- We don't have to decode these in the parser.
       Num (I x) -> do
+
         Prelude.putStr $ show x
 
       Num (D x) -> do
@@ -84,8 +69,9 @@ printExpr level expr = do
         -- do indentation
         T.putStrLn ""   -- new line.
         let pad = T.justifyRight (level * 2 ) ' ' T.empty -- pad.
-        T.putStr pad 
+        T.putStr pad
 
+        -- recurse
         T.putStr "("
         mapM_ (printExpr (level + 1)) xs
         T.putStr ")"
@@ -147,5 +133,19 @@ main =  do
   exprParseResult
 -}
 
+
+-- if all the elements are list elements then print it flat...
+
+{-
+  designformats/specctra/Package.java:                    System.out.println("Package.read_pin_info: number expected");
+
+  - ampersand is used for specifying duplicate pins. so value is an index/integer.
+  - or probably needs special case handling.
+
+  247 ( pin Round[A]Pad_2700_um 1 0 -20300)
+  248 ( pin Round[A]Pad_2700_um 1@1 0 0)
+  249 ( pin Round[A]Pad_2700_um 2 52500 -20300)
+  250 ( pin Round[A]Pad_2700_um 2@1 52500 0))
+-}
 
 
