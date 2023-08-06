@@ -1,6 +1,14 @@
 ** Drc report for /home/me/devel/kicad6/projects/dmm05/main.kicad_pcb **
 ** Created on 2023-08-05 18:21:25 **
 
+[copper_edge_clearance]: Board edge clearance violation (board setup constraints edge clearance 0.0500 mm; actual 0.0000 mm)
+    Rule: board setup constraints edge; Severity: error
+    @(170.1800 mm, 65.4050 mm): Arc on Edge.Cuts
+    @(170.8150 mm, 64.7700 mm): Through hole pad [<no net>] of H308
+    @(43.8150 mm, 85.0900 mm): Through hole pad 12 [Net-(J201-Pad12)] of J201
+
+
+
 ** Found 51 DRC violations **
 [via_dangling]: Via is not connected or connected on only one layer
     Local override; Severity: warning

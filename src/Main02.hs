@@ -1,5 +1,7 @@
 {-# LANGUAGE QuasiQuotes, OverloadedStrings #-}
 
+
+-- change file name to DRC Parser or similar.
 -- combine the 'exprParse' functions into one module
 
 {-
@@ -38,7 +40,7 @@ module Main
 
 
 import Control.Applicative ((<|>), (<$>), some, many ) -- JA
-import Data.Attoparsec.Text (Parser, Number, skipSpace, digit, char,  number  {- double, rational, decimal, signed-} , decimal, string, anyChar, takeWhile1, takeWhile, takeTill, letter)
+import Data.Attoparsec.Text (Parser, Number, skipSpace, digit, char,  number  {- double, rational, decimal, signed-} , decimal, string, anyChar, takeWhile1, takeWhile, takeTill, letter, option)
 import Data.Functor (($>))
 -- import Data.Text (unpack)
 
@@ -63,9 +65,24 @@ import Data.List(intersperse)
 
 
 
+parseNetclass :: Parser Text
+parseNetclass = do
+  {-
+    [Net-(U102-Pad11)]
+    [<no net>]
+  -}
+  skipSpace
+  lexeme $ char '['
+  netClass <- takeTill $ (==) ']'
+  lexeme $ char ']'
+  return netClass
+
+
+
 
 -- could use Either(Left,Right) here, if wanted.
 -- No. because have Via also.
+
 
 drcPadParser :: Parser PCBFeature
 drcPadParser = do
@@ -77,16 +94,11 @@ drcPadParser = do
   skipSpace
   padNum <- decimal   --  parser returning integer.
 
-
   -- parse netclass
-  skipSpace
-  lexeme $ char '['
-  netClass <- takeTill $ (==) ']'
-  lexeme $ char ']'
+  netClass <- parseNetclass
 
   skipSpace
   string "of"
-
 
   -- parse component
   skipSpace
@@ -99,26 +111,33 @@ drcPadParser = do
   skipSpace
   layer <- takeWhile1 ( \c -> isAlpha c || isDigit c || c == '.' )
 
-
   return $ Pad_ padNum netClass component layer
+
+
 
 
 drcTHPadParser :: Parser PCBFeature
 drcTHPadParser = do
 
   -- Through hole pad 12 [Net-(J201-Pad12)] of J201
+
+  --    Through hole pad [<no net>] of H308
   -- no layer info. we can create a dedicated structure for this.
 
   skipSpace
   string "Through hole pad"
   skipSpace
-  padNum <- decimal
+
+  {- 
+    OK. so padNum is optional here (eg. for a Mounting Hole) . how do we handle this?
+    OK. this works/compiles...  to handle missing value.
+    alternatively create a decimal to return a Maybe/ Just value.
+  -}
+  padNum <- option (-1) decimal
+
 
   -- parse netclass
-  skipSpace
-  lexeme $ char '['
-  netClass <- takeTill $ (==) ']'
-  lexeme $ char ']'
+  netClass <- parseNetclass
 
   skipSpace
   string "of"
@@ -127,9 +146,34 @@ drcTHPadParser = do
   skipSpace
   component <- takeWhile1 ( \c -> isAlpha c || isDigit c )
 
-
   return $ Pad_ padNum netClass component ""
 
+
+-- prefix with 'feature' rather than 'drc' ?
+
+
+
+
+drcGeomParser :: Parser PCBFeature
+drcGeomParser = do
+
+  -- Polygon on F.Cu
+  -- Arc on Edge.Cuts
+  -- Line on Edge.Cuts
+  -- no netclass????
+
+  skipSpace
+  geometry <- string "Polygon" <|> "Arc" <|> "Line"
+
+  skipSpace
+  string "on"
+
+  -- parse layer
+  skipSpace
+  layer <- takeWhile1 ( \c -> isAlpha c || isDigit c || c == '.' )
+
+
+  return $ Pad_ 123 geometry "" ""
 
 
 
@@ -146,10 +190,7 @@ drcTrackParser = do
   string "Track"
 
   -- parse netclass
-  skipSpace
-  lexeme $ char '['
-  netClass <- takeTill $ (==) ']'
-  lexeme $ char ']'
+  netClass <- parseNetclass
 
   skipSpace
   string "on"     -- keyword 'on'. not 'of'
@@ -175,20 +216,14 @@ drcViaParser = do
   string "Via"
 
   -- parse netclass
-  skipSpace
-  lexeme $ char '['
-  netClass <- takeTill $ (==) ']'
-  lexeme $ char ']'
+  netClass <- parseNetclass
 
   skipSpace
   string "on"     -- keyword 'on'. not 'of'
 
-
   skipSpace
   layer <- takeWhile1 ( \c -> c /= '\n' )
 
-
-  -- return $ Track_ "whoot Via" "x" "y"
   return $ Via_ netClass layer
 
 
@@ -204,12 +239,12 @@ pcbFeatureParser = do
   skipSpace
   lexeme $ char '@'
   lexeme $ char '('
-  position <- takeWhile1 ( (/=) ')' )  -- glob rest of the line
+  position <- takeWhile1 ( (/=) ')' )  -- glob rest of the line.   use predicate til and isEndOfLine
   lexeme $ char ')'
   lexeme $ char ':'
 
   -- parse feature
-  feature <- drcPadParser <|> drcTHPadParser <|> drcTrackParser <|> drcViaParser
+  feature <- drcPadParser <|> drcTHPadParser <|> drcTrackParser <|> drcViaParser <|> drcGeomParser
 
 
   -- this could probably be a tuple instead .
@@ -228,7 +263,7 @@ commentParser :: Parser ()
 commentParser = do
   skipSpace
   string "**"
-  takeTill ( (==) '\n' )  -- glob rest of the line
+  takeTill ( (==) '\n' )  -- glob rest of the line .  TODO use predicate til and isEndOfLine
   return ()
 
 
