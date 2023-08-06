@@ -1,5 +1,8 @@
 {-# LANGUAGE OverloadedStrings #-}
 
+
+-- change name SpecctraParser
+
 -- combine the 'exprParse' functions into one module
 
 {-
@@ -101,7 +104,7 @@ symbolParser = do
         || c >= 'A' && c <= 'Z'
         || c =='_'
         || c >= '0' && c <= '9'
-        || c == '.'                 -- think issue here.
+        || c == '.'                 -- be careful can match double
         || c == '*' || c == '-'
         || c == '@' || c == ':'
         || c == '[' || c == ']'
