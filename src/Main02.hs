@@ -103,6 +103,37 @@ drcPadParser = do
   return $ Pad_ padNum netClass component layer
 
 
+drcTHPadParser :: Parser PCBFeature
+drcTHPadParser = do
+
+  -- Through hole pad 12 [Net-(J201-Pad12)] of J201
+  -- no layer info. we can create a dedicated structure for this.
+
+  skipSpace
+  string "Through hole pad"
+  skipSpace
+  padNum <- decimal
+
+  -- parse netclass
+  skipSpace
+  lexeme $ char '['
+  netClass <- takeTill $ (==) ']'
+  lexeme $ char ']'
+
+  skipSpace
+  string "of"
+
+  -- parse component
+  skipSpace
+  component <- takeWhile1 ( \c -> isAlpha c || isDigit c )
+
+
+  return $ Pad_ padNum netClass component ""
+
+
+
+
+
 
 
 
@@ -166,6 +197,7 @@ drcViaParser = do
 pcbFeatureParser :: Parser PCBFeatureItem
 pcbFeatureParser = do
 
+  -- feature with position. eg.
   -- @(87.9625 mm, 77.4700 mm): Pad 2 [AGND] of C238 on B.Cu
 
   -- parse position
@@ -177,7 +209,7 @@ pcbFeatureParser = do
   lexeme $ char ':'
 
   -- parse feature
-  feature <- drcPadParser <|> drcTrackParser <|> drcViaParser
+  feature <- drcPadParser <|> drcTHPadParser <|> drcTrackParser <|> drcViaParser
 
 
   -- this could probably be a tuple instead .
@@ -191,9 +223,23 @@ pcbFeatureParser = do
 
 
 
--- change name drcErrorParser
+
+commentParser :: Parser ()
+commentParser = do
+  skipSpace
+  string "**"
+  takeTill ( (==) '\n' )  -- glob rest of the line
+  return ()
+
+
+
+
+
 drcErrorParser :: Parser DRCError
 drcErrorParser = do
+
+  -- glob comments
+  many commentParser
 
   skipSpace
   lexeme $ char '['
@@ -208,16 +254,30 @@ drcErrorParser = do
   skipSpace
   secondLine <- takeTill ( (==) '\n' )  -- glob rest of the line
 
-  item1 <- pcbFeatureParser
-  item2 <- pcbFeatureParser
+  -- takeWhile1 returns text.
+  -- many, some - are parser combinators.
 
+  items <- many pcbFeatureParser
 
   return $ DRCError {
     _name = name,
     _explanation = explanation,
-    _item1 = item1,
-    _item2 = item2
+    _items = items
     }
+
+
+
+
+fileParser :: Parser [ DRCError ]
+fileParser = do
+
+  many drcErrorParser
+
+
+
+
+
+
 
 
 
@@ -258,22 +318,49 @@ main =  do
     @(89.9547 mm, 81.2800 mm): Track [LP3V3] on F.Cu, length 0.8503 mm
     @(91.3042 mm, 81.7965 mm): Via [AGND] on F.Cu - B.Cu
 
-  -}
-
-  let s = [r|
 
     [clearance]: Clearance violation (netclass 'power' clearance 0.2000 mm; actual 0.0940 mm)
     Rule: netclass 'power'; Severity: error
     @(57.6288 mm, 51.4760 mm): Track [Net-(U102-Pad11)] on F.Cu, length 1.0827 mm
     @(91.3042 mm, 81.7965 mm): Via [AGND] on F.Cu - B.Cu
 
-  |]
 
+    [via_dangling]: Via is not connected or connected on only one layer
+    Local override; Severity: warning
+    @(57.6288 mm, 51.4760 mm): Via [Net-(U102-Pad11)] on F.Cu - B.Cu
+
+
+    to parse a list - we just need to parse a comment first.
+  -}
+
+  {-
+  let s = [r|
+
+    ** Drc report for /home/me/devel/kicad6/projects/dmm05/main.kicad_pcb **
+    ** Created on 2023-08-05 18:21:25 **
+
+
+    [via_dangling]: Via is not connected or connected on only one layer
+    Local override; Severity: warning
+    @(57.6288 mm, 51.4760 mm): Via [Net-(U102-Pad11)] on F.Cu - B.Cu
+
+
+    [clearance]: Clearance violation (netclass 'power' clearance 0.2000 mm; actual 0.0940 mm)
+    Rule: netclass 'power'; Severity: error
+    @(57.6288 mm, 51.4760 mm): Track [Net-(U102-Pad11)] on F.Cu, length 1.0827 mm
+    @(91.3042 mm, 81.7965 mm): Via [AGND] on F.Cu - B.Cu
+
+    @(89.8375 mm, 74.2950 mm): Pad 1 [CRESET] of R210 on F.Cu
+    @(43.8150 mm, 85.0900 mm): Through hole pad 12 [Net-(J201-Pad12)] of J201
+
+  |]
+  -}
+
+  s <- T.readFile "data/DRC.rpt"
 
   T.putStrLn s;
 
-  let exprParseResult = parseOnly drcErrorParser s
-
+  let exprParseResult = parseOnly fileParser s
 
   if isLeft exprParseResult
     then do
@@ -282,7 +369,9 @@ main =  do
 
       let Right expr = exprParseResult
 
-      Prelude.putStr $ show expr
+      mapM ( Prelude.putStrLn .  show ) expr
+
+      return ()
 
 
 

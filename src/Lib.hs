@@ -100,9 +100,10 @@ data DRCError = DRCError {
 
   _explanation :: Text,
 
-  _item1 :: PCBFeatureItem,
-
-  _item2 :: PCBFeatureItem
+  -- _item1 :: PCBFeatureItem,
+  -- _item2 :: PCBFeatureItem
+  
+  _items :: [ PCBFeatureItem ]
 
 } deriving (Eq, Show)
 
