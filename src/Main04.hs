@@ -32,6 +32,7 @@
 -}
 
 
+import Prelude as P
 
 import Data.Either
 
@@ -70,7 +71,7 @@ matchUnconnected DRCError { _name =   "unconnected_items" , _explanation , _feat
   -- | _name == "unconnected_items"  =
 
     -- destructure FeatureItem to Feature.
-    Prelude.map ( f . _feature  ) _features where
+    P.map ( f . _feature  ) _features where
 
       f (Pad_  pad nc c l ) = Pad_  pad nc c "" -- remove layer, to allow set membership test
       f (PadTH_ pad nc c  ) = PadTH_ pad nc c
@@ -93,9 +94,9 @@ getPinDesignator pin = (pinNum, designator)
   -- split on '-' separator
   parts = T.split (=='-') pin
   -- reverse to extract the last (first) element (eg. pinNum)
-  (pinNum : xs) = Prelude.reverse parts
+  (pinNum : xs) = P.reverse parts
   -- re-reverse and concatenate for designator
-  designator = T.concat . Prelude.reverse $ xs
+  designator = T.concat . P.reverse $ xs
 
 
 
@@ -126,8 +127,13 @@ printPins netClass sUnconnected pins = do
 
   -- we have to split apart the componennt and the pin number according to the '-' character.
   -- then construct a Pad, or PadTH
-
   return ()
+
+
+
+
+
+
 
 
 {-
@@ -136,56 +142,13 @@ printPins netClass sUnconnected pins = do
 
 -}
 
-printExpr :: S.Set PCBFeature -> Int -> Expr  ->  IO ()
-printExpr sUnconnected level dsnExpr = do
+printExpr ::  Int -> Expr  ->  IO ()
+printExpr level dsnExpr = do
 
   -- this can be our recursive walk of the dsn function. that tests membership
   T.putStr " "
 
   case dsnExpr of
-
-    {-
-        (net LP15V
-        (pins U703-13 U414-13 U505-7 D404-3 U504-14 U301-3 U707-13 U1006-13 U907-7 U1003-13
-
-    -}
-
-    List [(Symbol "net" ),
-          (Symbol netClass {-|| StringLit netClass -} ) ,
-          (List ( (Symbol "pins") : pins))]  -> do
-
-        {-
-        T.putStrLn ""   -- new line.
-        T.putStr "**net**"
-        T.putStr netClass
-        T.putStrLn ""
-        -}
-
-        T.putStrLn ""
-        T.putStr "(net "
-        T.putStr netClass
-        T.putStrLn ""
-        printPins netClass sUnconnected pins
-        T.putStrLn ")"
-
-
-    List [(Symbol "net"),
-          (StringLit netClass ) ,
-          (List ( (Symbol "pins"): pins ))]  -> do
-        {-
-        T.putStrLn ""   -- new line.
-        T.putStr "**net**"
-        T.putStr netClass
-        T.putStrLn ""
-        -}
-
-        T.putStrLn ""
-        T.putStr "(net "
-        T.putStr netClass
-        T.putStrLn ""
-        printPins netClass sUnconnected pins
-        T.putStrLn ")"
-
 
     List xs -> do
       -- do indentation
@@ -195,7 +158,7 @@ printExpr sUnconnected level dsnExpr = do
 
       -- recurse on the items.
       T.putStr "("
-      mapM_ (printExpr sUnconnected (level + 1)) xs
+      mapM_ (printExpr (level + 1)) xs
       T.putStr ")"
 
 
@@ -223,6 +186,73 @@ printExpr sUnconnected level dsnExpr = do
 
 
 
+filterPins :: Text -> S.Set PCBFeature -> [ Expr ]  ->  [ Expr ]
+filterPins netClass sUnconnected pins =
+
+  P.filter f pins
+    where
+      f (Symbol pin ) =
+        let
+          (pinNum, designator) = getPinDesignator pin
+        in
+        S.member ( Pad_  pinNum  netClass designator  "" ) sUnconnected
+
+
+
+
+
+
+
+transformExpr :: S.Set PCBFeature -> Int -> Expr ->  Expr
+transformExpr sUnconnected level dsnExpr =
+
+  -- don't need level/depth here, but it *could* be useful on other transforms.
+  case dsnExpr of
+
+    {-
+        eg.
+
+        (net LP15V
+        (pins U703-13 U414-13 U505-7 D404-3 U504-14 U301-3 U707-13 U1006-13 U907-7 U1003-13
+        ->
+        (net LP15V
+        (pins U703-13 U414-13 ))
+    -}
+
+    -- the only differene between these two - is if the netClass is expressed as string or symbol
+
+    List [(Symbol "net" ),
+          (Symbol netClass {-|| StringLit netClass -} ) ,
+          (List ( (Symbol "pins") : pins))]  -> 
+          let 
+            pins2 = filterPins netClass sUnconnected pins
+          in
+            List [(Symbol "net" ),
+                  (Symbol netClass  ) ,
+                  (List ( (Symbol "pins") : pins2 ))]  
+
+
+
+    List [(Symbol "net"),
+          (StringLit netClass ) ,
+          (List ( (Symbol "pins"): pins ))]  -> 
+          let 
+            pins2 = filterPins netClass sUnconnected pins
+          in
+            List [(Symbol "net" ),
+                  (Symbol netClass  ) ,
+                  (List ( (Symbol "pins") : pins2 ))]  
+
+    List xs -> do
+
+      -- transform list elements
+      List $  P.map (transformExpr sUnconnected (level + 1)) xs
+
+
+
+    _ -> dsnExpr
+
+
 
 doStuff ::  [ DRCError ] -> Expr -> IO ()
 doStuff drcExpr dsnExpr = do
@@ -233,7 +263,7 @@ doStuff drcExpr dsnExpr = do
 
   -- convert the drcExpression to the set of unconnected features, for easy lookup.
   -- better to change matchUnconnected name. to getUnconnected. or matchUnconnected
-  let lunconnected = mconcat $ Prelude.map matchUnconnected drcExpr
+  let lunconnected = mconcat $ P.map matchUnconnected drcExpr
 
   -- print the unconnected features
   -- mapM_ ( Prelude.putStrLn . show ) lunconnected
@@ -245,8 +275,9 @@ doStuff drcExpr dsnExpr = do
   -- let isMember = S.member  ( Pad_  "12" "/ice40-2-200/C-MISO" "U212" "" ) sUnconnected
   -- T.putStrLn $ "isMember " `T.append` (pack . show $ isMember)
 
+  let trsfmExpr = transformExpr sUnconnected 0 dsnExpr
 
-  printExpr sUnconnected 0 dsnExpr
+  printExpr 0 trsfmExpr
 
 
 -- now we want a function that takes the expression and the est
