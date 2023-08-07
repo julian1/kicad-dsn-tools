@@ -24,6 +24,11 @@
     - 3. remove nets from netclasses  - and stick in nonroutable netclass. maybe. (what we did with manual edit, and code changes).
   ---
     - can also remove everything not manually routed, and just reroute.
+
+  EXTR.  instead of selectively printing to stdout..
+      we need to transform the expression. , to allow having more than one edit actions.
+      then use a generic output.
+
 -}
 
 
@@ -60,8 +65,8 @@ import Data.Either(either)
 
 -- this does more than normalize - it pattern matches unconnected features.
 
-filterUnconnected :: DRCError -> [ PCBFeature  ]
-filterUnconnected DRCError { _name =   "unconnected_items" , _explanation , _features  } =
+matchUnconnected :: DRCError -> [ PCBFeature  ]
+matchUnconnected DRCError { _name =   "unconnected_items" , _explanation , _features  } =
   -- | _name == "unconnected_items"  =
 
     -- destructure FeatureItem to Feature.
@@ -73,7 +78,7 @@ filterUnconnected DRCError { _name =   "unconnected_items" , _explanation , _fea
       f (Track_ nc l len )  = Track_ nc l len
       f (Via_ nc l )        = Via_ nc l
 
-filterUnconnected _ = [ ]
+matchUnconnected _ = [ ]
 
 
 
@@ -222,8 +227,8 @@ doStuff drcExpr dsnExpr = do
   -- mapM_ ( Prelude.putStrLn .  show ) drcExpr
 
   -- convert the drcExpression to the set of unconnected features, for easy lookup.
-  -- better to change filterUnconnected name. to getUnconnected. or filterUnconnected
-  let lunconnected = mconcat $ Prelude.map filterUnconnected drcExpr
+  -- better to change matchUnconnected name. to getUnconnected. or matchUnconnected
+  let lunconnected = mconcat $ Prelude.map matchUnconnected drcExpr
 
   -- print the unconnected features
   -- mapM_ ( Prelude.putStrLn . show ) lunconnected
@@ -331,7 +336,7 @@ normalize1  _  = [ ]
 
       -- T.putStrLn ""
 
-      let xs2 = mconcat $ Prelude.map filterUnconnected expr
+      let xs2 = mconcat $ Prelude.map matchUnconnected expr
       -- mapM_ ( Prelude.putStrLn .  show ) xs2
 
 
