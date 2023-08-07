@@ -7,7 +7,7 @@ module Main where
 
 
 import Data.Attoparsec.Text
-import Data.Attoparsec.Number
+-- import Data.Attoparsec.Number
 
 -- import System.IO
 import Data.Either
@@ -35,6 +35,7 @@ printExpr level expr = do
 
   case expr of
 
+      {-
       -- we could parse numbers and leave as text, without conversion.
       -- https://hackage.haskell.org/package/attoparsec-0.14.4/docs/Data-Attoparsec-Number.html
       -- We don't have to decode these in the parser.
@@ -44,15 +45,19 @@ printExpr level expr = do
 
       Num (D x) -> do
         Prelude.putStr $ show x
+      -}
+
+      Num s -> do
+        T.putStr "{"
+        T.putStr s
+        T.putStr "}"
 
       -- Need a much better name for this.
       -- qualified index.
       -- Or use a (Integer,  Maybe Integer ).
-      Amp s1 s2 -> do
+      Amp s -> do
         -- T.putStr "AMP"
-        T.putStr s1
-        T.putStr "@"
-        T.putStr s2
+        T.putStr s
 
       -- SingleQuote -> T.putStr "SINGLEQUOTE"
       SingleQuote -> T.putStr "\""
@@ -83,13 +88,13 @@ main :: IO ()
 main =  do
 
 
-  -- s <- T.readFile "data/test01.sexpr"
-  -- s <- readFile "data/test02.sexpr"
-  s <- T.readFile "data/main.dsn"
-  -- s <- T.readFile "data/main.ses"
-  -- s <- T.readFile "data/main-simple.dsn"
+  -- dsn <- T.readFile "data/test01.sexpr"
+  -- dsn <- readFile "data/test02.sexpr"
+  dsn <- T.readFile "data/main.dsn"
+  -- dsn <- T.readFile "data/main.ses"
+  -- dsn <- T.readFile "data/main-simple.dsn"
 
-  -- putStrLn s
+  -- putStrLn dsn
 
 
   -- eg. (or 1 1),    (+ 1 (+ 1 1 ))
@@ -97,7 +102,7 @@ main =  do
   -- hFlush stdout
   -- ls <- getLine
 
-  let exprParseResult = parseOnly exprParser (s)
+  let exprParseResult = parseOnly exprParser dsn
 
 
   if isLeft exprParseResult

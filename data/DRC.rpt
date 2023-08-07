@@ -1,15 +1,7 @@
 ** Drc report for /home/me/devel/kicad6/projects/dmm05/main.kicad_pcb **
-** Created on 2023-08-05 18:21:25 **
+** Created on 2023-08-07 19:34:14 **
 
-[copper_edge_clearance]: Board edge clearance violation (board setup constraints edge clearance 0.0500 mm; actual 0.0000 mm)
-    Rule: board setup constraints edge; Severity: error
-    @(170.1800 mm, 65.4050 mm): Arc on Edge.Cuts
-    @(170.8150 mm, 64.7700 mm): Through hole pad [<no net>] of H308
-    @(43.8150 mm, 85.0900 mm): Through hole pad 12 [Net-(J201-Pad12)] of J201
-
-
-
-** Found 51 DRC violations **
+** Found 47 DRC violations **
 [via_dangling]: Via is not connected or connected on only one layer
     Local override; Severity: warning
     @(250.8250 mm, 196.8500 mm): Via [SCREEN_GUARD] on F.Cu - B.Cu
@@ -37,22 +29,10 @@
 [via_dangling]: Via is not connected or connected on only one layer
     Local override; Severity: warning
     @(57.6288 mm, 51.4760 mm): Via [Net-(U102-Pad11)] on F.Cu - B.Cu
-[clearance]: Clearance violation (netclass 'power' clearance 0.2000 mm; actual 0.1183 mm)
-    Rule: netclass 'power'; Severity: error
-    @(91.3042 mm, 81.7965 mm): Via [AGND] on F.Cu - B.Cu
-    @(90.8050 mm, 81.2800 mm): Track [LP3V3] on F.Cu, length 0.4272 mm
-[clearance]: Clearance violation (netclass 'digital' clearance 0.2000 mm; actual 0.1363 mm)
-    Rule: netclass 'digital'; Severity: error
-    @(88.8153 mm, 73.7884 mm): Via [ICE-MOSI] on F.Cu - B.Cu
-    @(89.8375 mm, 74.2950 mm): Pad 1 [CRESET] of R210 on F.Cu
 [clearance]: Clearance violation (netclass 'digital' clearance 0.2000 mm; actual 0.0000 mm)
     Rule: netclass 'digital'; Severity: error
     @(43.8150 mm, 85.0900 mm): Track [ER-CDONE] on B.Cu, length 1.6552 mm
     @(43.8150 mm, 85.0900 mm): Through hole pad 12 [Net-(J201-Pad12)] of J201
-[clearance]: Clearance violation (netclass 'power' clearance 0.2000 mm; actual 0.1183 mm)
-    Rule: netclass 'power'; Severity: error
-    @(89.9547 mm, 81.2800 mm): Track [LP3V3] on F.Cu, length 0.8503 mm
-    @(91.3042 mm, 81.7965 mm): Via [AGND] on F.Cu - B.Cu
 [clearance]: Clearance violation (netclass 'digital' clearance 0.2000 mm; actual 0.0000 mm)
     Rule: netclass 'digital'; Severity: error
     @(48.9180 mm, 63.6536 mm): Track [ER-CRESET] on F.Cu, length 0.0001 mm
@@ -141,14 +121,14 @@
     Rule: netclass 'hc'; Severity: error
     @(196.7900 mm, 159.2400 mm): Through hole pad 24 [Net-(K703-Pad14)] of K703
     @(-1.3850 mm, -0.2500 mm): Polygon on F.Cu
-[clearance]: Clearance violation (netclass 'power' clearance 0.2000 mm; actual 0.0000 mm)
-    Rule: netclass 'power'; Severity: error
-    @(53.9750 mm, 116.8400 mm): Through hole pad 1 [ER-DGND] of H301
-    @(-0.4318 mm, -0.1143 mm): Polygon on F.Cu
 [clearance]: Clearance violation (netclass 'power' clearance 0.2000 mm; actual 0.0255 mm)
     Rule: netclass 'power'; Severity: error
     @(53.9750 mm, 116.8400 mm): Through hole pad 1 [ER-DGND] of H301
     @(-0.7500 mm, -0.2500 mm): Polygon on F.Cu
+[clearance]: Clearance violation (netclass 'power' clearance 0.2000 mm; actual 0.0000 mm)
+    Rule: netclass 'power'; Severity: error
+    @(53.9750 mm, 116.8400 mm): Through hole pad 1 [ER-DGND] of H301
+    @(-0.4318 mm, -0.1143 mm): Polygon on F.Cu
 [clearance]: Clearance violation (netclass 'hc2' clearance 0.7500 mm; actual 0.6350 mm)
     Rule: netclass 'hc2'; Severity: error
     @(294.0050 mm, 84.4550 mm): Through hole pad 1 [Net-(R302-Pad2)] of U305
@@ -165,10 +145,6 @@
     Rule: netclass 'hc2'; Severity: error
     @(273.0500 mm, 84.4550 mm): Through hole pad 2 [LP18V] of U303
     @(270.5100 mm, 84.4550 mm): Through hole pad 3 [Net-(C317-Pad1)] of U303
-[hole_clearance]: Hole clearance violation (board setup constraints hole clearance 0.2500 mm; actual 0.1674 mm)
-    Rule: board setup constraints hole; Severity: error
-    @(87.9625 mm, 74.2950 mm): Pad 2 [LP3V3] of R210 on F.Cu
-    @(88.8153 mm, 73.7884 mm): Via [ICE-MOSI] on F.Cu - B.Cu
 [copper_edge_clearance]: Board edge clearance violation (board setup constraints edge clearance 0.0500 mm; actual 0.0000 mm)
     Rule: board setup constraints edge; Severity: error
     @(170.1800 mm, 65.4050 mm): Arc on Edge.Cuts
@@ -206,23 +182,15 @@
     @(151.1300 mm, 92.0750 mm): Line on Edge.Cuts
     @(151.7650 mm, 90.8050 mm): Through hole pad [<no net>] of H311
 
-** Found 52 unconnected pads **
+** Found 54 unconnected pads **
 [unconnected_items]: Missing connection between items
     Local override; Severity: error
-    @(87.9625 mm, 77.4700 mm): Pad 2 [AGND] of C238 on B.Cu
-    @(87.7625 mm, 77.4700 mm): Pad 2 [AGND] of U214 on F.Cu
+    @(77.1439 mm, 66.1897 mm): Pad 2 [AGND] of C238 on B.Cu
+    @(76.9439 mm, 66.1897 mm): Pad 2 [AGND] of U214 on F.Cu
 [unconnected_items]: Missing connection between items
     Local override; Severity: error
-    @(88.0172 mm, 80.6450 mm): Track [AGND] on B.Cu, length 1.0127 mm
-    @(87.9547 mm, 80.3300 mm): Track [AGND] on F.Cu, length 0.6352 mm
-[unconnected_items]: Missing connection between items
-    Local override; Severity: error
-    @(80.9675 mm, 64.4750 mm): Pad 17 [AGND] of U212 on B.Cu
-    @(80.9675 mm, 63.1750 mm): Pad 15 [AGND] of U212 on B.Cu
-[unconnected_items]: Missing connection between items
-    Local override; Severity: error
-    @(80.9675 mm, 64.4750 mm): Pad 17 [AGND] of U212 on B.Cu
-    @(80.9675 mm, 65.7750 mm): Pad 19 [AGND] of U212 on B.Cu
+    @(77.0814 mm, 69.0497 mm): Pad 1 [AGND] of U206 on F.Cu
+    @(77.1986 mm, 69.3647 mm): Pad 2 [AGND] of C225 on B.Cu
 [unconnected_items]: Missing connection between items
     Local override; Severity: error
     @(80.9675 mm, 61.8750 mm): Pad 13 [AGND] of U212 on B.Cu
@@ -230,23 +198,31 @@
 [unconnected_items]: Missing connection between items
     Local override; Severity: error
     @(80.9675 mm, 63.1750 mm): Pad 15 [AGND] of U212 on B.Cu
-    @(80.9675 mm, 61.8750 mm): Pad 13 [AGND] of U212 on B.Cu
-[unconnected_items]: Missing connection between items
-    Local override; Severity: error
-    @(87.9625 mm, 77.4700 mm): Pad 2 [AGND] of C238 on B.Cu
-    @(87.9547 mm, 80.3300 mm): Track [AGND] on F.Cu, length 0.6352 mm
+    @(80.9675 mm, 64.4750 mm): Pad 17 [AGND] of U212 on B.Cu
 [unconnected_items]: Missing connection between items
     Local override; Severity: error
     @(80.9675 mm, 65.7750 mm): Pad 19 [AGND] of U212 on B.Cu
-    @(79.0725 mm, 68.5800 mm): Pad 2 [AGND] of C235 on B.Cu
+    @(80.9675 mm, 64.4750 mm): Pad 17 [AGND] of U212 on B.Cu
 [unconnected_items]: Missing connection between items
     Local override; Severity: error
-    @(88.0172 mm, 80.6450 mm): Track [AGND] on B.Cu, length 1.0127 mm
-    @(91.3042 mm, 81.7965 mm): Via [AGND] on F.Cu - B.Cu
+    @(80.9675 mm, 61.8750 mm): Pad 13 [AGND] of U212 on B.Cu
+    @(80.9675 mm, 63.1750 mm): Pad 15 [AGND] of U212 on B.Cu
 [unconnected_items]: Missing connection between items
     Local override; Severity: error
-    @(70.8175 mm, 68.9888 mm): Track [AGND] on B.Cu, length 8.3438 mm
+    @(77.0814 mm, 69.0497 mm): Pad 1 [AGND] of U206 on F.Cu
+    @(77.1439 mm, 66.1897 mm): Pad 2 [AGND] of C238 on B.Cu
+[unconnected_items]: Missing connection between items
+    Local override; Severity: error
+    @(77.1439 mm, 66.1897 mm): Pad 2 [AGND] of C238 on B.Cu
+    @(80.9675 mm, 65.7750 mm): Pad 19 [AGND] of U212 on B.Cu
+[unconnected_items]: Missing connection between items
+    Local override; Severity: error
+    @(80.9675 mm, 65.7750 mm): Pad 19 [AGND] of U212 on B.Cu
+    @(81.2800 mm, 69.8200 mm): Pad 2 [AGND] of C235 on B.Cu
+[unconnected_items]: Missing connection between items
+    Local override; Severity: error
     @(75.2425 mm, 60.5750 mm): Pad 10 [AGND] of U212 on B.Cu
+    @(70.8175 mm, 68.9888 mm): Track [AGND] on B.Cu, length 8.3438 mm
 [unconnected_items]: Missing connection between items
     Local override; Severity: error
     @(80.9675 mm, 64.4750 mm): Pad 17 [AGND] of U212 on B.Cu
@@ -281,20 +257,24 @@
     @(60.6275 mm, 52.0700 mm): Pad 1 [ER-LP3V3] of C116 on B.Cu
 [unconnected_items]: Missing connection between items
     Local override; Severity: error
-    @(90.0375 mm, 78.4200 mm): Pad 4 [CRESET] of U214 on F.Cu
-    @(88.9010 mm, 80.7435 mm): Track [CRESET] on F.Cu, length 1.2717 mm
+    @(79.2189 mm, 67.1397 mm): Pad 4 [CRESET] of U214 on F.Cu
+    @(79.2189 mm, 65.2397 mm): Pad 6 [CRESET] of U214 on F.Cu
 [unconnected_items]: Missing connection between items
     Local override; Severity: error
-    @(90.0375 mm, 78.4200 mm): Pad 4 [CRESET] of U214 on F.Cu
-    @(90.0375 mm, 76.5200 mm): Pad 6 [CRESET] of U214 on F.Cu
+    @(79.2189 mm, 65.2397 mm): Pad 6 [CRESET] of U214 on F.Cu
+    @(79.0189 mm, 63.0147 mm): Pad 1 [CRESET] of R210 on F.Cu
 [unconnected_items]: Missing connection between items
     Local override; Severity: error
-    @(90.0375 mm, 76.5200 mm): Pad 6 [CRESET] of U214 on F.Cu
-    @(89.8375 mm, 74.2950 mm): Pad 1 [CRESET] of R210 on F.Cu
+    @(75.2425 mm, 66.4250 mm): Pad 1 [CRESET] of U212 on B.Cu
+    @(79.2189 mm, 67.1397 mm): Pad 4 [CRESET] of U214 on F.Cu
 [unconnected_items]: Missing connection between items
     Local override; Severity: error
-    @(89.8375 mm, 74.2950 mm): Pad 1 [CRESET] of R210 on F.Cu
-    @(85.8575 mm, 62.9000 mm): Pad 66 [CRESET] of U202 on F.Cu
+    @(77.0814 mm, 70.9497 mm): Pad 2 [CRESET] of U206 on F.Cu
+    @(79.2189 mm, 67.1397 mm): Pad 4 [CRESET] of U214 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; Severity: error
+    @(84.4664 mm, 62.9000 mm): Track [CRESET] on F.Cu, length 1.3911 mm
+    @(79.0189 mm, 63.0147 mm): Pad 1 [CRESET] of R210 on F.Cu
 [unconnected_items]: Missing connection between items
     Local override; Severity: error
     @(80.9675 mm, 65.1250 mm): Pad 18 [ICE-SCK] of U212 on B.Cu
@@ -303,6 +283,10 @@
     Local override; Severity: error
     @(85.8575 mm, 64.9000 mm): Pad 70 [ICE-SCK] of U202 on F.Cu
     @(80.9675 mm, 65.1250 mm): Pad 18 [ICE-SCK] of U212 on B.Cu
+[unconnected_items]: Missing connection between items
+    Local override; Severity: error
+    @(88.8153 mm, 73.7884 mm): Track [ICE-MOSI] on B.Cu, length 1.7212 mm
+    @(80.0537 mm, 82.5500 mm): Track [ICE-MOSI] on In4.Cu, length 12.3908 mm
 [unconnected_items]: Missing connection between items
     Local override; Severity: error
     @(85.8575 mm, 63.4000 mm): Pad 67 [ICE-MOSI] of U202 on F.Cu
@@ -317,44 +301,48 @@
     @(84.5109 mm, 64.1556 mm): Track [ICE-MISO] on F.Cu, length 0.3615 mm
 [unconnected_items]: Missing connection between items
     Local override; Severity: error
+    @(89.5586 mm, 74.0638 mm): Track [ICE-SS] on In4.Cu, length 15.5934 mm
+    @(83.9373 mm, 67.8890 mm): Track [ICE-SS] on In4.Cu, length 7.9497 mm
+[unconnected_items]: Missing connection between items
+    Local override; Severity: error
+    @(85.0517 mm, 65.4000 mm): Track [ICE-SS] on F.Cu, length 1.5760 mm
     @(80.9675 mm, 62.5250 mm): Pad 14 [ICE-SS] of U212 on B.Cu
-    @(83.9373 mm, 66.5144 mm): Track [ICE-SS] on F.Cu, length 1.2829 mm
 [unconnected_items]: Missing connection between items
     Local override; Severity: error
     @(41.2750 mm, 85.0900 mm): Through hole pad 14 [ER-CDONE] of J201
     @(43.8150 mm, 85.0900 mm): Track [ER-CDONE] on B.Cu, length 1.6552 mm
 [unconnected_items]: Missing connection between items
     Local override; Severity: error
-    @(89.8375 mm, 77.4700 mm): Pad 1 [LP3V3] of C238 on B.Cu
-    @(90.0375 mm, 77.4700 mm): Pad 5 [LP3V3] of U214 on F.Cu
+    @(79.2189 mm, 66.1897 mm): Pad 5 [LP3V3] of U214 on F.Cu
+    @(79.0189 mm, 66.1897 mm): Pad 1 [LP3V3] of C238 on B.Cu
 [unconnected_items]: Missing connection between items
     Local override; Severity: error
-    @(89.8922 mm, 80.6450 mm): Pad 1 [LP3V3] of C225 on B.Cu
-    @(89.9000 mm, 81.2800 mm): Pad 3 [LP3V3] of U206 on F.Cu
+    @(79.0736 mm, 69.3647 mm): Pad 1 [LP3V3] of C225 on B.Cu
+    @(79.0814 mm, 69.9997 mm): Pad 3 [LP3V3] of U206 on F.Cu
 [unconnected_items]: Missing connection between items
     Local override; Severity: error
-    @(80.9475 mm, 68.5800 mm): Pad 1 [LP3V3] of C235 on B.Cu
+    @(81.2800 mm, 67.9450 mm): Pad 1 [LP3V3] of C235 on B.Cu
     @(80.9675 mm, 66.4250 mm): Pad 20 [LP3V3] of U212 on B.Cu
 [unconnected_items]: Missing connection between items
     Local override; Severity: error
-    @(89.8922 mm, 80.6450 mm): Pad 1 [LP3V3] of C225 on B.Cu
-    @(89.8375 mm, 77.4700 mm): Pad 1 [LP3V3] of C238 on B.Cu
+    @(80.9675 mm, 66.4250 mm): Pad 20 [LP3V3] of U212 on B.Cu
+    @(79.2189 mm, 66.1897 mm): Pad 5 [LP3V3] of U214 on F.Cu
 [unconnected_items]: Missing connection between items
     Local override; Severity: error
-    @(89.8375 mm, 77.4700 mm): Pad 1 [LP3V3] of C238 on B.Cu
-    @(87.9625 mm, 74.2950 mm): Pad 2 [LP3V3] of R210 on F.Cu
+    @(81.2800 mm, 67.9450 mm): Pad 1 [LP3V3] of C235 on B.Cu
+    @(79.0736 mm, 69.3647 mm): Pad 1 [LP3V3] of C225 on B.Cu
 [unconnected_items]: Missing connection between items
     Local override; Severity: error
-    @(85.7191 mm, 86.2140 mm): Track [LP3V3] on B.Cu, length 5.8774 mm
-    @(89.8922 mm, 80.6450 mm): Pad 1 [LP3V3] of C225 on B.Cu
+    @(79.0189 mm, 66.1897 mm): Pad 1 [LP3V3] of C238 on B.Cu
+    @(77.1439 mm, 63.0147 mm): Pad 2 [LP3V3] of R210 on F.Cu
 [unconnected_items]: Missing connection between items
     Local override; Severity: error
+    @(80.9675 mm, 66.4250 mm): Pad 20 [LP3V3] of U212 on B.Cu
     @(85.4225 mm, 66.0400 mm): Track [LP3V3] on B.Cu, length 1.1160 mm
-    @(80.9675 mm, 66.4250 mm): Pad 20 [LP3V3] of U212 on B.Cu
 [unconnected_items]: Missing connection between items
     Local override; Severity: error
-    @(87.7625 mm, 76.5200 mm): Pad 1 [Net-(J203-Pad10)] of U214 on F.Cu
-    @(82.7767 mm, 80.0460 mm): Track [Net-(J203-Pad10)] on B.Cu, length 1.5701 mm
+    @(82.7767 mm, 67.3166 mm): Track [Net-(J203-Pad10)] on B.Cu, length 12.7294 mm
+    @(76.9439 mm, 65.2397 mm): Pad 1 [Net-(J203-Pad10)] of U214 on F.Cu
 [unconnected_items]: Missing connection between items
     Local override; Severity: error
     @(70.6450 mm, 61.5950 mm): Pad 15 [/ice40-2-200/C-CLK] of U203 on F.Cu
@@ -381,39 +369,35 @@
     @(80.9675 mm, 61.2250 mm): Pad 12 [/ice40-2-200/C-MISO] of U212 on B.Cu
 [unconnected_items]: Missing connection between items
     Local override; Severity: error
-    @(85.8575 mm, 61.4000 mm): Track [/ice40-2-200/C-INT] on F.Cu, length 0.7833 mm
+    @(85.8575 mm, 61.4000 mm): Pad 63 [/ice40-2-200/C-INT] of U202 on F.Cu
     @(72.0311 mm, 67.9450 mm): Track [/ice40-2-200/C-INT] on F.Cu, length 1.3861 mm
 [unconnected_items]: Missing connection between items
     Local override; Severity: error
     @(75.2425 mm, 63.1750 mm): Pad 6 [/ice40-2-200/C-CS] of U212 on B.Cu
-    @(72.0148 mm, 62.6833 mm): Track [/ice40-2-200/C-CS] on F.Cu, length 0.1178 mm
+    @(72.0148 mm, 62.6833 mm): Via [/ice40-2-200/C-CS] on F.Cu - B.Cu
 [unconnected_items]: Missing connection between items
     Local override; Severity: error
     @(85.8575 mm, 61.9000 mm): Track [/ice40-2-200/C-CS] on F.Cu, length 1.9154 mm
     @(75.2425 mm, 63.1750 mm): Pad 6 [/ice40-2-200/C-CS] of U212 on B.Cu
 [unconnected_items]: Missing connection between items
     Local override; Severity: error
-    @(61.7548 mm, 51.6721 mm): Track [ER-CRESET] on F.Cu, length 0.8902 mm
     @(60.8275 mm, 53.0200 mm): Pad 4 [ER-CRESET] of U103 on F.Cu
+    @(61.7548 mm, 51.6721 mm): Track [ER-CRESET] on F.Cu, length 0.8902 mm
 [unconnected_items]: Missing connection between items
     Local override; Severity: error
     @(60.8275 mm, 51.1200 mm): Pad 6 [ER-CRESET] of U103 on F.Cu
     @(60.6275 mm, 48.8950 mm): Pad 2 [ER-CRESET] of R101 on F.Cu
 [unconnected_items]: Missing connection between items
     Local override; Severity: error
-    @(75.2425 mm, 66.4250 mm): Pad 1 [ER-CRESET] of U212 on B.Cu
-    @(61.7548 mm, 51.6721 mm): Track [ER-CRESET] on B.Cu, length 4.1289 mm
-[unconnected_items]: Missing connection between items
-    Local override; Severity: error
     @(57.6288 mm, 51.4760 mm): Track [Net-(U102-Pad11)] on F.Cu, length 1.0827 mm
     @(48.9180 mm, 63.1039 mm): Pad 11 [Net-(U102-Pad11)] of U102 on F.Cu
 [unconnected_items]: Missing connection between items
     Local override; Severity: error
-    @(87.7625 mm, 78.4200 mm): Pad 3 [Net-(U210-Pad12)] of U214 on F.Cu
-    @(97.0201 mm, 80.2979 mm): Track [Net-(U210-Pad12)] on In4.Cu, length 4.6321 mm
+    @(85.0509 mm, 66.6494 mm): Track [Net-(U210-Pad12)] on In4.Cu, length 1.6793 mm
+    @(76.9439 mm, 67.1397 mm): Pad 3 [Net-(U210-Pad12)] of U214 on F.Cu
 [unconnected_items]: Missing connection between items
     Local override; Severity: error
-    @(85.0509 mm, 66.6494 mm): Track [Net-(U210-Pad12)] on In4.Cu, length 1.6793 mm
+    @(76.9439 mm, 67.1397 mm): Pad 3 [Net-(U210-Pad12)] of U214 on F.Cu
     @(71.7790 mm, 51.4350 mm): Track [Net-(U210-Pad12)] on F.Cu, length 8.2880 mm
 
 ** Found 0 Footprint errors **

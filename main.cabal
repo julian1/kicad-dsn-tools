@@ -37,7 +37,7 @@ library
 executable main01
   hs-source-dirs:      src
   main-is:             Main01.hs
-  other-modules:       DRCParser Lib
+  other-modules:       ExprParser Lib
   -- other-extensions:
   build-depends:       base >=4.13 && <4.14 , text , raw-strings-qq , attoparsec , containers
   default-language:    Haskell2010
@@ -55,7 +55,7 @@ executable main02
 executable main03
   hs-source-dirs:      src
   main-is:             Main03.hs
-  other-modules:       DRCParser Lib
+  other-modules:       DRCParser ExprParser Lib
   -- other-extensions:
   build-depends:       base >=4.13 && <4.14 , text , raw-strings-qq , attoparsec , containers
   default-language:    Haskell2010

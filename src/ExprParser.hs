@@ -1,4 +1,5 @@
-{-# LANGUAGE OverloadedStrings #-}
+
+{-# lANGUAGE OverloadedStrings, BangPatterns #-}
 
 
 -- change name SpecctraParser
@@ -46,10 +47,12 @@ module ExprParser
     ) where
 
 import Control.Applicative ((<|>), (<$>), some, many ) -- JA
-import Data.Attoparsec.Text (Parser, Number, skipSpace, digit, char,  number  {- double, rational, decimal, signed -}, string, anyChar, takeWhile1, takeWhile, letter)
+import Data.Attoparsec.Text as A (Parser, Number, skipSpace, digit, char,  number  {- double, rational, decimal, signed -}, string, anyChar, takeWhile1, takeWhile, letter, satisfy, option, choice )
 import Data.Functor (($>))
 -- import Data.Text (unpack)
 import Lib (Expr(..))
+
+import Data.Text as T
 
 exprParser :: Parser Expr
 exprParser = ampParser <|> numParser <|>  listParser <|> stringParser <|> symbolParser  <|> singleQuoteParser
@@ -73,7 +76,7 @@ stringParser = do
     lexeme $ char '"'
 
     -- has to handle brackets ()
-    j <- Data.Attoparsec.Text.takeWhile (\c -> c /= '"' && c /= '\n'  )
+    j <- A.takeWhile (\c -> c /= '"' && c /= '\n'  )
     lexeme $ char '"'
     return (StringLit  j)
 
@@ -94,7 +97,7 @@ lexeme p = do
     p
 
 
-
+-- this is dumb. should return a string, and let the caller do the data constructor
 symbolParser :: Parser Expr
 symbolParser = do
     skipSpace
@@ -119,12 +122,54 @@ symbolParser = do
 -- the only way to do this is parse integer , and check the final digit is not a dot '.'.
 
 
+
 numParser ::  Parser Expr
+-- numParser ::  Parser Text
 
 numParser = do
     skipSpace
-    x <- number
-    return (Num x)
+
+    -- cannot find a 'zero or one' parsing action.
+    -- use choice [  ] with a true. pure True.
+
+    -- using choice, and a guaranteed value - forces us to handle/test the return value
+    -- use mconcat
+    -- j <- choice [ char '+', char '-', pure ' ' ]
+
+    -- this doesn't work. not sure why.
+    -- x <- A.takeWhile ( (==) '+') <|>  A.takeWhile ( (==) '-' )
+
+
+    x <- A.takeWhile (\c -> c == '+' || c == '-' )   -- takeWhile is 'zero or more' while we want 'zero or one'.  could add predicate that one char was taken only.
+
+    -- Must have at least one digit.
+    y <- takeWhile1 isDecimal
+    -- optional decimal point
+    z <- A.takeWhile (\c -> c == '.' )
+    w <- A.takeWhile isDecimal
+
+    return (Num ( T.concat [ x, y,z,w ] ) )
+
+
+
+    -- return (Num ( T.concat $ mconcat [ [ x], y,z,w ] ) )
+    -- *> drops the value? weird.
+    -- <$> is for composing functions.
+   {-
+    x <- A.takeWhile (\c -> c == '+' || c == '-' )   -- takeWhile is 'zero or more' while we want 'zero or one'.  could add predicate that one char was taken only.
+      (.*>)
+      takeWhile1 isDecimal
+      (.*>)
+      A.takeWhile (\c -> c == '.' )
+      (.*>)
+      A.takeWhile isDecimal
+
+      return $ Num x
+    -}
+
+
+
+
 
 
 
@@ -147,13 +192,12 @@ ampParser = do
   -- j <- takeWhile1 isDecimal *> takeWhile1 (\c -> c == '@') *> takeWhile1 isDecimal
 
   first     <- takeWhile1 isDecimal
-  -- ampersand <- take (\c -> c == '@')
-  ampersand <- char '@' -- take (\c -> c == '@')
+  ampersand <- char '@'
   last      <- takeWhile1 isDecimal
 
   -- // return (Amp (first <|> ampersand <|> last ))
   -- return (Amp (append first last ))
-  return (Amp first last )
+  return (Amp $ T.concat [ first, "@", last ]  )
 
 
 

@@ -11,7 +11,7 @@ module DRCParser
 where
 
 import Control.Applicative ((<|>), (<$>), some, many ) -- JA
-import Data.Attoparsec.Text (Parser, Number, skipSpace, digit, char,  number  {- double, rational, decimal, signed-} , decimal, string, anyChar, takeWhile1, takeWhile, takeTill, letter, option)
+import Data.Attoparsec.Text as A(Parser, Number, skipSpace, digit, char,  number  {- double, rational, decimal, signed-} , decimal, string, anyChar, takeWhile1, takeWhile, takeTill, letter, option)
 import Data.Functor (($>))
 -- import Data.Text (unpack)
 
@@ -63,6 +63,12 @@ parseNetclass = do
 -- could use Either(Left,Right) here, if wanted.
 -- No. because have Via also.
 
+isDecimal :: Char -> Bool
+isDecimal c = c >= '0' && c <= '9'
+
+
+
+
 
 drcPadParser :: Parser PCBFeature
 drcPadParser = do
@@ -72,7 +78,8 @@ drcPadParser = do
   skipSpace
   string "Pad"
   skipSpace
-  padNum <- decimal   --  parser returning integer.
+  -- padNum <- decimal   --  parser returning integer.
+  padNum <- takeWhile1 isDecimal
 
   -- parse netclass
   netClass <- parseNetclass
@@ -110,8 +117,12 @@ drcTHPadParser = do
     OK. so padNum is optional here (eg. for a Mounting Hole) . how do we handle this?
     OK. this works/compiles...  to handle missing value.
     alternatively create a decimal to return a Maybe/ Just value.
+    -----
+    easy . treat it as a string.
   -}
-  padNum <- option (-1) decimal
+  -- padNum <- option (-1) decimal
+
+  padNum <- A.takeWhile isDecimal -- may be empty.
 
 
   -- parse netclass
@@ -124,7 +135,8 @@ drcTHPadParser = do
   skipSpace
   component <- takeWhile1 ( \c -> isAlpha c || isDigit c )
 
-  return $ Pad_ padNum netClass component ""
+  return $ PadTH_ padNum netClass component
+  -- return $ Pad_ padNum netClass component ""
 
 
 -- prefix with 'feature' rather than 'drc' ?
@@ -151,7 +163,9 @@ drcGeomParser = do
   layer <- takeWhile1 ( \c -> isAlpha c || isDigit c || c == '.' )
 
 
-  return $ Pad_ 123 geometry "" ""
+  -- Need different structure
+
+  return $ Geom_ geometry layer
 
 
 

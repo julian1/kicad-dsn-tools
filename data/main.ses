@@ -1,0 +1,2996 @@
+
+(session main.ses
+  (base_design main.dsn)
+  (placement
+    (resolution um 10)
+    (component "myfootprint:NetTie-2_SMD_Pad0.5mm"
+      (place NT301 1614170 -1172440 front 22)
+      (place NT310 1588770 -1158470 front 105)
+      (place NT325 527050 -1130300 front 90)
+      (place NT1203 2159000 -685450 front 90)
+      (place NT314 1584960 -1200150 front 248)
+      (place NT306 1615440 -1181330 front 0)
+      (place NT312 1593850 -1202570 front 270)
+      (place NT320 1572864 -1187180 front 202)
+      (place NT305 1600200 -1158470 front 75)
+      (place NT304 1609090 -1196570 front 315)
+      (place NT1201 2197100 -393700 front 180)
+      (place NT802 2046325 -394825 front 0)
+      (place NT1401 1755140 -262890 front 270)
+      (place NT323 1612900 -1188670 front 338)
+      (place NT303 1601470 -1200380 front 295)
+      (place NT316 1573530 -1171170 front 155)
+      (place NT318 1579880 -1163550 front 130)
+      (place NT501 1746250 -894400 front 270)
+      (place NT803 1924050 -685682 front 90)
+      (place NT801 1961325 -394825 front 180)
+      (place NT308 1609090 -1164820 front 45)
+      (place NT311 1572260 -1179830 front 180)
+      (place NT1202 2282100 -393700 front 0)
+      (place NT302 1609090 -1164820 back 225)
+      (place NT331 1600200 -1158240 back 255)
+      (place NT309 1612900 -1188720 back 158)
+      (place NT321 1572260 -1180060 back 0)
+      (place NT313 1581150 -1197610 back 58)
+      (place NT322 1615440 -1181330 back 180)
+      (place NT328 1588770 -1158470 back 285)
+      (place NT307 1614170 -1172440 back 202)
+      (place NT319 1573530 -1171170 back 335)
+      (place NT317 1579880 -1163550 back 310)
+      (place NT327 1574800 -1190220 back 30)
+    )
+    (component myfootprint:LED_0805_2012Metric
+      (place D206 977900 -799964 front 0)
+    )
+    (component myfootprint:1812_4532Metric
+      (place L601 1644650 -1765300 front 270)
+    )
+    (component "footprints:TSSOP-24_4.4x7.8mm_P0.65mm"
+      (place U211 1219200 -603250 front 0)
+    )
+    (component "myfootprint:2010-1206"
+      (place R605 2520950 -774700 front 180)
+    )
+    (component myfootprint:Diode_Bridge_Round_D8.9mm
+      (place D302 2730500 -1157750 front 270)
+    )
+    (component myfootprint:0805_2012Metric
+      (place C426 822350 -1155700 front 270)
+    )
+    (component myfootprint:LED_0805_2012Metric::1
+      (place D207 1054100 -882000 front 0)
+    )
+    (component myfootprint:0805_2012Metric::1
+      (place R104 374650 -546100 front 0)
+      (place C903 1352550 -497520 front 0)
+    )
+    (component "myfootprint:SOT-23"
+      (place D410 847750 -1022350 front 90)
+    )
+    (component myfootprint:L_LQH43N
+      (place L502 1584475 -1074700 front 180)
+    )
+    (component myfootprint:PinHeader_1x03_P2.54mm_Vertical
+      (place J305 2914650 -933450 front 90)
+    )
+    (component footprints:MountingHole_3.2mm_M3_ISO7380
+      (place H303 2997200 -1987550 front 0)
+      (place H309 209550 -1987550 front 0)
+      (place H308 1708150 -654050 front 0)
+      (place H305 2997200 -203200 front 0)
+      (place H304 2101850 -203200 front 90)
+      (place H310 2330450 -203200 front 90)
+      (place H307 1911350 -482600 front 0)
+      (place H302 209550 -203200 front 0)
+      (place H306 2139950 -482600 front 0)
+      (place H311 1517650 -914400 front 0)
+    )
+    (component myfootprint:0805_2012Metric::2
+      (place R114 361950 -457200 front 0)
+    )
+    (component myfootprint:0805_2012Metric::3
+      (place R919 1155700 -323850 front 180)
+    )
+    (component "myfootprint:SOP-4_3.8x4.1mm_P2.54mm"
+      (place U410 1460500 -1379818 front 0)
+    )
+    (component "myfootprint:SOIC-16_3.9x9.9mm_P1.27mm"
+      (place U703 2006600 -1143050 front 0)
+    )
+    (component "myfootprint:NetTie-2_SMD_Pad0.5mm-long2"
+      (place NT701 1549400 -1943100 front 90)
+      (place NT704 1968500 -1581150 front 90)
+    )
+    (component myfootprint:0805_2012Metric::4
+      (place R807 2032000 -673100 front 180)
+      (place RJ102 215900 -419100 front 0)
+      (place C231 863600 -551296 back 180)
+    )
+    (component "myfootprint:SOIC-16_3.9x9.9mm_P1.27mm::1"
+      (place U203 680720 -647961 front 0)
+    )
+    (component myfootprint:C_Axial_L12.0mm_D6.5mm_P15.00mm_Horizontal
+      (place C406 685800 -1510100 front 90)
+    )
+    (component "myfootprint:SOT-23::1"
+      (place D612 2463800 -736600 front 0)
+    )
+    (component myfootprint:0805_2012Metric::5
+      (place R113 361950 -487214 front 0)
+      (place RJ203 1123950 -532996 front 0)
+    )
+    (component "myfootprint:2010-1206::1"
+      (place R710 2082800 -1009650 front 180)
+    )
+    (component "myfootprint:SOIC-16_3.9x9.9mm_P1.27mm::2"
+      (place U604 2203450 -812800 front 0)
+    )
+    (component "myfootprint:2010-1206::2"
+      (place R804 1930400 -641232 front 180)
+    )
+    (component myfootprint:0805_2012Metric::6
+      (place C603 2336800 -1009650 front 0)
+    )
+    (component myfootprint:Relay_2P2T_AGN
+      (place K709 2146300 -1295400 front 0)
+    )
+    (component myfootprint:0805_2012Metric::7
+      (place C308 2683990 -1098550 front 180)
+    )
+    (component myfootprint:0805_2012Metric::8
+      (place R701 1943100 -787400 front 180)
+      (place C920 1432678 -941542 back 0)
+    )
+    (component myfootprint:0805_2012Metric::9
+      (place RJ505 1841500 -527050 front 180)
+    )
+    (component "myfootprint:SOT-23-5"
+      (place U204 978739 -767864 front 0)
+    )
+    (component myfootprint:1206_3216Metric
+      (place C523 1758950 -584200 front 270)
+    )
+    (component myfootprint:0805_2012Metric::10
+      (place R207 850900 -920750 front 0)
+      (place R911 1352550 -954242 front 180)
+    )
+    (component myfootprint:0805_2012Metric::11
+      (place R923 1282350 -711200 front 180)
+    )
+    (component "myfootprint:SOIC-16_3.9x9.9mm_P1.27mm::3"
+      (place U414 1416050 -1174750 front 0)
+    )
+    (component "myfootprint:SOT-23-6"
+      (place Q505 1543050 -725568 front 0)
+    )
+    (component myfootprint:0805_2012Metric::12
+      (place R413 1549400 -1473200 front 0)
+    )
+    (component "myfootprint:MSOP-8-1EP_3x3mm_P0.65mm_EP1.68x1.88mm"
+      (place RN902 1416050 -381000 front 0)
+    )
+    (component "myfootprint:SOT-23::2"
+      (place D905 1352432 -1045446 front 90)
+    )
+    (component myfootprint:PinHeader_1x04_P2.54mm_Vertical
+      (place RN1001 1742440 -317500 front 0)
+    )
+    (component myfootprint:0805_2012Metric::13
+      (place R405 1079500 -1168400 front 270)
+    )
+    (component myfootprint:0805_2012Metric::14
+      (place R903 1479550 -973770 front 0)
+    )
+    (component myfootprint:0805_2012Metric::15
+      (place R430 860450 -1193050 front 270)
+    )
+    (component myfootprint:GDT_Rect
+      (place GD701 1390650 -1924050 front 0)
+    )
+    (component myfootprint:Fuse_Rect_L9.0mm_P5.2mm
+      (place F302 2819400 -1282700 front 180)
+    )
+    (component myfootprint:0805_2012Metric::16
+      (place R106 323850 -772160 front 0)
+      (place C505 1746250 -762480 front 180)
+      (place R425 1104900 -1060450 front 0)
+      (place C225 991210 -927720 back 90)
+    )
+    (component myfootprint:1206_3216Metric::1
+      (place C316 275152 -944359 front 270)
+    )
+    (component myfootprint:Diode_Bridge_Round_D8.9mm::1
+      (place D304 444500 -960900 front 270)
+    )
+    (component myfootprint:Relay_2P2T_AGN::1
+      (place K602 2203450 -984250 front 0)
+    )
+    (component myfootprint:0805_2012Metric::17
+      (place RJ904 1352550 -802084 front 180)
+      (place C528 1873250 -869950 front 0)
+      (place C1009 1631950 -311150 back 0)
+    )
+    (component "myfootprint:TO-92_Inline"
+      (place Q1201 2237950 -228600 front 270)
+    )
+    (component myfootprint:0805_2012Metric::18
+      (place R924 1282700 -730250 front 180)
+    )
+    (component "footprints:SOIC-8_3.9x4.9mm_P1.27mm"
+      (place U505 1809750 -941232 front 0)
+    )
+    (component "myfootprint:SOIC-16_3.9x9.9mm_P1.27mm::4"
+      (place U902 1219200 -473575 front 0)
+    )
+    (component myfootprint:0805_2012Metric::19
+      (place R622 1746250 -1371600 front 90)
+    )
+    (component "myfootprint:SOT-23::3"
+      (place Q507 1612900 -681000 front 270)
+    )
+    (component "myfootprint:NetTie-2_SMD_Pad0.5mm-long"
+      (place NT702 1987550 -1517650 front 0)
+      (place NT703 2477770 -1847650 front 180)
+    )
+    (component "myfootprint:SOT-23::4"
+      (place D501 1714500 -558800 front 180)
+    )
+    (component "myfootprint:SOT-23::5"
+      (place D607 2336800 -844550 front 180)
+    )
+    (component myfootprint:R_VCS301
+      (place R702 2051720 -1460500 front 90)
+    )
+    (component "myfootprint:SOT-23::6"
+      (place Q203 1035050 -926450 front 0)
+    )
+    (component myfootprint:1210_3225Metric
+      (place R408 749300 -1546065 front 270)
+    )
+    (component myfootprint:1206_3216Metric::2
+      (place C319 2707640 -806450 front 180)
+    )
+    (component "myfootprint:2010-1206::3"
+      (place R608 2520950 -539750 front 180)
+    )
+    (component "myfootprint:2010-1206::4"
+      (place R615 2279650 -920868 front 0)
+    )
+    (component myfootprint:0805_2012Metric::20
+      (place R508 1571475 -674650 front 180)
+    )
+    (component myfootprint:0805_2012Metric::21
+      (place R918 1282700 -323850 front 0)
+      (place R917 1352432 -1016000 front 180)
+    )
+    (component "myfootprint:SOT-23::7"
+      (place D404 2590800 -844432 front 180)
+    )
+    (component myfootprint:0805_2012Metric::22
+      (place C701 2070100 -927100 front 180)
+    )
+    (component "myfootprint:SOIC-16_3.9x9.9mm_P1.27mm::5"
+      (place U605 2400300 -907932 front 0)
+    )
+    (component myfootprint:0805_2012Metric::23
+      (place R431 1104900 -1092200 front 0)
+    )
+    (component "myfootprint:TO-5_Housing_8Pin"
+      (place U802 2003450 -393700 front 90)
+    )
+    (component "myfootprint:Relay_DPDT_Omron_G6S-2F"
+      (place K403 1219200 -1543050 front 0)
+    )
+    (component "myfootprint:2010-1206::5"
+      (place R1205 2165350 -603250 front 0)
+    )
+    (component "myfootprint:SOIC-16_3.9x9.9mm_P1.27mm::6"
+      (place U504 1809750 -829332 front 0)
+    )
+    (component myfootprint:1206_3216Metric::3
+      (place C229 965750 -875886 front 270)
+    )
+    (component myfootprint:0805_2012Metric::24
+      (place R801 2052910 -260350 front 180)
+    )
+    (component myfootprint:1206_3216Metric::4
+      (place C322 2758440 -806450 front 0)
+    )
+    (component "myfootprint:SOT-23::8"
+      (place Q614 1644800 -1573502 front 270)
+    )
+    (component myfootprint:0805_2012Metric::25
+      (place C103 519915 -749300 front 270)
+      (place C313 444250 -927100 front 180)
+    )
+    (component "myfootprint:SOT-23::9"
+      (place D303 2527300 -1116330 front 0)
+    )
+    (component footprints:PinHeader_1x01_P2.54mm_Vertical
+      (place J306 279400 -1670050 front 0)
+    )
+    (component myfootprint:0805_2012Metric::26
+      (place R1210 2157500 -704850 front 90)
+      (place C223 1035050 -381000 front 90)
+    )
+    (component myfootprint:0805_2012Metric::27
+      (place R921 1155700 -704850 front 180)
+    )
+    (component "myfootprint:2010-1206::6"
+      (place R722 2552700 -1530350 front 180)
+    )
+    (component myfootprint:0805_2012Metric::28
+      (place R103 323850 -835660 front 180)
+    )
+    (component "myfootprint:TO-252-2"
+      (place Q702 2437950 -1803400 front 90)
+    )
+    (component myfootprint:1206_3216Metric::5
+      (place C805 2076450 -702310 front 0)
+    )
+    (component myfootprint:0805_2012Metric::29
+      (place R503 1549400 -865150 front 180)
+    )
+    (component "myfootprint:2010-1206::7"
+      (place R703 2146300 -1530350 front 180)
+    )
+    (component myfootprint:0805_2012Metric::30
+      (place R515 1873250 -889000 front 180)
+    )
+    (component myfootprint:0805_2012Metric::31
+      (place R424 971550 -1196943 front 270)
+    )
+    (component "myfootprint:SOIC-8_3.9x4.9mm_P1.27mm"
+      (place U1401 1809750 -234950 front 0)
+    )
+    (component myfootprint:0805_2012Metric::32
+      (place R304 2438400 -1144270 front 0)
+    )
+    (component myfootprint:0805_2012Metric::33
+      (place RJ304 1661160 -1181100 front 0)
+      (place R437 1085850 -1460500 back 0)
+    )
+    (component myfootprint:0805_2012Metric::34
+      (place R1212 2336800 -641350 front 90)
+    )
+    (component myfootprint:0805_2012Metric::35
+      (place R433 901700 -1086600 front 180)
+    )
+    (component myfootprint:0805_2012Metric::36
+      (place R215 1054100 -862950 front 0)
+    )
+    (component "myfootprint:Relay_DPDT_Omron_G6S-2F::1"
+      (place K701 2025650 -1739900 front 0)
+    )
+    (component myfootprint:0805_2012Metric::37
+      (place R428 946150 -1047750 front 180)
+      (place R111 519915 -700604 front 90)
+    )
+    (component myfootprint:1206_3216Metric::6
+      (place C802 1936750 -571500 front 180)
+    )
+    (component myfootprint:1206_3216Metric::7
+      (place C321 2940050 -806450 front 180)
+    )
+    (component myfootprint:0805_2012Metric::38
+      (place R110 558800 -588332 front 0)
+    )
+    (component myfootprint:1210_3225Metric::1
+      (place R412 1013460 -1524000 front 270)
+    )
+    (component "myfootprint:SOT-23::10"
+      (place D306 2819400 -1073268 front 180)
+    )
+    (component myfootprint:0805_2012Metric::39
+      (place R509 1676400 -827050 front 0)
+    )
+    (component myfootprint:0805_2012Metric::40
+      (place R517 1873250 -844550 front 0)
+    )
+    (component myfootprint:PinHeader_1x01_ROUND_P2.54mm_Vertical
+      (place TP501 1879600 -939800 front 0)
+      (place TP401 1358900 -1225550 front 0)
+      (place TP402 1289050 -1009650 front 0)
+      (place TP502 1739900 -989700 front 0)
+      (place TP404 809650 -1027950 front 90)
+      (place TP902 1473200 -922970 front 0)
+      (place TP1001 1866900 -349250 front 0)
+      (place TP202 1270000 -520700 front 0)
+      (place TP503 1549400 -1009650 front 0)
+      (place TP301 1593850 -1180178 front 0)
+      (place TP903 1473200 -1035050 front 0)
+      (place TP102 292100 -736600 front 180)
+      (place TP101 374650 -635000 front 0)
+    )
+    (component myfootprint:Diode_Bridge_Round_D8.9mm::2
+      (place D301 2844800 -1156367 front 270)
+    )
+    (component myfootprint:R_USVD
+      (place RN402 840378 -1765935 front 90)
+    )
+    (component "myfootprint:TO-220-3_Vertical-Heatsink"
+      (place U301 2755900 -683396 front 180)
+    )
+    (component "myfootprint:TO-263-2"
+      (place Q409 1438250 -1534350 front 180)
+    )
+    (component "myfootprint:SOT-23::11"
+      (place Q413 901700 -1054850 front 270)
+    )
+    (component "myfootprint:SOIC-8_3.9x4.9mm_P1.27mm::1"
+      (place U609 2399200 -474700 front 0)
+    )
+    (component myfootprint:1210_3225Metric::2
+      (place R620 1740050 -1576450 front 270)
+    )
+    (component myfootprint:0805_2012Metric::41
+      (place R516 1873250 -825500 front 180)
+    )
+    (component "myfootprint:SOIC-16_3.9x9.9mm_P1.27mm::7"
+      (place U707 2006600 -819150 front 0)
+    )
+    (component "myfootprint:TO-263-2::1"
+      (place Q408 1437100 -1663700 front 180)
+    )
+    (component "myfootprint:SOIC-16_3.9x9.9mm_P1.27mm::8"
+      (place U1006 1809750 -349250 front 0)
+    )
+    (component "myfootprint:2010-1206::8"
+      (place R617 2520950 -889000 front 180)
+    )
+    (component myfootprint:1210_3225Metric::3
+      (place R619 1866900 -1695450 front 270)
+    )
+    (component "myfootprint:SOIC-16_3.9x9.9mm_P1.27mm::9"
+      (place U412 1022350 -1073782 front 180)
+    )
+    (component "myfootprint:SOT-23::12"
+      (place Q102 323850 -863600 front 90)
+    )
+    (component "footprints:Molex_KK-396_A-41791-0003_1x03_P3.96mm_Vertical"
+      (place J307 539750 -1008150 front 270)
+    )
+    (component myfootprint:0805_2012Metric::42
+      (place R121 598170 -630864 front 0)
+    )
+    (component myfootprint:L_LQH43N::1
+      (place L501 1641625 -1074700 front 0)
+    )
+    (component myfootprint:0805_2012Metric::43
+      (place R203 876300 -405760 front 90)
+      (place C214 863600 -583046 back 180)
+    )
+    (component myfootprint:0805_2012Metric::44
+      (place R420 1549400 -1524000 front 0)
+    )
+    (component myfootprint:1210_3225Metric::4
+      (place R610 1740050 -1424050 front 270)
+    )
+    (component "footprints:SOIC-8_3.9x4.9mm_P1.27mm::1"
+      (place U907 1416050 -947892 front 0)
+    )
+    (component "myfootprint:Molex_KK-396_A-41791-0003_1x03_P3.96mm_Vertical-2-pin"
+      (place J301 2787650 -437100 front 180)
+    )
+    (component "myfootprint:2010-1206::9"
+      (place R704 2247900 -1530350 front 180)
+    )
+    (component myfootprint:Relay_2P2T_AGN::2
+      (place K706 2349500 -1435100 front 0)
+    )
+    (component myfootprint:R_Axial_DIN0411_L9.9mm_D3.6mm_P12.70mm_Horizontal
+      (place R721 2260600 -1587500 front 180)
+    )
+    (component myfootprint:0805_2012Metric::45
+      (place C1201 2197100 -711200 front 0)
+    )
+    (component myfootprint:0805_2012Metric::46
+      (place RJ406 1028700 -1009650 front 180)
+    )
+    (component myfootprint:0805_2012Metric::47
+      (place R414 1562100 -1346200 front 90)
+    )
+    (component myfootprint:0805_2012Metric::48
+      (place R920 1155700 -723900 front 180)
+    )
+    (component "myfootprint:SOT-23::13"
+      (place D601 2457450 -406400 front 0)
+    )
+    (component "myfootprint:SOT-23::14"
+      (place Q103 323800 -800100 front 90)
+    )
+    (component "myfootprint:TO-220-3_Vertical-Heatsink::1"
+      (place U304 2755900 -1009650 front 180)
+    )
+    (component "myfootprint:SOT-23::15"
+      (place D504 1746250 -693700 front 180)
+    )
+    (component "myfootprint:2010-1206::10"
+      (place R1204 2165350 -641350 front 180)
+    )
+    (component myfootprint:C_Rect_L6.5mm_W4.5mm_P5.00mm
+      (place C410 1136650 -1181100 front 90)
+    )
+    (component "myfootprint:2010-1206::11"
+      (place R907 1492250 -438150 front 180)
+    )
+    (component myfootprint:0805_2012Metric::49
+      (place R812 1924050 -704732 front 90)
+      (place C215 863600 -528672 back 180)
+    )
+    (component myfootprint:0805_2012Metric::50
+      (place R712 1943100 -939800 front 180)
+    )
+    (component "myfootprint:SOIC-16_3.9x9.9mm_P1.27mm::10"
+      (place U1003 1651000 -330200 front 0)
+    )
+    (component "myfootprint:SOT-23::16"
+      (place Q402 1549400 -1555750 front 270)
+    )
+    (component "myfootprint:SOT-23::17"
+      (place Q411 854100 -1155700 front 90)
+    )
+    (component myfootprint:0805_2012Metric::51
+      (place FB101 405615 -482836 front 270)
+    )
+    (component "myfootprint:SOIC-8_3.9x4.9mm_P1.27mm::2"
+      (place U912 1219200 -260530 front 0)
+    )
+    (component "myfootprint:SOT-23::18"
+      (place U209 996950 -869300 front 90)
+    )
+    (component myfootprint:0805_2012Metric::52
+      (place C513 1873250 -806450 front 0)
+    )
+    (component "myfootprint:MSOP-8-1EP_3x3mm_P0.65mm_EP1.68x1.88mm::1"
+      (place RN1002 1651000 -406400 front 0)
+    )
+    (component "myfootprint:Relay_DPDT_Omron_G6S-2F::2"
+      (place K404 1511300 -1841500 front 0)
+    )
+    (component myfootprint:0805_2012Metric::53
+      (place R308 2895600 -781050 front 0)
+    )
+    (component myfootprint:GDT_Rect::1
+      (place GD403 685800 -1631950 front 0)
+    )
+    (component myfootprint:1210_3225Metric::5
+      (place R406 1339850 -1790700 front 180)
+    )
+    (component "myfootprint:SOT-23::19"
+      (place D503 1682750 -989380 front 90)
+    )
+    (component myfootprint:1206_3216Metric::8
+      (place C307 2889250 -647700 front 180)
+    )
+    (component myfootprint:0805_2012Metric::54
+      (place R213 1022350 -797714 front 0)
+    )
+    (component "myfootprint:SOT-23::20"
+      (place Q602 2336800 -1041400 front 90)
+    )
+    (component myfootprint:Fuse_Rect_L9.0mm_P5.2mm::1
+      (place F301 2705100 -1282700 front 180)
+    )
+    (component myfootprint:0805_2012Metric::55
+      (place C101 571500 -749300 front 270)
+    )
+    (component myfootprint:0805_2012Metric::56
+      (place RJ101 266700 -248400 front 0)
+    )
+    (component "myfootprint:2010-1206::12"
+      (place R904 1339850 -656152 front 0)
+    )
+    (component "footprints:SOIC-8_3.9x4.9mm_P1.27mm::2"
+      (place U701 2006600 -920750 front 0)
+    )
+    (component "myfootprint:SOT-23-5::1"
+      (place U207 1153850 -630800 front 0)
+    )
+    (component myfootprint:0805_2012Metric::57
+      (place R101 598170 -517550 front 0)
+      (place C511 1828800 -934882 back 0)
+    )
+    (component "footprints:TO-92_Inline_Wide"
+      (place U905 1492250 -254000 front 0)
+    )
+    (component myfootprint:0805_2012Metric::58
+      (place R505 1562100 -596900 front 180)
+    )
+    (component "myfootprint:SOIC-8_3.9x4.9mm_P1.27mm::3"
+      (place Q503 1612900 -1019312 front 0)
+    )
+    (component myfootprint:1206_3216Metric::9
+      (place C804 2076450 -571500 front 0)
+    )
+    (component myfootprint:0805_2012Metric::59
+      (place R813 2101100 -641350 front 90)
+    )
+    (component myfootprint:1206_3216Metric::10
+      (place C908 1358080 -207787 front 0)
+    )
+    (component myfootprint:1206_3216Metric::11
+      (place C304 2755900 -647700 front 180)
+    )
+    (component myfootprint:0805_2012Metric::60
+      (place RJ303 2838450 -933450 front 0)
+    )
+    (component myfootprint:RV_Disc_D15.5mm_W4.6mm_P7.5mm
+      (place RV301 336550 -1670050 front 90)
+    )
+    (component "myfootprint:SOT-23::21"
+      (place D413 2590800 -933332 front 180)
+    )
+    (component "myfootprint:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm"
+      (place U102 466680 -596664 front 90)
+    )
+    (component myfootprint:1206_3216Metric::12
+      (place C204 885400 -357530 front 270)
+    )
+    (component "myfootprint:SOT-23::22"
+      (place Q610 1646725 -1473250 front 270)
+    )
+    (component myfootprint:0805_2012Metric::61
+      (place RJ103 266700 -419100 front 0)
+      (place C508 1873250 -704850 front 180)
+    )
+    (component footprints:0805_2012Metric
+      (place FB902 1155700 -742950 front 0)
+    )
+    (component myfootprint:0805_2012Metric::62
+      (place R910 1352550 -929320 front 0)
+      (place RJ501 1562100 -558800 front 0)
+    )
+    (component myfootprint:0805_2012Metric::63
+      (place C526 1746250 -1043700 front 180)
+    )
+    (component myfootprint:0805_2012Metric::64
+      (place R1201 2292350 -260350 front 180)
+    )
+    (component myfootprint:1206_3216Metric::13
+      (place C323 2889250 -806450 front 180)
+    )
+    (component myfootprint:Relay_2P2T_AGN::3
+      (place K708 2552700 -1435100 front 0)
+    )
+    (component myfootprint:GDT_Rect::2
+      (place GD601 1720850 -1708150 front 0)
+    )
+    (component myfootprint:0805_2012Metric::65
+      (place C904 1479550 -469900 front 0)
+    )
+    (component "footprints:TQFP-144_20x20mm_P0.5mm"
+      (place U202 965200 -570346 front 270)
+    )
+    (component "myfootprint:SOT-23::23"
+      (place D802 2070100 -641350 front 0)
+    )
+    (component myfootprint:GDT_Rect::3
+      (place GD401 1089985 -1727800 front 0)
+    )
+    (component "myfootprint:SOT-23::24"
+      (place D401 1282700 -1193800 front 180)
+    )
+    (component myfootprint:0805_2012Metric::66
+      (place C801 1965175 -711200 front 0)
+    )
+    (component myfootprint:1206_3216Metric::14
+      (place C305 2940050 -647700 front 180)
+    )
+    (component "myfootprint:2010-1206::13"
+      (place R717 1930400 -1009650 front 0)
+    )
+    (component "myfootprint:SOT-23::25"
+      (place Q506 1676400 -798000 front 90)
+    )
+    (component "myfootprint:2010-1206::14"
+      (place R1209 2317750 -539750 front 180)
+    )
+    (component footprints:PinHeader_1x01_P2.54mm_Vertical::1
+      (place J309 2832100 -977900 front 0)
+    )
+    (component myfootprint:0805_2012Metric::67
+      (place C310 2844800 -1123950 front 180)
+    )
+    (component "myfootprint:SOIC-16_3.9x9.9mm_P1.27mm::11"
+      (place U608 2399500 -774700 front 0)
+    )
+    (component "myfootprint:SOT-23::26"
+      (place D608 2336800 -882650 front 180)
+    )
+    (component "myfootprint:TO-92_Inline::1"
+      (place U1002 1571200 -349250 front 270)
+    )
+    (component myfootprint:0805_2012Metric::68
+      (place R607 2463800 -539750 front 180)
+    )
+    (component myfootprint:0805_2012Metric::69
+      (place RJ910 1352550 -851850 front 180)
+    )
+    (component "myfootprint:2010-1206::15"
+      (place R604 2520950 -812800 front 180)
+    )
+    (component myfootprint:0805_2012Metric::70
+      (place C311 2730500 -1122850 front 180)
+    )
+    (component "myfootprint:SOIC-16_3.9x9.9mm_P1.27mm::12"
+      (place U911 1218400 -824168 front 0)
+    )
+    (component "myfootprint:Relay_DPDT_Omron_G6S-2F::3"
+      (place K402 939800 -1714500 front 0)
+    )
+    (component "myfootprint:SOT-23::27"
+      (place Q604 2465925 -571700 front 0)
+    )
+    (component myfootprint:1206_3216Metric::15
+      (place C522 1758950 -533400 front 270)
+    )
+    (component myfootprint:0805_2012Metric::71
+      (place R802 1965175 -692150 front 0)
+    )
+    (component myfootprint:1812_4532Metric::1
+      (place L403 1339850 -1752600 front 180)
+    )
+    (component "myfootprint:SOT-23::28"
+      (place U101 495300 -482600 front 180)
+    )
+    (component myfootprint:Fuse_Rect_L9.0mm_P5.2mm::2
+      (place F401 552450 -1771650 front 90)
+    )
+    (component myfootprint:0805_2012Metric::72
+      (place C525 1873250 -685800 front 0)
+    )
+    (component "myfootprint:TO-5_Housing_8Pin::1"
+      (place U1202 2239225 -392575 front 90)
+    )
+    (component "myfootprint:2010-1206::16"
+      (place R613 2279650 -844668 front 0)
+    )
+    (component myfootprint:0805_2012Metric::73
+      (place R520 1873250 -1059550 front 180)
+      (place R506 1543050 -1074700 front 270)
+    )
+    (component "myfootprint:SOIC-16_3.9x9.9mm_P1.27mm::13"
+      (place U413 1219200 -1175618 front 0)
+    )
+    (component myfootprint:1206_3216Metric::16
+      (place C1204 2311400 -571500 front 0)
+    )
+    (component myfootprint:0805_2012Metric::74
+      (place C118 367030 -749300 front 270)
+    )
+    (component "myfootprint:SOT-23::29"
+      (place D202 628650 -425850 front 180)
+    )
+    (component myfootprint:1812_4532Metric::2
+      (place L703 2336800 -1682750 front 270)
+    )
+    (component myfootprint:1206_3216Metric::17
+      (place C1205 2311400 -708450 front 180)
+    )
+    (component "myfootprint:TO-220-3_Vertical-Heatsink::2"
+      (place U308 313252 -944359 front 270)
+    )
+    (component "myfootprint:Relay_DPDT_Omron_G6S-2F::4"
+      (place K401 1219200 -1371600 front 0)
+    )
+    (component myfootprint:0805_2012Metric::75
+      (place C1004 1714500 -457200 front 0)
+    )
+    (component "myfootprint:SOIC-8_3.9x4.9mm_P1.27mm::4"
+      (place U1001 1651000 -463432 front 0)
+    )
+    (component myfootprint:0805_2012Metric::76
+      (place C926 1282700 -342900 front 0)
+      (place RJ104 323850 -736600 front 180)
+    )
+    (component myfootprint:0805_2012Metric::77
+      (place R426 847750 -1098550 front 0)
+    )
+    (component "myfootprint:2010-1206::17"
+      (place R806 1930400 -539750 front 0)
+    )
+    (component "myfootprint:IDC-Header_2x05_P2.54mm_Vertical"
+      (place J201 514350 -824325 front 270)
+    )
+    (component "myfootprint:IDC-Header_2x05_P2.54mm_Vertical::1"
+      (place J204 741775 -266700 front 0)
+    )
+    (component "myfootprint:MSOP-8-1EP_3x3mm_P0.65mm_EP1.68x1.88mm::2"
+      (place RN905 1416050 -563442 front 0)
+    )
+    (component "myfootprint:SOT-23::30"
+      (place D606 1676550 -1373250 front 0)
+    )
+    (component "myfootprint:MSOP-8-1EP_3x3mm_P0.65mm_EP1.68x1.88mm::3"
+      (place RN903 1416050 -425450 front 0)
+    )
+    (component myfootprint:0805_2012Metric::78
+      (place RJ202 806450 -551296 front 180)
+    )
+    (component myfootprint:PinHeader_1x04_P2.54mm_Vertical::1
+      (place RN501 1746250 -804900 front 0)
+    )
+    (component myfootprint:1210_3225Metric::6
+      (place R410 749300 -1495147 front 270)
+    )
+    (component myfootprint:Relay_2P2T_AGN::4
+      (place K705 2247250 -1435100 front 0)
+    )
+    (component "myfootprint:SOIC-8_3.9x4.9mm_P1.27mm::5"
+      (place U1201 2241550 -584200 front 0)
+    )
+    (component "myfootprint:SOT-23::31"
+      (place D901 1339850 -247650 front 180)
+    )
+    (component "myfootprint:MSOP-8-1EP_3x3mm_P0.65mm_EP1.68x1.88mm::4"
+      (place RN904 1416050 -696792 front 0)
+    )
+    (component myfootprint:0805_2012Metric::79
+      (place R504 1543050 -1036600 front 180)
+    )
+    (component myfootprint:0805_2012Metric::80
+      (place RJ901 1350010 -560902 front 180)
+    )
+    (component "myfootprint:Molex_KK-396_A-41791-0008_1x08_P3.96mm_Vertical"
+      (place J304 2945350 -1010750 front 270)
+    )
+    (component myfootprint:0805_2012Metric::81
+      (place R513 1746250 -736600 front 0)
+    )
+    (component myfootprint:0805_2012Metric::82
+      (place R209 1031425 -340990 front 90)
+    )
+    (component myfootprint:Relay_2P2T_AGN::5
+      (place K406 1111250 -1250950 front 90)
+    )
+    (component myfootprint:0805_2012Metric::83
+      (place R303 2527300 -1144270 front 180)
+    )
+    (component "myfootprint:TO-220-3_Vertical-Heatsink::3"
+      (place U302 2940050 -683396 front 180)
+    )
+    (component myfootprint:0805_2012Metric::84
+      (place C927 1155690 -342900 front 180)
+    )
+    (component "myfootprint:SOIC-16_3.9x9.9mm_P1.27mm::14"
+      (place U904 1416050 -776684 front 0)
+    )
+    (component "myfootprint:2010-1206::18"
+      (place R603 2520950 -488950 front 0)
+    )
+    (component "footprints:SOIC-8_3.9x4.9mm_P1.27mm::3"
+      (place U906 1415905 -873297 front 0)
+    )
+    (component "myfootprint:IDC-Header_2x05_P2.54mm_Vertical::2"
+      (place J203 742950 -787400 front 0)
+    )
+    (component "myfootprint:2010-1206::19"
+      (place R614 2279650 -882768 front 0)
+    )
+    (component "myfootprint:2010-1206::20"
+      (place R609 2520950 -577850 front 0)
+    )
+    (component "footprints:SOIC-8_3.9x4.9mm_P1.27mm::4"
+      (place U503 1809750 -693700 front 0)
+    )
+    (component myfootprint:Fuse_Rect_L9.0mm_P5.2mm::3
+      (place F303 2818800 -1352550 front 180)
+    )
+    (component myfootprint:0805_2012Metric::85
+      (place C705 1943100 -1041400 front 180)
+    )
+    (component "myfootprint:SOT-23::32"
+      (place Q603 2273300 -1085850 front 270)
+    )
+    (component myfootprint:0805_2012Metric::86
+      (place C421 1077445 -1052830 front 90)
+    )
+    (component myfootprint:0805_2012Metric::87
+      (place R109 552450 -749300 front 90)
+    )
+    (component myfootprint:0805_2012Metric::88
+      (place C503 1581150 -962322 front 270)
+    )
+    (component "myfootprint:SOT-23::33"
+      (place U201 855980 -352656 front 180)
+    )
+    (component myfootprint:0805_2012Metric::89
+      (place C302 2527300 -1163320 front 0)
+    )
+    (component "myfootprint:SOT-23::34"
+      (place D604 2501900 -406400 front 0)
+    )
+    (component "myfootprint:SOT-23::35"
+      (place D502 1612900 -962162 front 90)
+    )
+    (component "myfootprint:Relay_DPDT_Schrack-RT2-FormC_RM5mm"
+      (place K703 1893570 -1364400 front 270)
+    )
+    (component "myfootprint:2010-1206::21"
+      (place R805 1930400 -603132 front 0)
+    )
+    (component myfootprint:0805_2012Metric::90
+      (place R1202 2197100 -692150 front 0)
+    )
+    (component myfootprint:0805_2012Metric::91
+      (place C227 933450 -819014 front 180)
+      (place C921 1394578 -966942 back 0)
+    )
+    (component myfootprint:1206_3216Metric::18
+      (place C306 2705100 -647700 front 0)
+    )
+    (component myfootprint:0805_2012Metric::92
+      (place R201 971550 -355196 front 270)
+    )
+    (component myfootprint:0805_2012Metric::93
+      (place R916 1352550 -990600 front 180)
+    )
+    (component myfootprint:0805_2012Metric::94
+      (place R204 596900 -412450 front 90)
+    )
+    (component myfootprint:MountingHole_3.2mm_M3_Pad_Via
+      (place H301 539750 -1168400 front 0)
+    )
+    (component "myfootprint:NetTie-2_SMD_Pad0.250mm"
+      (place NT329 552450 -1136650 front 90)
+    )
+    (component "myfootprint:IDC-Header_2x05_P2.54mm_Vertical::3"
+      (place J101 241418 -546064 front 0)
+    )
+    (component myfootprint:0805_2012Metric::95
+      (place R501 1562100 -539750 front 180)
+    )
+    (component "myfootprint:2010-1206::22"
+      (place R902 1492250 -400050 front 0)
+    )
+    (component "myfootprint:SOT-23-6::1"
+      (place Q410 803473 -1108050 front 0)
+    )
+    (component myfootprint:Switch_SPDT_x10
+      (place SW1101 692150 -1949332 front 90)
+    )
+    (component "myfootprint:SOIC-16_3.9x9.9mm_P1.27mm::15"
+      (place U210 680720 -510000 front 0)
+    )
+    (component "footprints:SOIC-8_3.9x4.9mm_P1.27mm::5"
+      (place U909 1415932 -1028700 front 0)
+    )
+    (component "myfootprint:SOIC-16_3.9x9.9mm_P1.27mm::16"
+      (place U602 2400300 -647700 front 0)
+    )
+    (component myfootprint:0805_2012Metric::96
+      (place R416 1390650 -1438300 front 0)
+    )
+    (component myfootprint:1206_3216Metric::19
+      (place C909 1530350 -207787 front 0)
+    )
+    (component myfootprint:0805_2012Metric::97
+      (place R725 1943100 -915032 front 180)
+    )
+    (component myfootprint:PinHeader_1x02_P2.54mm_Vertical
+      (place J303 2590800 -1111300 front 180)
+    )
+    (component "footprints:SMA_Amphenol_901-143_Horizontal"
+      (place J205 603250 -343300 front 0)
+    )
+    (component "myfootprint:SOT-23::36"
+      (place D412 2590800 -888882 front 180)
+    )
+    (component myfootprint:0805_2012Metric::98
+      (place C527 1873250 -762000 front 0)
+    )
+    (component "myfootprint:SOIC-8_3.9x4.9mm_P1.27mm::6"
+      (place U801 2006600 -584368 front 0)
+    )
+    (component myfootprint:0805_2012Metric::99
+      (place C710 1943100 -984250 front 180)
+    )
+    (component myfootprint:1206_3216Metric::20
+      (place C230 1025950 -875650 front 270)
+    )
+    (component myfootprint:1210_3225Metric::7
+      (place R306 431800 -1505821 front 270)
+    )
+    (component myfootprint:1206_3216Metric::21
+      (place C1202 2171700 -571500 front 180)
+    )
+    (component myfootprint:1210_3225Metric::8
+      (place R409 615950 -1493432 front 270)
+    )
+    (component myfootprint:PinHeader_1x03_P2.54mm_Vertical::1
+      (place J501 1797050 -577700 front 180)
+    )
+    (component myfootprint:0805_2012Metric::100
+      (place C704 2070100 -984250 front 0)
+    )
+    (component myfootprint:0805_2012Metric::101
+      (place R723 1479550 -1181100 front 0)
+    )
+    (component myfootprint:0805_2012Metric::102
+      (place R523 1676400 -769492 front 180)
+      (place C108 436880 -619172 back 270)
+    )
+    (component "myfootprint:SOT-23::37"
+      (place D605 2463800 -812800 front 0)
+    )
+    (component myfootprint:PinHeader_1x02_P2.54mm_Vertical::1
+      (place J801 1689100 -247700 front 180)
+    )
+    (component myfootprint:0805_2012Metric::103
+      (place C919 1479550 -948252 front 0)
+    )
+    (component myfootprint:1206_3216Metric::22
+      (place C105 462765 -488950 front 270)
+    )
+    (component myfootprint:Relay_2P2T_AGN::6
+      (place K704 2145650 -1435100 front 0)
+    )
+    (component myfootprint:0805_2012Metric::104
+      (place R117 215900 -400050 front 180)
+    )
+    (component myfootprint:0805_2012Metric::105
+      (place C117 427990 -749300 front 270)
+    )
+    (component "myfootprint:SOIC-16_3.9x9.9mm_P1.27mm::17"
+      (place U402 1219200 -1054100 front 0)
+    )
+    (component "myfootprint:SOT-23-6::2"
+      (place Q412 946150 -1130300 front 0)
+    )
+    (component myfootprint:USB_C_GCT_USB4085
+      (place J103 197568 -323414 front 270)
+    )
+    (component myfootprint:0805_2012Metric::106
+      (place R202 908800 -354960 front 270)
+    )
+    (component myfootprint:CP_Radial_D25.0mm_P12.50mm_SnapIn
+      (place C315 279339 -1174750 front 0)
+    )
+    (component "myfootprint:SOT-23-6::3"
+      (place Q501 1612900 -552450 front 0)
+    )
+    (component myfootprint:0805_2012Metric::107
+      (place R115 292100 -800100 front 90)
+    )
+    (component "footprints:Crystal_SMD_3215-2Pin_3.2x1.5mm"
+      (place Y102 396900 -742950 front 180)
+    )
+    (component "footprints:Molex_KK-254_AE-6410-04A_1x04_P2.54mm_Vertical"
+      (place J104 234750 -768350 front 270)
+    )
+    (component "myfootprint:2010-1206::23"
+      (place R1206 2165350 -539750 front 0)
+    )
+    (component "myfootprint:2010-1206::24"
+      (place R707 2349500 -1530350 front 180)
+    )
+    (component myfootprint:0805_2012Metric::108
+      (place C418 1377950 -1405800 front 90)
+      (place R427 847750 -1117600 front 0)
+      (place R720 2279650 -1276350 back 180)
+      (place C115 330200 -781050 back 90)
+    )
+    (component myfootprint:1210_3225Metric::9
+      (place R407 615950 -1543050 front 270)
+    )
+    (component "myfootprint:2010-1206::25"
+      (place R809 2084070 -539750 front 180)
+    )
+    (component myfootprint:1210_3225Metric::10
+      (place C401 1047750 -1524000 front 90)
+    )
+    (component myfootprint:0805_2012Metric::109
+      (place R521 1676400 -884200 front 0)
+      (place C206 1066800 -532246 back 0)
+    )
+    (component "myfootprint:SOT-23::38"
+      (place Q301 2527300 -1079500 front 0)
+    )
+    (component myfootprint:1210_3225Metric::11
+      (place C610 1898650 -1695450 front 90)
+    )
+    (component myfootprint:0805_2012Metric::110
+      (place RJ601 2457450 -374650 front 180)
+    )
+    (component myfootprint:0805_2012Metric::111
+      (place R601 2463800 -457200 front 0)
+    )
+    (component "myfootprint:2010-1206::26"
+      (place R925 1339850 -361950 front 0)
+    )
+    (component "myfootprint:SOT-23::39"
+      (place D408 790600 -1154950 front 90)
+    )
+    (component myfootprint:0805_2012Metric::112
+      (place R419 1549400 -1504950 front 0)
+    )
+    (component myfootprint:1206_3216Metric::23
+      (place C320 2755900 -971550 front 180)
+    )
+    (component myfootprint:LED_0805_2012Metric::2
+      (place D101 339875 -546100 front 180)
+    )
+    (component myfootprint:0805_2012Metric::113
+      (place R510 1873250 -781050 front 180)
+    )
+    (component myfootprint:0805_2012Metric::114
+      (place R502 1562100 -520700 front 180)
+      (place C605 2419350 -1009650 back 0)
+    )
+    (component myfootprint:1206_3216Metric::24
+      (place C906 1408880 -207787 front 180)
+    )
+    (component myfootprint:0805_2012Metric::115
+      (place C312 2679700 -1122850 front 180)
+    )
+    (component myfootprint:0805_2012Metric::116
+      (place R909 1352550 -895030 front 0)
+      (place C924 1435100 -1022350 back 0)
+    )
+    (component myfootprint:0805_2012Metric::117
+      (place R305 2438400 -1163320 front 0)
+    )
+    (component myfootprint:0805_2012Metric::118
+      (place R102 457200 -285750 front 0)
+    )
+    (component myfootprint:0805_2012Metric::119
+      (place R705 1155700 -1060450 front 180)
+    )
+    (component "myfootprint:SOIC-8_3.9x4.9mm_P1.27mm::7"
+      (place U501 1612900 -872490 front 0)
+    )
+    (component "myfootprint:2010-1206::27"
+      (place R711 1930400 -1066800 front 0)
+    )
+    (component myfootprint:0805_2012Metric::120
+      (place R214 806450 -457200 front 180)
+    )
+    (component "myfootprint:TO-252-2::1"
+      (place Q701 2355850 -1800750 front 270)
+    )
+    (component "footprints:TO-92_Inline_Wide::1"
+      (place U903 1371600 -254000 front 0)
+    )
+    (component "myfootprint:SOT-23::40"
+      (place D801 2032000 -704850 front 270)
+    )
+    (component myfootprint:SW_NE18_DPDT
+      (place SW301 2672600 -279400 front 180)
+    )
+    (component myfootprint:0805_2012Metric::121
+      (place R422 1501925 -1339850 front 0)
+    )
+    (component myfootprint:0805_2012Metric::122
+      (place R423 1390650 -1346200 front 180)
+    )
+    (component "myfootprint:2010-1206::28"
+      (place R709 2082800 -1066800 front 180)
+    )
+    (component "myfootprint:SOIC-8_3.9x4.9mm_P1.27mm::8"
+      (place U910 1219200 -714892 front 0)
+    )
+    (component "myfootprint:SOT-23::41"
+      (place D405 1428750 -1335368 front 270)
+    )
+    (component "myfootprint:SOT-23::42"
+      (place Q601 2463800 -488950 front 0)
+    )
+    (component "myfootprint:SOP-4_3.8x4.1mm_P2.54mm::1"
+      (place U409 1460500 -1450250 front 0)
+    )
+    (component myfootprint:0805_2012Metric::123
+      (place C504 1676400 -712750 front 0)
+    )
+    (component myfootprint:0805_2012Metric::124
+      (place RJ907 1352550 -778190 front 0)
+    )
+    (component "myfootprint:SOT-23::43"
+      (place D203 508000 -425850 front 180)
+    )
+    (component "myfootprint:SOIC-16_3.9x9.9mm_P1.27mm::18"
+      (place U702 2006600 -1019150 front 0)
+    )
+    (component "myfootprint:2010-1206::29"
+      (place R1208 2317750 -603250 front 0)
+    )
+    (component myfootprint:0805_2012Metric::125
+      (place R522 1676400 -865150 front 180)
+    )
+    (component "myfootprint:2010-1206::30"
+      (place R908 1339850 -617934 front 0)
+    )
+    (component myfootprint:C_Axial_L12.0mm_D6.5mm_P15.00mm_Horizontal::1
+      (place C405 552450 -1510100 front 90)
+    )
+    (component "myfootprint:IDC-Header_2x08_P2.54mm_Vertical"
+      (place J202 1054100 -245064 front 270)
+    )
+    (component myfootprint:0805_2012Metric::126
+      (place R105 374650 -565150 front 0)
+    )
+    (component myfootprint:0805_2012Metric::127
+      (place RJ507 1841500 -577850 front 180)
+    )
+    (component "myfootprint:SOT-23::44"
+      (place D1201 2266950 -704850 front 270)
+    )
+    (component "myfootprint:2010-1206::31"
+      (place R602 2520950 -450850 front 0)
+    )
+    (component "footprints:SMA_Amphenol_901-143_Horizontal::1"
+      (place J206 482600 -343300 front 0)
+    )
+    (component myfootprint:0805_2012Metric::128
+      (place R913 1155690 -368300 front 180)
+    )
+    (component "myfootprint:SOT-23::45"
+      (place D409 946150 -1080888 front 90)
+    )
+    (component myfootprint:0805_2012Metric::129
+      (place R216 806450 -576696 front 180)
+    )
+    (component myfootprint:1210_3225Metric::12
+      (place C407 1046985 -1574560 front 90)
+    )
+    (component myfootprint:0805_2012Metric::130
+      (place R112 469115 -719654 front 180)
+    )
+    (component "myfootprint:SOT-23-5::2"
+      (place U208 1022350 -768214 front 0)
+    )
+    (component myfootprint:0805_2012Metric::131
+      (place R718 1943100 -812800 front 180)
+    )
+    (component "myfootprint:SOP-4_3.8x4.1mm_P2.54mm::2"
+      (place U408 1550596 -1416050 front 270)
+    )
+    (component myfootprint:0805_2012Metric::132
+      (place R810 2071370 -679450 front 180)
+    )
+    (component myfootprint:0805_2012Metric::133
+      (place R434 901700 -1136650 front 0)
+    )
+    (component "myfootprint:SOT-23::46"
+      (place D406 1428750 -1297268 front 90)
+    )
+    (component myfootprint:0805_2012Metric::134
+      (place R1401 1746250 -228600 front 180)
+    )
+    (component myfootprint:Fuse_Rect_L9.0mm_P5.2mm::4
+      (place F304 533400 -939800 front 180)
+    )
+    (component myfootprint:0805_2012Metric::135
+      (place R1211 2305050 -679450 front 0)
+    )
+    (component myfootprint:1210_3225Metric::13
+      (place R612 1740050 -1526998 front 270)
+    )
+    (component myfootprint:0805_2012Metric::136
+      (place C428 1077445 -1098550 front 270)
+    )
+    (component "myfootprint:SOT-23::47"
+      (place D305 2857500 -1073268 front 0)
+    )
+    (component myfootprint:Fuse_Rect_L9.0mm_P5.2mm::5
+      (place F402 685800 -1771650 front 90)
+    )
+    (component "myfootprint:IDC-Header_2x05_P2.54mm_Vertical::4"
+      (place J102 341725 -266700 front 0)
+    )
+    (component myfootprint:0805_2012Metric::137
+      (place C916 1352550 -873297 front 180)
+    )
+    (component "myfootprint:SOT-23::48"
+      (place D610 2336800 -958850 front 180)
+    )
+    (component "myfootprint:SOT-23::49"
+      (place D602 2463800 -774700 front 0)
+    )
+    (component myfootprint:0805_2012Metric::138
+      (place R122 598170 -657250 front 0)
+    )
+    (component myfootprint:0805_2012Metric::139
+      (place R212 933450 -799964 front 180)
+    )
+    (component "myfootprint:SOT-23::50"
+      (place D609 2336800 -920750 front 180)
+    )
+    (component myfootprint:0805_2012Metric::140
+      (place R211 838200 -862766 front 0)
+    )
+    (component "myfootprint:SOT-23::51"
+      (place D611 2463800 -889000 front 0)
+    )
+    (component "myfootprint:SOT-23::52"
+      (place D201 943610 -355196 front 0)
+    )
+    (component myfootprint:Relay_2P2T_AGN::7
+      (place K707 2451100 -1435100 front 0)
+    )
+    (component myfootprint:1206_3216Metric::25
+      (place C324 2705100 -971550 front 0)
+    )
+    (component "myfootprint:TO-92_Inline::2"
+      (place Q801 2003000 -229280 front 270)
+    )
+    (component "footprints:S8401-46"
+      (place U104 533400 -241300 front 0)
+    )
+    (component myfootprint:0805_2012Metric::141
+      (place C427 841400 -1193050 front 270)
+    )
+    (component "myfootprint:SOT-23::53"
+      (place D402 1352550 -1195070 front 0)
+    )
+    (component "myfootprint:SOT-23::54"
+      (place Q613 1695600 -1573502 front 270)
+    )
+    (component myfootprint:CP_Radial_D16.0mm_P7.50mm
+      (place C301 2743200 -1447800 front 270)
+    )
+    (component myfootprint:0805_2012Metric::142
+      (place R307 2753360 -781050 front 180)
+    )
+    (component myfootprint:1210_3225Metric::14
+      (place R411 1013460 -1574775 front 270)
+    )
+    (component "myfootprint:SOT-23::55"
+      (place Q606 1695600 -1422450 front 270)
+    )
+    (component myfootprint:0805_2012Metric::143
+      (place R511 1562100 -615950 front 180)
+    )
+    (component "myfootprint:2010-1206::32"
+      (place R905 1339850 -400050 front 180)
+    )
+    (component "myfootprint:Fuseholder-littlefuse-01240041H"
+      (place F701 1873250 -1911232 front 0)
+    )
+    (component "footprints:TO-220-3_Vertical-Heatsink"
+      (place U305 2940050 -841450 front 180)
+    )
+    (component "myfootprint:SOT-23::56"
+      (place Q615 1714650 -1373250 front 0)
+    )
+    (component myfootprint:0805_2012Metric::144
+      (place R208 838200 -796490 front 180)
+    )
+    (component "myfootprint:SOT-23::57"
+      (place D411 847750 -1060450 front 90)
+    )
+    (component myfootprint:0805_2012Metric::145
+      (place R302 2934970 -781050 front 180)
+    )
+    (component "myfootprint:SOT-23::58"
+      (place Q612 2273300 -1162050 front 0)
+    )
+    (component "myfootprint:MSOP-8-1EP_3x3mm_P0.65mm_EP1.68x1.88mm::5"
+      (place RN906 1416050 -607892 front 0)
+    )
+    (component "myfootprint:Relay_DPDT_Schrack-RT2-FormC_RM5mm::1"
+      (place K702 2178650 -1675550 front 270)
+    )
+    (component "myfootprint:SOT-23::59"
+      (place D308 2819400 -1035050 front 180)
+    )
+    (component myfootprint:0805_2012Metric::146
+      (place C702 2070100 -1041400 front 0)
+      (place C514 1790700 -731800 back 180)
+    )
+    (component myfootprint:0805_2012Metric::147
+      (place R525 1746250 -1018300 front 180)
+    )
+    (component "myfootprint:SOT-23::60"
+      (place D613 2463800 -927100 front 0)
+    )
+    (component "myfootprint:SOIC-8_3.9x4.9mm_P1.27mm::9"
+      (place U205 911075 -936028 front 0)
+    )
+    (component myfootprint:GDT_Rect::4
+      (place GD402 552450 -1633014 front 0)
+    )
+    (component myfootprint:0805_2012Metric::148
+      (place R417 1479550 -1219200 front 0)
+    )
+    (component "footprints:SOIC-8_3.9x4.9mm_P1.27mm::6"
+      (place U502 1612900 -801608 front 0)
+    )
+    (component "myfootprint:SOT-23-6::4"
+      (place Q504 1612900 -603250 front 0)
+    )
+    (component "footprints:SOIC-8_3.9x4.9mm_P1.27mm::7"
+      (place U411 1022350 -1171543 front 0)
+    )
+    (component "footprints:SOIC-8_3.9x4.9mm_P1.27mm::8"
+      (place U507 1809750 -1053900 front 0)
+    )
+    (component myfootprint:0805_2012Metric::149
+      (place RJ1401 1746250 -254000 front 180)
+    )
+    (component "myfootprint:SOIC-8_3.9x4.9mm_P1.27mm::10"
+      (place U901 1416050 -497402 front 0)
+    )
+    (component "myfootprint:SOT-23::61"
+      (place Q609 1646725 -1422450 front 270)
+    )
+    (component "myfootprint:Crystal_SMD_3225-4Pin_3.2x2.5mm"
+      (place Y101 488165 -748864 front 0)
+    )
+    (component myfootprint:0805_2012Metric::150
+      (place R432 901700 -1005320 front 0)
+    )
+    (component myfootprint:1206_3216Metric::26
+      (place C907 1479550 -209550 front 180)
+    )
+    (component "myfootprint:MSOP-8-1EP_3x3mm_P0.65mm_EP1.68x1.88mm::6"
+      (place RN901 1416050 -652342 front 0)
+    )
+    (component "myfootprint:SOT-23-5::3"
+      (place U306 2482850 -1156970 front 0)
+    )
+    (component myfootprint:0805_2012Metric::151
+      (place R912 1282700 -368300 front 0)
+    )
+    (component "myfootprint:SOIC-8_3.9x4.9mm_P1.27mm::11"
+      (place U603 2400300 -1028700 front 0)
+    )
+    (component "myfootprint:SOT-23::62"
+      (place Q605 2273300 -1123950 front 270)
+    )
+    (component myfootprint:D_SMB
+      (place D702 2343150 -1911150 front 90)
+    )
+    (component footprints:0805_2012Metric::1
+      (place FB901 1155700 -684530 front 180)
+      (place C411 1200150 -914400 back 180)
+    )
+    (component myfootprint:0805_2012Metric::152
+      (place R524 1873250 -908050 front 0)
+    )
+    (component "myfootprint:SOT-23::63"
+      (place Q608 1695600 -1524050 front 270)
+    )
+    (component "myfootprint:SOT-23::64"
+      (place Q101 431015 -482718 front 180)
+    )
+    (component "myfootprint:Oscillator_SMD_Abracon_ASV-4Pin_7.0x5.1mm"
+      (place X201 1077885 -361950 front 90)
+    )
+    (component "myfootprint:SOT-23::65"
+      (place Q401 1549400 -1676400 front 270)
+    )
+    (component myfootprint:D_SMB::1
+      (place D701 2393950 -1911150 front 270)
+    )
+    (component myfootprint:RV_Disc_D15.5mm_W4.6mm_P7.5mm::1
+      (place RV401 1088300 -1593250 front 90)
+    )
+    (component myfootprint:RV_Disc_D15.5mm_W4.6mm_P7.5mm::2
+      (place RV601 1799500 -1728525 front 90)
+    )
+    (component "myfootprint:SOT-23::66"
+      (place Q202 935990 -869536 front 180)
+    )
+    (component myfootprint:0805_2012Metric::153
+      (place R914 1282700 -387350 front 180)
+    )
+    (component myfootprint:0805_2012Metric::154
+      (place R519 1746250 -1062750 front 0)
+    )
+    (component myfootprint:0805_2012Metric::155
+      (place R1101 1231900 -1847850 front 0)
+    )
+    (component myfootprint:TestPoint_Pad_1.0x1.0mm
+      (place TP201 1054100 -781050 front 0)
+    )
+    (component myfootprint:0805_2012Metric::156
+      (place C309 2794000 -1123950 front 180)
+    )
+    (component myfootprint:1206_3216Metric::27
+      (place C325 275352 -993774 front 90)
+    )
+    (component myfootprint:0805_2012Metric::157
+      (place C1003 1587500 -444500 front 0)
+    )
+    (component "myfootprint:2010-1206::33"
+      (place R621 2520950 -927100 front 180)
+    )
+    (component "myfootprint:Molex_KK-396_A-41791-0003_1x03_P3.96mm_Vertical-2-pin::1"
+      (place J302 2946400 -437100 front 180)
+    )
+    (component myfootprint:Relay_2P2T_AGN::8
+      (place K601 2203450 -1123950 front 0)
+    )
+    (component myfootprint:CP_Radial_D16.0mm_P7.50mm::1
+      (place C317 2914650 -1428750 front 270)
+    )
+    (component myfootprint:0805_2012Metric::158
+      (place R217 1123950 -576932 front 0)
+      (place C923 1200140 -368300 back 0)
+    )
+    (component "myfootprint:SOT-23::67"
+      (place D902 1458620 -247650 front 180)
+    )
+    (component "myfootprint:SOT-23::68"
+      (place D307 2857500 -1035050 front 0)
+    )
+    (component myfootprint:0805_2012Metric::159
+      (place RJ906 1352550 -823910 front 180)
+    )
+    (component "myfootprint:2010-1206::34"
+      (place R708 2451100 -1530350 front 180)
+    )
+    (component myfootprint:0805_2012Metric::160
+      (place RJ503 1746250 -922300 front 0)
+    )
+    (component myfootprint:0805_2012Metric::161
+      (place R1207 2266511 -674600 front 180)
+    )
+    (component "myfootprint:SOT-23::69"
+      (place Q607 1695600 -1473250 front 270)
+    )
+    (component myfootprint:0805_2012Metric::162
+      (place FB201 1016000 -381000 front 90)
+    )
+    (component "myfootprint:SOIC-8_3.9x4.9mm_P1.27mm::12"
+      (place U1005 1809750 -457200 front 0)
+    )
+    (component myfootprint:0805_2012Metric::163
+      (place C430 901700 -1025640 front 0)
+    )
+    (component myfootprint:0805_2012Metric::164
+      (place RJ204 1123950 -552046 front 0)
+    )
+    (component myfootprint:0805_2012Metric::165
+      (place R514 1746250 -947582 front 180)
+    )
+    (component myfootprint:GDT_Rect::5
+      (place GD301 431800 -1632703 front 0)
+    )
+    (component myfootprint:0805_2012Metric::166
+      (place R1203 2197100 -673100 front 0)
+    )
+    (component myfootprint:0805_2012Metric::167
+      (place RJ201 806450 -500496 front 180)
+    )
+    (component myfootprint:0805_2012Metric::168
+      (place R1001 1873250 -381000 front 0)
+      (place C611 2416325 -767080 back 0)
+    )
+    (component "footprints:TO-220-3_Vertical-Heatsink::1"
+      (place U303 2755900 -841450 front 180)
+    )
+    (component "myfootprint:2010-1206::35"
+      (place R618 2520950 -736600 front 180)
+    )
+    (component myfootprint:1206_3216Metric::28
+      (place C201 825500 -358224 front 270)
+    )
+    (component myfootprint:0805_2012Metric::169
+      (place C1101 1231900 -1828800 front 0)
+    )
+    (component myfootprint:0805_2012Metric::170
+      (place C314 393450 -927100 front 180)
+    )
+    (component myfootprint:0805_2012Metric::171
+      (place R206 977900 -819014 front 0)
+    )
+    (component "myfootprint:2010-1206::36"
+      (place R906 1339850 -438150 front 0)
+    )
+    (component myfootprint:0805_2012Metric::172
+      (place C102 456415 -749300 front 90)
+    )
+    (component footprints:0805_2012Metric::2
+      (place FB202 908050 -866275 front 270)
+    )
+    (component myfootprint:0805_2012Metric::173
+      (place R512 1682000 -1074700 front 270)
+    )
+    (component myfootprint:0805_2012Metric::174
+      (place R915 1155690 -387350 front 0)
+    )
+    (component "myfootprint:SOT-23::70"
+      (place Q611 1646725 -1524050 front 270)
+    )
+    (component "myfootprint:2010-1206::37"
+      (place R616 2279650 -958850 front 0)
+    )
+    (component myfootprint:LED_0805_2012Metric::3
+      (place D102 339875 -565150 front 180)
+    )
+    (component myfootprint:0805_2012Metric::175
+      (place R606 2463800 -1041400 front 0)
+    )
+    (component myfootprint:D_SMB::2
+      (place D603 1644650 -1682750 front 90)
+    )
+    (component "myfootprint:SOIC-8_3.9x4.9mm_P1.27mm::13"
+      (place U601 2400300 -552450 front 0)
+    )
+    (component myfootprint:0805_2012Metric::176
+      (place R301 2712720 -781050 front 180)
+    )
+    (component "myfootprint:Relay_DPDT_Omron_G6S-2F::5"
+      (place K405 1219200 -1714500 front 0)
+    )
+    (component myfootprint:0805_2012Metric::177
+      (place R518 1746250 -1081800 front 180)
+    )
+    (component myfootprint:0805_2012Metric::178
+      (place R418 1549400 -1619250 front 180)
+    )
+    (component myfootprint:0805_2012Metric::179
+      (place R803 1965175 -673100 front 0)
+    )
+    (component myfootprint:0805_2012Metric::180
+      (place R210 968350 -926450 front 90)
+    )
+    (component myfootprint:1210_3225Metric::15
+      (place R611 1740050 -1474850 front 270)
+    )
+    (component "myfootprint:2010-1206::38"
+      (place R922 1339850 -694370 front 0)
+    )
+    (component "myfootprint:2010-1206::39"
+      (place R808 2084070 -603250 front 0)
+    )
+    (component myfootprint:0805_2012Metric::181
+      (place R205 475500 -412450 front 90)
+    )
+    (component myfootprint:0805_2012Metric::182
+      (place C602 2463800 -1022350 front 0)
+    )
+    (component myfootprint:1812_4532Metric::3
+      (place L701 1574800 -1962150 front 180)
+    )
+    (component myfootprint:0805_2012Metric::183
+      (place R116 266700 -229350 front 180)
+    )
+    (component "myfootprint:SOT-23::71"
+      (place D1202 2305050 -641350 front 0)
+    )
+    (component myfootprint:CP_Radial_D25.0mm_P12.50mm_SnapIn::1
+      (place C318 2857500 -1627706 front 270)
+    )
+    (component myfootprint:LED_0805_2012Metric::4
+      (place D205 770636 -457200 front 0)
+    )
+    (component myfootprint:0805_2012Metric::184
+      (place R108 368300 -602662 front 180)
+    )
+    (component "myfootprint:SOIC-8_3.9x4.9mm_P1.27mm::14"
+      (place Q502 1612900 -731640 front 0)
+    )
+    (component myfootprint:0805_2012Metric::185
+      (place R421 1549400 -1644650 front 180)
+    )
+    (component myfootprint:1206_3216Metric::29
+      (place C107 527050 -488950 front 270)
+    )
+    (component "myfootprint:SOIC-8_3.9x4.9mm_P1.27mm::15"
+      (place U908 1219200 -349250 front 0)
+    )
+    (component myfootprint:0805_2012Metric::186
+      (place R107 292100 -863600 front 270)
+    )
+    (component myfootprint:0805_2012Metric::187
+      (place RJ407 1073150 -1009650 front 0)
+    )
+    (component myfootprint:0805_2012Metric::188
+      (place R429 901700 -1117600 front 0)
+    )
+    (component "myfootprint:SOT-23::72"
+      (place U206 997710 -928100 front 90)
+    )
+    (component myfootprint:0805_2012Metric::189
+      (place C211 1014730 -670912 back 270)
+    )
+    (component "myfootprint:TSSOP-16_4.4x5mm_P0.65mm"
+      (place U704 2400300 -1263650 back 0)
+    )
+    (component myfootprint:0805_2012Metric::190
+      (place C213 1029970 -468746 back 90)
+    )
+    (component myfootprint:0805_2012Metric::191
+      (place C1008 1672590 -323850 back 0)
+      (place C607 2224750 -806450 back 0)
+    )
+    (component myfootprint:0805_2012Metric::192
+      (place C420 1003300 -1190475 back 0)
+    )
+    (component myfootprint:0805_2012Metric::193
+      (place C425 1002030 -1118232 back 0)
+    )
+    (component myfootprint:0805_2012Metric::194
+      (place C910 1238250 -787400 back 180)
+    )
+    (component myfootprint:0805_2012Metric::195
+      (place C715 2025650 -806450 back 180)
+      (place RJ701 2419350 -1225550 back 0)
+    )
+    (component "myfootprint:SOT-23-6::5"
+      (place Q703 2470150 -1276468 back 0)
+    )
+    (component myfootprint:1206_3216Metric::30
+      (place C106 485140 -591232 back 180)
+    )
+    (component myfootprint:0805_2012Metric::196
+      (place C608 2419350 -641350 back 0)
+    )
+    (component myfootprint:0805_2012Metric::197
+      (place C409 1200150 -1035050 back 0)
+    )
+    (component myfootprint:0805_2012Metric::198
+      (place C212 957580 -670912 back 270)
+    )
+    (component myfootprint:0805_2012Metric::199
+      (place C708 1987550 -939800 back 0)
+    )
+    (component myfootprint:0805_2012Metric::200
+      (place C209 1162050 -628650 back 90)
+    )
+    (component myfootprint:0805_2012Metric::201
+      (place R714 2470150 -1191260 back 0)
+    )
+    (component myfootprint:0805_2012Metric::202
+      (place C901 1437003 -478352 back 0)
+      (place C912 1431290 -732251 back 180)
+    )
+    (component myfootprint:0805_2012Metric::203
+      (place C517 1552425 -527050 back 90)
+    )
+    (component myfootprint:0805_2012Metric::204
+      (place C217 1066800 -642972 back 0)
+    )
+    (component myfootprint:0805_2012Metric::205
+      (place C104 481630 -628414 back 0)
+    )
+    (component myfootprint:0805_2012Metric::206
+      (place R404 1085850 -1422400 back 0)
+    )
+    (component myfootprint:0805_2012Metric::207
+      (place C501 1631950 -795258 back 0)
+    )
+    (component myfootprint:0805_2012Metric::208
+      (place C928 1200150 -698500 back 0)
+    )
+    (component myfootprint:0805_2012Metric::209
+      (place C423 809650 -1149350 back 90)
+    )
+    (component myfootprint:0805_2012Metric::210
+      (place C1401 1758950 -234950 back 270)
+    )
+    (component myfootprint:0805_2012Metric::211
+      (place R719 2279650 -1257300 back 180)
+    )
+    (component myfootprint:0805_2012Metric::212
+      (place C518 1552425 -568175 back 90)
+    )
+    (component myfootprint:0805_2012Metric::213
+      (place C113 416560 -619172 back 270)
+    )
+    (component myfootprint:0805_2012Metric::214
+      (place C902 1397000 -516452 back 0)
+    )
+    (component myfootprint:0805_2012Metric::215
+      (place C512 1790700 -960282 back 0)
+      (place R435 1085850 -1333500 back 0)
+    )
+    (component myfootprint:0805_2012Metric::216
+      (place C1006 1828800 -438150 back 0)
+    )
+    (component myfootprint:0805_2012Metric::217
+      (place C226 863600 -500496 back 180)
+    )
+    (component myfootprint:0805_2012Metric::218
+      (place RJ401 1239520 -914400 back 0)
+    )
+    (component myfootprint:0805_2012Metric::219
+      (place C403 1435100 -1167384 back 0)
+    )
+    (component myfootprint:0805_2012Metric::220
+      (place R716 2330450 -1191260 back 0)
+    )
+    (component myfootprint:0805_2012Metric::221
+      (place C521 1587500 -877850 back 270)
+    )
+    (component myfootprint:0805_2012Metric::222
+      (place RJ602 2419350 -679450 back 0)
+    )
+    (component myfootprint:0805_2012Metric::223
+      (place C714 1987550 -1124000 back 0)
+    )
+    (component myfootprint:0805_2012Metric::224
+      (place C210 1066800 -588362 back 0)
+    )
+    (component myfootprint:0805_2012Metric::225
+      (place C606 2184400 -860100 back 180)
+    )
+    (component myfootprint:0805_2012Metric::226
+      (place C502 1593850 -821318 back 0)
+    )
+    (component myfootprint:0805_2012Metric::227
+      (place C1011 1790700 -330200 back 0)
+    )
+    (component myfootprint:0805_2012Metric::228
+      (place R439 1085850 -1371600 back 0)
+    )
+    (component myfootprint:0805_2012Metric::229
+      (place C934 1238240 -240884 back 0)
+    )
+    (component myfootprint:0805_2012Metric::230
+      (place R403 1085850 -1403350 back 0)
+      (place C506 1828800 -687350 back 0)
+    )
+    (component myfootprint:0805_2012Metric::231
+      (place C509 1828800 -822982 back 0)
+    )
+    (component myfootprint:0805_2012Metric::232
+      (place R401 958850 -1416050 back 180)
+      (place C109 490220 -565832 back 0)
+    )
+    (component "myfootprint:TSSOP-16_4.4x5mm_P0.65mm::1"
+      (place U401 1219200 -952500 back 0)
+    )
+    (component myfootprint:0805_2012Metric::233
+      (place R706 1943100 -1073150 back 180)
+    )
+    (component myfootprint:0805_2012Metric::234
+      (place C718 1987550 -723900 back 180)
+    )
+    (component myfootprint:0805_2012Metric::235
+      (place C419 1041400 -1165193 back 0)
+    )
+    (component myfootprint:0805_2012Metric::236
+      (place C935 1200140 -278984 back 0)
+    )
+    (component myfootprint:0805_2012Metric::237
+      (place C515 1828800 -1046850 back 0)
+    )
+    (component myfootprint:0805_2012Metric::238
+      (place C424 801363 -1104900 back 90)
+    )
+    (component myfootprint:0805_2012Metric::239
+      (place C716 1987550 -812800 back 0)
+    )
+    (component myfootprint:0805_2012Metric::240
+      (place C402 1003300 -1308100 back 180)
+    )
+    (component "myfootprint:TSSOP-16_4.4x5mm_P0.65mm::2"
+      (place U708 2006600 -762000 back 0)
+    )
+    (component myfootprint:0805_2012Metric::241
+      (place C111 439420 -661112 back 90)
+    )
+    (component myfootprint:0805_2012Metric::242
+      (place C1002 1633350 -482482 back 0)
+    )
+    (component myfootprint:0805_2012Metric::243
+      (place C429 895350 -1130300 back 90)
+    )
+    (component myfootprint:0805_2012Metric::244
+      (place C601 2416025 -533400 back 0)
+    )
+    (component myfootprint:0805_2012Metric::245
+      (place R415 1085850 -1314450 back 0)
+    )
+    (component myfootprint:1206_3216Metric::31
+      (place C112 416560 -666192 back 90)
+    )
+    (component myfootprint:0805_2012Metric::246
+      (place C1001 1671450 -444382 back 0)
+    )
+    (component myfootprint:0805_2012Metric::247
+      (place C713 2025650 -1136700 back 0)
+    )
+    (component "myfootprint:TSSOP-16_4.4x5mm_P0.65mm::3"
+      (place U506 1809750 -769782 back 0)
+    )
+    (component myfootprint:0805_2012Metric::248
+      (place C219 990600 -768214 back 90)
+    )
+    (component myfootprint:0805_2012Metric::249
+      (place C520 1625600 -603250 back 90)
+    )
+    (component myfootprint:0805_2012Metric::250
+      (place C519 1600200 -603250 back 90)
+    )
+    (component myfootprint:0805_2012Metric::251
+      (place C202 863600 -658212 back 180)
+    )
+    (component myfootprint:0805_2012Metric::252
+      (place C203 1055370 -670912 back 270)
+    )
+    (component myfootprint:0805_2012Metric::253
+      (place C803 2025650 -565150 back 180)
+    )
+    (component myfootprint:0805_2012Metric::254
+      (place C711 2025650 -1012800 back 0)
+    )
+    (component myfootprint:0805_2012Metric::255
+      (place C533 2330450 -1247140 back 0)
+      (place C516 1790700 -1071382 back 0)
+    )
+    (component myfootprint:0805_2012Metric::256
+      (place C224 1016000 -386946 back 90)
+    )
+    (component myfootprint:0805_2012Metric::257
+      (place R441 1155700 -965200 back 180)
+    )
+    (component "myfootprint:TSSOP-16_4.4x5mm_P0.65mm::4"
+      (place U606 2400300 -717550 back 0)
+    )
+    (component "myfootprint:TSSOP-16_4.4x5mm_P0.65mm::5"
+      (place U607 2203450 -898200 back 0)
+    )
+    (component myfootprint:0805_2012Metric::258
+      (place C510 1790700 -814350 back 0)
+    )
+    (component myfootprint:0805_2012Metric::259
+      (place C232 717550 -466750 back 0)
+    )
+    (component myfootprint:0805_2012Metric::260
+      (place C233 1238250 -571500 back 0)
+    )
+    (component myfootprint:0805_2012Metric::261
+      (place C221 925830 -468746 back 90)
+    )
+    (component myfootprint:0805_2012Metric::262
+      (place R438 1085850 -1352550 back 0)
+    )
+    (component myfootprint:0805_2012Metric::263
+      (place C303 2489200 -1156970 back 90)
+    )
+    (component myfootprint:0805_2012Metric::264
+      (place C917 1432533 -866947 back 0)
+    )
+    (component "myfootprint:TSSOP-16_4.4x5mm_P0.65mm::6"
+      (place U406 1022350 -1346200 back 0)
+    )
+    (component myfootprint:0805_2012Metric::265
+      (place C216 906780 -468746 back 90)
+    )
+    (component myfootprint:0805_2012Metric::266
+      (place C218 976630 -670912 back 270)
+    )
+    (component myfootprint:0805_2012Metric::267
+      (place C432 1200150 -1156568 back 0)
+    )
+    (component myfootprint:0805_2012Metric::268
+      (place C707 2025650 -914400 back 0)
+    )
+    (component myfootprint:0805_2012Metric::269
+      (place R715 2330450 -1305560 back 0)
+    )
+    (component myfootprint:0805_2012Metric::270
+      (place R436 1085850 -1441450 back 0)
+    )
+    (component myfootprint:0805_2012Metric::271
+      (place C431 1238250 -1169268 back 0)
+      (place C612 2419350 -457200 back 0)
+    )
+    (component myfootprint:0805_2012Metric::272
+      (place R713 2470150 -1305560 back 0)
+    )
+    (component myfootprint:0805_2012Metric::273
+      (place C604 2381250 -679450 back 180)
+    )
+    (component myfootprint:0805_2012Metric::274
+      (place R440 1282700 -971550 back 0)
+    )
+    (component myfootprint:0805_2012Metric::275
+      (place C404 1397000 -1155700 back 0)
+    )
+    (component myfootprint:0805_2012Metric::276
+      (place C222 933450 -913986 back 0)
+    )
+    (component myfootprint:0805_2012Metric::277
+      (place C929 1199850 -730132 back 0)
+    )
+    (component myfootprint:0805_2012Metric::278
+      (place C532 2470150 -1247140 back 0)
+    )
+    (component myfootprint:0805_2012Metric::279
+      (place C1010 1828800 -342900 back 0)
+    )
+    (component myfootprint:0805_2012Metric::280
+      (place C207 1066800 -551296 back 0)
+    )
+    (component myfootprint:0805_2012Metric::281
+      (place C234 1197125 -571500 back 180)
+    )
+    (component myfootprint:0805_2012Metric::282
+      (place C208 717550 -606450 back 0)
+    )
+    (component myfootprint:0805_2012Metric::283
+      (place C717 2025650 -825500 back 0)
+    )
+    (component myfootprint:0805_2012Metric::284
+      (place C1007 1790700 -476250 back 0)
+    )
+    (component myfootprint:0805_2012Metric::285
+      (place C422 854218 -1104782 back 90)
+    )
+    (component "myfootprint:TSSOP-16_4.4x5mm_P0.65mm::7"
+      (place U706 2006600 -1073150 back 0)
+    )
+    (component "myfootprint:TSSOP-16_4.4x5mm_P0.65mm::8"
+      (place U705 2400300 -1346200 back 0)
+    )
+    (component myfootprint:0805_2012Metric::286
+      (place C706 2381250 -1225550 back 180)
+    )
+    (component myfootprint:0805_2012Metric::287
+      (place C609 2419350 -899432 back 0)
+    )
+    (component myfootprint:0805_2012Metric::288
+      (place C1203 2260600 -565150 back 180)
+    )
+    (component myfootprint:0805_2012Metric::289
+      (place C709 2381250 -1308100 back 180)
+    )
+    (component myfootprint:0805_2012Metric::290
+      (place C416 1002826 -1397000 back 180)
+    )
+    (component "myfootprint:SOT-23-6::6"
+      (place Q704 2470150 -1219200 back 0)
+    )
+    (component "myfootprint:TSSOP-16_4.4x5mm_P0.65mm::9"
+      (place U1004 1651000 -374650 back 0)
+    )
+    (component myfootprint:0805_2012Metric::291
+      (place C205 645160 -606450 back 180)
+    )
+    (component myfootprint:0805_2012Metric::292
+      (place C228 1032350 -768214 back 90)
+    )
+    (component myfootprint:0805_2012Metric::293
+      (place C925 1393670 -1047750 back 0)
+    )
+    (component myfootprint:0805_2012Metric::294
+      (place C1005 1633790 -336550 back 180)
+    )
+    (component myfootprint:0805_2012Metric::295
+      (place C220 642620 -466750 back 180)
+    )
+    (component "myfootprint:SOT-23-6::7"
+      (place Q705 2330450 -1276350 back 0)
+    )
+    (component myfootprint:0805_2012Metric::296
+      (place C507 1790700 -712750 back 0)
+    )
+    (component "myfootprint:SOT-23-6::8"
+      (place Q706 2330450 -1219200 back 0)
+    )
+    (component myfootprint:0805_2012Metric::297
+      (place C408 1238250 -1047750 back 0)
+    )
+    (component myfootprint:0805_2012Metric::298
+      (place R402 958850 -1435100 back 180)
+    )
+    (component myfootprint:0805_2012Metric::299
+      (place C918 1394433 -892347 back 0)
+    )
+    (component myfootprint:0805_2012Metric::300
+      (place C922 1238250 -330200 back 0)
+    )
+    (component myfootprint:1206_3216Metric::32
+      (place C114 260350 -781050 back 270)
+    )
+    (component myfootprint:0805_2012Metric::301
+      (place C712 1987550 -1000100 back 0)
+    )
+    (component myfootprint:0805_2012Metric::302
+      (place C703 1987550 -1035050 back 180)
+    )
+    (component "myfootprint:NetTie-2_SMD_Pad2.0mm"
+      (place NT326 1593850 -1208000 back 90)
+    )
+    (component "myfootprint:TSSOP-16_4.4x5mm_P0.65mm::10"
+      (place U403 1022350 -1435100 back 0)
+    )
+    (component myfootprint:0805_2012Metric::303
+      (place C905 1239040 -431665 back 180)
+    )
+    (component myfootprint:0805_2012Metric::304
+      (place C110 434340 -571264 back 90)
+    )
+  )
+  (was_is
+  )
+  (routes 
+    (resolution um 10)
+    (parser
+      (host_cad "KiCad's Pcbnew")
+      (host_version 6.0.11)
+    )
+    (library_out 
+      (padstack "Via[0-5]_800:400_um"
+        (shape
+          (circle F.Cu 8000 0 0)
+        )
+        (shape
+          (circle In1.Cu 8000 0 0)
+        )
+        (shape
+          (circle In2.Cu 8000 0 0)
+        )
+        (shape
+          (circle In3.Cu 8000 0 0)
+        )
+        (shape
+          (circle In4.Cu 8000 0 0)
+        )
+        (shape
+          (circle B.Cu 8000 0 0)
+        )
+        (attach off)
+      )
+      (padstack "Via[0-5]_4000:2000_um"
+        (shape
+          (circle F.Cu 40000 0 0)
+        )
+        (shape
+          (circle In1.Cu 40000 0 0)
+        )
+        (shape
+          (circle In2.Cu 40000 0 0)
+        )
+        (shape
+          (circle In3.Cu 40000 0 0)
+        )
+        (shape
+          (circle In4.Cu 40000 0 0)
+        )
+        (shape
+          (circle B.Cu 40000 0 0)
+        )
+        (attach off)
+      )
+      (padstack "Via[0-5]_1500:750_um"
+        (shape
+          (circle F.Cu 15000 0 0)
+        )
+        (shape
+          (circle In1.Cu 15000 0 0)
+        )
+        (shape
+          (circle In2.Cu 15000 0 0)
+        )
+        (shape
+          (circle In3.Cu 15000 0 0)
+        )
+        (shape
+          (circle In4.Cu 15000 0 0)
+        )
+        (shape
+          (circle B.Cu 15000 0 0)
+        )
+        (attach off)
+      )
+    )
+    (network_out 
+      (net AGND
+        (wire
+          (path In4.Cu 4000
+            554050 -1541450
+            401650 -1541450
+            355600 -1587500
+            355600 -1593850
+          )
+          (type protect)
+        )
+        (wire
+          (path In4.Cu 4000
+            582600 -1541450
+            554050 -1541450
+          )
+          (type protect)
+        )
+        (wire
+          (path In4.Cu 4000
+            582600 -1541450
+            652450 -1541450
+            660400 -1549400
+          )
+          (type protect)
+        )
+        (wire
+          (path In4.Cu 4000
+            554050 -1541450
+            552450 -1543050
+            552450 -1549400
+          )
+          (type protect)
+        )
+        (wire
+          (path In4.Cu 4000
+            582600 -1541450
+            554050 -1541450
+          )
+          (type protect)
+        )
+      )
+      (net "ER-DGND"
+        (via "Via[0-5]_800:400_um" 482600 -577850
+          (type protect)
+        )
+        (via "Via[0-5]_800:400_um" 450850 -577850
+          (type protect)
+        )
+        (via "Via[0-5]_800:400_um" 450850 -615950
+          (type protect)
+        )
+        (wire
+          (path F.Cu 4000
+            431800 -1491196
+            431800 -1491200
+          )
+          (type protect)
+        )
+        (wire
+          (path F.Cu 4000
+            431800 -1479550
+            431800 -1491196
+          )
+          (type protect)
+        )
+        (via "Via[0-5]_800:400_um" 431800 -1479550
+          (type protect)
+        )
+        (via "Via[0-5]_800:400_um" 482600 -615950
+          (type protect)
+        )
+      )
+      (net "Net-(F701-Pad2)"
+        (wire
+          (path In2.Cu 30000
+            2088250 -1911230
+            1951090 -1911230
+          )
+          (type protect)
+        )
+      )
+      (net "Net-(C405-Pad1)"
+        (wire
+          (path F.Cu 4000
+            615950 -1528420
+            615950 -1508060
+            613907 -1510100
+          )
+          (type protect)
+        )
+        (wire
+          (path F.Cu 4000
+            552450 -1510100
+            607557 -1510100
+          )
+          (type protect)
+        )
+      )
+      (net "Net-(Q613-Pad1)"
+        (wire
+          (path F.Cu 4000
+            1740050 -1541623
+            1740050 -1541620
+          )
+          (type protect)
+        )
+        (wire
+          (path F.Cu 4000
+            1705100 -1563500
+            1738370 -1563500
+            1740050 -1561820
+            1740050 -1541623
+          )
+          (type protect)
+        )
+      )
+      (net "Net-(RJ406-Pad1)"
+        (wire
+          (path F.Cu 4000
+            1038075 -1009650
+            1035050 -1009650
+          )
+          (type protect)
+        )
+        (wire
+          (path F.Cu 4000
+            1038080 -1009650
+            1038075 -1009650
+          )
+          (type protect)
+        )
+      )
+      (net LO
+        (wire
+          (path B.Cu 30000
+            1212850 -1949450
+            1212850 -1960240
+            1237450 -1984830
+            1272720 -1984830
+            1320800 -1936750
+            1320800 -1454150
+            1339850 -1435100
+          )
+          (type protect)
+        )
+        (wire
+          (path B.Cu 30000
+            1493070 -1283520
+            1324560 -1452030
+          )
+          (type protect)
+        )
+        (wire
+          (path B.Cu 30000
+            1493070 -1283520
+            1517000 -1259600
+            1559800 -1259600
+            1593850 -1225550
+          )
+          (type protect)
+        )
+        (wire
+          (path B.Cu 30000
+            1349690 -1426910
+            1493070 -1283520
+          )
+          (type protect)
+        )
+      )
+      (net "4W-HI"
+        (wire
+          (path F.Cu 4000
+            615950 -1478807
+            615950 -1461680
+          )
+          (type protect)
+        )
+        (wire
+          (path F.Cu 4000
+            615950 -1478810
+            615950 -1478807
+          )
+          (type protect)
+        )
+        (via "Via[0-5]_800:400_um" 615950 -1461680
+          (type protect)
+        )
+      )
+      (net "Net-(C407-Pad1)"
+        (wire
+          (path F.Cu 4000
+            1013460 -1589400
+            1046980 -1589400
+          )
+          (type protect)
+        )
+        (wire
+          (path F.Cu 4000
+            1008880 -1589400
+            1013460 -1589400
+          )
+          (type protect)
+        )
+        (wire
+          (path F.Cu 4000
+            1089980 -1621580
+            1089980 -1657950
+          )
+          (type protect)
+        )
+      )
+      (net "Net-(Q606-Pad3)"
+        (wire
+          (path F.Cu 4000
+            1656225 -1463250
+            1656220 -1463250
+          )
+          (type protect)
+        )
+        (wire
+          (path F.Cu 4000
+            1681100 -1463250
+            1656225 -1463250
+          )
+          (type protect)
+        )
+        (wire
+          (path F.Cu 4000
+            1681100 -1463250
+            1681100 -1455800
+            1695600 -1441300
+            1695600 -1432450
+          )
+          (type protect)
+        )
+        (wire
+          (path F.Cu 4000
+            1686100 -1463250
+            1681100 -1463250
+          )
+          (type protect)
+        )
+      )
+      (net "Net-(Q607-Pad1)"
+        (wire
+          (path F.Cu 4000
+            1705100 -1463250
+            1715100 -1463250
+            1718130 -1460220
+            1740050 -1460220
+            1740050 -1438680
+          )
+          (type protect)
+        )
+      )
+      (net "Net-(Q607-Pad3)"
+        (wire
+          (path F.Cu 4000
+            1656225 -1514050
+            1686100 -1514050
+          )
+          (type protect)
+        )
+        (wire
+          (path F.Cu 4000
+            1656220 -1514050
+            1656225 -1514050
+          )
+          (type protect)
+        )
+        (wire
+          (path F.Cu 4000
+            1695600 -1483250
+            1695600 -1493750
+            1686100 -1503250
+            1686100 -1514050
+          )
+          (type protect)
+        )
+      )
+      (net "Net-(Q608-Pad1)"
+        (wire
+          (path F.Cu 4000
+            1740050 -1489480
+            1740050 -1512370
+            1716780 -1512370
+            1715100 -1514050
+            1705100 -1514050
+          )
+          (type protect)
+        )
+      )
+      (net "Net-(Q609-Pad3)"
+        (wire
+          (path F.Cu 4000
+            1646720 -1432450
+            1646720 -1442950
+            1637220 -1452450
+            1637220 -1463250
+          )
+          (type protect)
+        )
+      )
+      (net "Net-(Q610-Pad3)"
+        (wire
+          (path F.Cu 4000
+            1637220 -1514050
+            1637220 -1503250
+            1646720 -1493750
+            1646720 -1483250
+          )
+          (type protect)
+        )
+      )
+      (net "4W-LO"
+        (via "Via[0-5]_800:400_um" 749300 -1468490
+          (type protect)
+        )
+        (wire
+          (path F.Cu 4000
+            749300 -1468490
+            749300 -1480520
+          )
+          (type protect)
+        )
+      )
+      (net "CURRENT-IN"
+        (wire
+          (path In1.Cu 24998
+            852150 -1949332
+            852150 -1949330
+          )
+          (type protect)
+        )
+        (wire
+          (path In1.Cu 24998
+            852150 -1950860
+            852150 -1949332
+          )
+          (type protect)
+        )
+        (wire
+          (path In1.Cu 30000
+            732150 -1949332
+            732150 -1949330
+          )
+          (type protect)
+        )
+        (wire
+          (path In1.Cu 30000
+            852150 -1959790
+            826602 -1985330
+            757494 -1985330
+            732150 -1959990
+            732150 -1949332
+          )
+          (type protect)
+        )
+        (wire
+          (path In1.Cu 30000
+            852150 -1959790
+            884164 -1991800
+            1500700 -1991800
+          )
+          (type protect)
+        )
+        (wire
+          (path In1.Cu 30000
+            852150 -1959790
+            852150 -1950860
+          )
+          (type protect)
+        )
+      )
+      (net "Net-(C610-Pad1)"
+        (wire
+          (path F.Cu 4000
+            1898650 -1710080
+            1866900 -1710080
+          )
+          (type protect)
+        )
+      )
+      (net "Net-(C406-Pad1)"
+        (wire
+          (path F.Cu 4000
+            749300 -1509770
+            749300 -1509772
+          )
+          (type protect)
+        )
+        (wire
+          (path F.Cu 4000
+            749300 -1509772
+            749300 -1531440
+          )
+          (type protect)
+        )
+        (wire
+          (path F.Cu 4000
+            742950 -1510100
+            685800 -1510100
+          )
+          (type protect)
+        )
+      )
+      (net "LO-FRONT"
+        (wire
+          (path In4.Cu 24998
+            1172150 -1949332
+            1172150 -1949330
+          )
+          (type protect)
+        )
+        (wire
+          (path In4.Cu 24998
+            1172150 -1950860
+            1172150 -1949332
+          )
+          (type protect)
+        )
+        (wire
+          (path In4.Cu 24998
+            1012150 -1949332
+            1012150 -1949330
+          )
+          (type protect)
+        )
+        (wire
+          (path In4.Cu 24998
+            1012150 -1953200
+            1012150 -1949332
+          )
+          (type protect)
+        )
+        (wire
+          (path In4.Cu 30000
+            1172150 -1950860
+            1172150 -1960420
+            1147460 -1985120
+            1037060 -1985120
+            1012150 -1960200
+            1012150 -1953200
+          )
+          (type protect)
+        )
+      )
+      (net "LO-REAR"
+        (wire
+          (path In3.Cu 24998
+            1252150 -1949332
+            1252150 -1949330
+          )
+          (type protect)
+        )
+        (wire
+          (path In3.Cu 24998
+            1252150 -1950860
+            1252150 -1949332
+          )
+          (type protect)
+        )
+        (wire
+          (path In3.Cu 30000
+            1052150 -1949330
+            1052150 -1949332
+          )
+          (type protect)
+        )
+        (wire
+          (path In3.Cu 30000
+            1052150 -1949332
+            1052150 -1960430
+            1076840 -1985120
+            1226750 -1985120
+            1252150 -1959710
+            1252150 -1950860
+          )
+          (type protect)
+        )
+      )
+      (net "I-REAR"
+        (wire
+          (path In3.Cu 24998
+            772150 -1949332
+            772150 -1949330
+          )
+          (type protect)
+        )
+        (wire
+          (path In3.Cu 24998
+            772150 -1955220
+            772150 -1949332
+          )
+          (type protect)
+        )
+        (wire
+          (path In3.Cu 24998
+            892150 -1949332
+            892150 -1949330
+          )
+          (type protect)
+        )
+        (wire
+          (path In3.Cu 24998
+            892150 -1950860
+            892150 -1949332
+          )
+          (type protect)
+        )
+        (wire
+          (path B.Cu 24998
+            892150 -1949332
+            892150 -1949330
+          )
+          (type protect)
+        )
+        (wire
+          (path B.Cu 24998
+            892150 -1950860
+            892150 -1949332
+          )
+          (type protect)
+        )
+        (wire
+          (path B.Cu 30000
+            1092150 -1949332
+            1092150 -1960430
+            1067460 -1985120
+            917554 -1985120
+            892150 -1959710
+            892150 -1950860
+          )
+          (type protect)
+        )
+        (wire
+          (path B.Cu 30000
+            1092150 -1949330
+            1092150 -1949332
+          )
+          (type protect)
+        )
+        (wire
+          (path In3.Cu 30000
+            892150 -1950860
+            892150 -1960420
+            867401 -1985170
+            796740 -1985170
+            772150 -1960580
+            772150 -1955220
+          )
+          (type protect)
+        )
+      )
+      (net "I-FRONT"
+        (wire
+          (path In4.Cu 24998
+            972150 -1949332
+            972150 -1949330
+          )
+          (type protect)
+        )
+        (wire
+          (path In4.Cu 24998
+            972150 -1955220
+            972150 -1949332
+          )
+          (type protect)
+        )
+        (wire
+          (path In4.Cu 24998
+            812150 -1949332
+            812150 -1949330
+          )
+          (type protect)
+        )
+        (wire
+          (path In4.Cu 24998
+            812150 -1950860
+            812150 -1949332
+          )
+          (type protect)
+        )
+        (wire
+          (path In4.Cu 30000
+            692150 -1949330
+            692150 -1949332
+          )
+          (type protect)
+        )
+        (wire
+          (path In4.Cu 30000
+            812150 -1959710
+            812150 -1950860
+          )
+          (type protect)
+        )
+        (wire
+          (path In4.Cu 30000
+            812150 -1959710
+            837273 -1984840
+            947167 -1984840
+            972150 -1959850
+            972150 -1955220
+          )
+          (type protect)
+        )
+        (wire
+          (path In4.Cu 30000
+            692150 -1949332
+            692150 -1959990
+            717456 -1985300
+            786567 -1985300
+            812150 -1959710
+          )
+          (type protect)
+        )
+      )
+      (net "HI-SENSE"
+        (wire
+          (path In1.Cu 4000
+            852150 -1889330
+            852150 -1882300
+            798650 -1828800
+            584200 -1828800
+            552450 -1797050
+          )
+          (type protect)
+        )
+      )
+      (net "LO-SENSE"
+        (wire
+          (path In1.Cu 4000
+            685800 -1797050
+            698500 -1809750
+            892873 -1809750
+            972150 -1889030
+            972150 -1878130
+          )
+          (type protect)
+        )
+      )
+      (net "Net-(GD301-Pad1)"
+        (wire
+          (path F.Cu 4000
+            431800 -1562850
+            431800 -1520450
+          )
+          (type protect)
+        )
+      )
+      (net "Net-(C401-Pad1)"
+        (wire
+          (path F.Cu 4000
+            1047750 -1549400
+            1047750 -1538625
+          )
+          (type protect)
+        )
+        (wire
+          (path F.Cu 4000
+            1047750 -1559550
+            1047750 -1549400
+          )
+          (type protect)
+        )
+        (wire
+          (path F.Cu 4000
+            1013460 -1549400
+            1047750 -1549400
+          )
+          (type protect)
+        )
+        (wire
+          (path F.Cu 4000
+            1009650 -1549400
+            1013460 -1549400
+          )
+          (type protect)
+        )
+        (wire
+          (path F.Cu 4000
+            1013460 -1549400
+            1013460 -1538625
+          )
+          (type protect)
+        )
+        (wire
+          (path F.Cu 4000
+            1013460 -1559550
+            1013460 -1549400
+          )
+          (type protect)
+        )
+        (wire
+          (path F.Cu 4000
+            1047750 -1538625
+            1047750 -1533570
+          )
+          (type protect)
+        )
+        (wire
+          (path F.Cu 4000
+            1013460 -1538625
+            1013460 -1533570
+          )
+          (type protect)
+        )
+      )
+      (net "Net-(Q608-Pad3)"
+        (wire
+          (path F.Cu 4000
+            1695600 -1534050
+            1695600 -1544550
+            1687150 -1553000
+            1687150 -1561510
+            1685160 -1563500
+            1654300 -1563500
+          )
+          (type protect)
+        )
+      )
+      (net "Net-(Q611-Pad3)"
+        (wire
+          (path F.Cu 4000
+            1646720 -1534050
+            1646720 -1541570
+            1635300 -1553000
+            1635300 -1563500
+          )
+          (type protect)
+        )
+      )
+      (net SCREEN_GUARD
+        (wire
+          (path In1.Cu 4000
+            431800 -1790700
+            488950 -1847850
+            691404 -1847850
+            732150 -1888600
+            732150 -1888180
+          )
+          (type protect)
+        )
+        (wire
+          (path In1.Cu 4000
+            336550 -1670050
+            336550 -1530350
+          )
+          (type protect)
+        )
+        (wire
+          (path In1.Cu 4000
+            425450 -1784350
+            336550 -1695450
+            336550 -1670050
+          )
+          (type protect)
+        )
+        (wire
+          (path In1.Cu 4000
+            431800 -1702553
+            431800 -1701800
+          )
+          (type protect)
+        )
+        (wire
+          (path In1.Cu 4000
+            431800 -1790700
+            431800 -1702553
+          )
+          (type protect)
+        )
+        (wire
+          (path In1.Cu 4000
+            431800 -1790700
+            425450 -1784350
+          )
+          (type protect)
+        )
+        (wire
+          (path In1.Cu 4000
+            425450 -1784350
+            431800 -1790700
+          )
+          (type protect)
+        )
+        (wire
+          (path In1.Cu 4000
+            336550 -1670050
+            279400 -1670050
+          )
+          (type protect)
+        )
+      )
+      (net "Net-(F401-Pad2)"
+        (via "Via[0-5]_800:400_um" 615950 -1582030
+          (type protect)
+        )
+        (wire
+          (path F.Cu 4000
+            615950 -1582030
+            615950 -1557680
+          )
+          (type protect)
+        )
+      )
+      (net "Net-(F402-Pad2)"
+        (via "Via[0-5]_800:400_um" 749300 -1584810
+          (type protect)
+        )
+        (wire
+          (path F.Cu 4000
+            749300 -1584810
+            749300 -1560690
+          )
+          (type protect)
+        )
+      )
+    )
+  )
+)

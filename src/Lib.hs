@@ -18,7 +18,10 @@ data Expr =
 
     SingleQuote
 
-    | Num Number
+    -- | Num Number
+
+    -- treat numbers as text as long as can
+    | Num Text
 
     | List [ Expr ]
 
@@ -27,7 +30,8 @@ data Expr =
     | Symbol Text
 
     -- if index - was treated as string - then we wouldn't require this.
-    | Amp Text Text
+    -- | Amp Text Text
+    | Amp Text
 
 
     deriving (Eq, Show)
@@ -61,8 +65,17 @@ data Expr =
 data PCBFeature  =
   -- or Via.
 
+  -- Think should put netclass first. because it is common.
+  -- No. leave in the order that it's parsed.
+
   --- pad num, netclass, component, layer
-  Pad_  Integer  Text Text Text
+  Pad_  Text Text Text Text
+
+  -- padnum, netclass, component
+  | PadTH_  Text Text Text
+
+  -- netclass, layer
+  | Geom_  Text Text
 
   -- netclass, layer, length
   | Track_  Text Text Text
@@ -70,7 +83,7 @@ data PCBFeature  =
   -- netclass, layer
   | Via_ Text Text
 
-  deriving (Eq, Show)
+  deriving (Eq, Show, Ord)
 
 
 
