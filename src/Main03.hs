@@ -22,7 +22,8 @@
     - 1. prune component pins from the net, unless unconnected.
     - 2. prune nets from network, if there are no component pins that need to be routed.  ie. so that other features - like vias/tracks, are not exposed.
     - 3. remove nets from netclasses  - and stick in nonroutable netclass. maybe. (what we did with manual edit, and code changes).
-
+  ---
+    - can also remove everything not manually routed, and just reroute.
 -}
 
 
