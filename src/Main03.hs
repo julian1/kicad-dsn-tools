@@ -36,7 +36,7 @@ import Data.Text.IO as T
 
 import Data.Set as S
 
-import Data.Attoparsec.Text (Number(I, D), parseOnly)
+import Data.Attoparsec.Text ( {-Number(I, D),-} parseOnly)
 
 
 
