@@ -182,7 +182,7 @@ filterPins netClass sUnconnected pins =
 transformExpr :: S.Set PCBFeature -> Expr -> Expr
 transformExpr sUnconnected expr =
   {-
-    -- transformPruneUnconnectedPins
+    -- pruneUnconnectedPins
     -  component pins from net if they do not appear in the drc unconnected
     eg.
     (net LP15V
@@ -228,7 +228,7 @@ transformExpr sUnconnected expr =
 transformExpr2 ::  Expr -> Expr
 transformExpr2 expr =
   {-
-    -- transformPruneEmptyNets empty nets from network
+    -- pruneEmptyNets empty nets from network
     -- have to match at the network level in order
     eg.
     (net LP15V
