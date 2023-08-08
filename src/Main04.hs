@@ -92,7 +92,7 @@ printExpr level dsnExpr = do
   case dsnExpr of
 
     List xs -> do
-      -- do indentation
+      -- handle indentation
       T.putStrLn ""   -- new line.
       let pad = T.justifyRight (level * 2 ) ' ' T.empty -- pad.
       T.putStr pad
@@ -106,9 +106,7 @@ printExpr level dsnExpr = do
       T.putStr s
 
     Num s -> do
-      -- T.putStr "{"
       T.putStr s
-      -- T.putStr "}"
 
     SpecialIndex s -> do
       T.putStr s
@@ -126,10 +124,8 @@ printExpr level dsnExpr = do
 
 
 {-
-  given drc error for unconnected items, return a tupple for easy lookup.
-  not sure if really need this.  could just construct the feature at search to look it up.
-  and preserve more of the typing.
-  this does more than normalize - it pattern matches unconnected features.
+  return pcb features in the drc error expressions that are unconnected
+  also normalize pcb features, by removing layer information.
 -}
 
 
@@ -139,7 +135,7 @@ matchUnconnected DRCError { _name =   "unconnected_items" , _explanation , _feat
     -- destructure FeatureItem to Feature.
     P.map ( f . _feature  ) _features where
 
-      f (Pad_  pad nc c l ) = Pad_  pad nc c ""   -- remove layer, to support membership query without knowing layer
+      f (Pad_  pad nc c l ) = Pad_  pad nc c ""   -- remove layer info, to support set membership query without knowing layer
       f (PadTH_ pad nc c  ) = PadTH_ pad nc c
       f (Geom_ pad nc   )   = Geom_ pad nc
       f (Track_ nc l len )  = Track_ nc l len
@@ -153,17 +149,17 @@ matchUnconnected _ = [ ]
 
 getPinDesignator :: Text -> (Text, Text)
 getPinDesignator pin = (pinNum, designator)
-  where
-  {- component should follow the form 'designator-pinNum'
-    but should support the case if designator is itself hypenated.
+  {- 
+    extract pin and designator from the specctra expr
+    support the case if designator is itself hypenated.
   -}
-
-  -- split on '-' separator
-  parts = T.split (=='-') pin
-  -- reverse to extract the last (first) element (eg. pinNum)
-  (pinNum : xs) = P.reverse parts
-  -- re-reverse and concatenate for designator
-  designator = T.concat . P.reverse $ xs
+  where
+    -- split on '-' separator
+    parts = T.split (=='-') pin
+    -- reverse to extract the last (first) element (eg. pinNum)
+    (pinNum : xs) = P.reverse parts
+    -- re-reverse and concatenate for designator
+    designator = T.concat . P.reverse $ xs
 
 
 
