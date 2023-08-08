@@ -11,7 +11,19 @@
 
   -- GAHHH. when we reimport in kicad, again. all the traces get removed.  HMMMMM.
   -- So we would need to edit them back onto the session file???
-  -- or we need another strategy to hide the net from freerouting.
+  -- or we need another strategy to hide the net from freerouting but allow pass-through.
+  ---
+  -- actually editing the nets back into the network, - may not work - because the actual copper features may get removed, not just the net dependency.
+  -- possible need to move nets to a non-routable netclass. if cannot otherwise disable.
+  -- OR. rename them. eg.  CR_RESET to CR_RESET-NOROUTE and then rename back again.
+  -- is it not possible to set an attribute?
+  ----------
+
+  EXTR.   .ses has 'network_out' rather than 'network'.  AND it doesn't include netclass information - which is good..
+          SO. move nets to a non-routable netclass. and then the output will keep the net, but the change in netclass will not confuse kicad.
+
+          alternatively maybe there is an attribute that could be set per net.
+
 
   -----
   - seem to have unconnected tracks.  or other compoonents.
@@ -174,7 +186,7 @@ filterPins netClass sUnconnected pins =
 transformExpr :: S.Set PCBFeature -> Expr -> Expr
 transformExpr sUnconnected expr =
   {-
-    -- transformPruneUnconnectedPins 
+    -- transformPruneUnconnectedPins
     -  component pins from net if they do not appear in the drc unconnected
     eg.
     (net LP15V
@@ -224,7 +236,7 @@ transformExpr2 expr =
     -- have to match at the network level in order
     eg.
     (net LP15V
-    (pins ) 
+    (pins )
     ->
   -}
 
@@ -237,11 +249,11 @@ transformExpr2 expr =
       where
         nets2 =  P.filter f nets
         -- f x = True
-        f x = case x of 
+        f x = case x of
           List [(Symbol "net" ),
             (Symbol netClass  ) ,
             (List ( (Symbol "pins") : pins))] | pins == [] -> False
-   
+
           List [(Symbol "net" ),
             (StringLit netClass) ,
             (List ( (Symbol "pins") : pins))] | pins == [] -> False
