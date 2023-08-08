@@ -52,30 +52,48 @@
   - OK.
         the pin -> net -> netclass.
 
+      - issue is we don't have clear - component and pin.
+      item_should_be_ignored analog3, A400-5, board.Pin@1f2d5a31
 
+      Pin.java class derives from Item. and has the component.
+      also Via.java
 
-  -----
-  - seem to have unconnected tracks.  or other compoonents.
-  that are being passed through.
+      Component component = board.components.get(this.get_component_no());
 
-  - alternatively - we may have gotten better results - because we completely surpressed non 'digital' and 'digital2' netclasses, when we
-    edited the output by hand.
-  - also could consider removing empty pin lists.
-  -------
-  - moving the netclass entirely into a non-routable class - suppresses freerouting finding problems. .
-    - So - we could prune all netclasses,  that are not part of a DRC unconnected item..
-      eg. not jut remove all pins.
-  ----------------
-  NO - remove the net from the network. so the process has two steps.
-    - 1. prune component pins from the net, unless unconnected.
-    - 2. prune nets from network, if there are no component pins that need to be routed.  ie. so that other features - like vias/tracks, are not exposed.
-    - 3. remove nets from netclasses  - and stick in nonroutable netclass. maybe. (what we did with manual edit, and code changes).
-  ---
-    - can also remove everything not manually routed, and just reroute.
+      int padstack_no = component.get_package().get_pin(pin_no).padstack_no;
 
-  EXTR.  instead of selectively printing to stdout..
-      we need to transform the expression. , to allow having more than one edit actions.
-      then use a generic output.
+    For Pin.java derives from Item.  So we should be able to get info.
+
+    -- look at the parser for pin. it might have an attribute as to whether it needs to be routed.
+
+  this has to have everything.
+
+715     public void print_info(ObjectInfoPanel p_window, java.util.Locale p_locale)
+716     {
+717         java.util.ResourceBundle resources =
+718                 java.util.ResourceBundle.getBundle("board.resources.ObjectInfoPanel", p_locale);
+719         p_window.append_bold(resources.getString("pin") + ": ");
+720         p_window.append(resources.getString("component_2") + " ");
+721         Component component = board.components.get(this.get_component_no());
+722         p_window.append(component.name, resources.getString("component_info"), component);
+723         p_window.append(", " + resources.getString("pin_2") + " ");
+724         p_window.append(component.get_package().get_pin(this.pin_no).name);
+725         p_window.append(", " + resources.getString("padstack") + " ");
+726         library.Padstack padstack = this.get_padstack();
+727         p_window.append(padstack.name, resources.getString("padstack_info"), padstack);
+728         p_window.append(" " +  resources.getString("at") + " ");
+729         p_window.append(this.get_center().to_float());
+730         this.print_connectable_item_info(p_window, p_locale);
+731         p_window.newline();
+732     }
+
+    -- EXTR. IT MAY BE EASIER - TO change FREEROUTING - so it can read a PIN attribute - rather than communicating with a separate file.
+        --  rather than have a separate file.
+        --  and then we don't have to even to pin number and component number matching.
+        -- the attribute would just be there.
+  
+        --- MUST CHECK.
+
 
 -}
 
@@ -369,5 +387,30 @@ main =  do
 
   return ()
 
+{-
+    EXTR. just override the should ignore... method.
+    then print from there.
 
+  -----
+  - seem to have unconnected tracks.  or other compoonents.
+  that are being passed through.
 
+  - alternatively - we may have gotten better results - because we completely surpressed non 'digital' and 'digital2' netclasses, when we
+    edited the output by hand.
+  - also could consider removing empty pin lists.
+  -------
+  - moving the netclass entirely into a non-routable class - suppresses freerouting finding problems. .
+    - So - we could prune all netclasses,  that are not part of a DRC unconnected item..
+      eg. not jut remove all pins.
+  ----------------
+  NO - remove the net from the network. so the process has two steps.
+    - 1. prune component pins from the net, unless unconnected.
+    - 2. prune nets from network, if there are no component pins that need to be routed.  ie. so that other features - like vias/tracks, are not exposed.
+    - 3. remove nets from netclasses  - and stick in nonroutable netclass. maybe. (what we did with manual edit, and code changes).
+  ---
+    - can also remove everything not manually routed, and just reroute.
+
+  EXTR.  instead of selectively printing to stdout..
+      we need to transform the expression. , to allow having more than one edit actions.
+      then use a generic output.
+-}
