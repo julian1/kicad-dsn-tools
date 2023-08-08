@@ -7,6 +7,13 @@
 
 {-
 
+  EXTR - even if there are a few odd errors related to planes, that prevent 'autoroute',  one can still run 'postroute' .
+
+  -- GAHHH. when we reimport in kicad, again. all the traces get removed.  HMMMMM.
+  -- So we would need to edit them back onto the session file???
+  -- or we need another strategy to hide the net from freerouting.
+
+  -----
   - seem to have unconnected tracks.  or other compoonents.
   that are being passed through.
 
@@ -107,21 +114,20 @@ printExpr level dsnExpr = do
 
 
 {-
-  -- given drc error for unconnected items, return a tupple for easy lookup.
-  -- not sure if really need this.  could just construct the feature at search to look it up.
-  -- and preserve more of the typing.
+  given drc error for unconnected items, return a tupple for easy lookup.
+  not sure if really need this.  could just construct the feature at search to look it up.
+  and preserve more of the typing.
+  this does more than normalize - it pattern matches unconnected features.
 -}
 
--- this does more than normalize - it pattern matches unconnected features.
 
 matchUnconnected :: DRCError -> [ PCBFeature  ]
 matchUnconnected DRCError { _name =   "unconnected_items" , _explanation , _features  } =
-  -- | _name == "unconnected_items"  =
 
     -- destructure FeatureItem to Feature.
     P.map ( f . _feature  ) _features where
 
-      f (Pad_  pad nc c l ) = Pad_  pad nc c "" -- remove layer, to allow set membership test
+      f (Pad_  pad nc c l ) = Pad_  pad nc c ""   -- remove layer, to support membership query without knowing layer
       f (PadTH_ pad nc c  ) = PadTH_ pad nc c
       f (Geom_ pad nc   )   = Geom_ pad nc
       f (Track_ nc l len )  = Track_ nc l len
@@ -137,8 +143,8 @@ getPinDesignator :: Text -> (Text, Text)
 getPinDesignator pin = (pinNum, designator)
   where
   {- component should follow the form 'designator-pinNum'
-    but handle the case if designator is itself hypenated.
-    -}
+    but should support the case if designator is itself hypenated.
+  -}
 
   -- split on '-' separator
   parts = T.split (=='-') pin
@@ -167,18 +173,17 @@ filterPins netClass sUnconnected pins =
 
 transformExpr :: S.Set PCBFeature -> Expr -> Expr
 transformExpr sUnconnected expr =
-  -- need a better name, action is to transform and non unconnected pins
-
+  {-
+    -- transformPruneUnconnectedPins 
+    -  component pins from net if they do not appear in the drc unconnected
+    eg.
+    (net LP15V
+    (pins U703-13 U414-13 U505-7 D404-3 U504-14 U301-3 U707-13 U1006-13 U907-7 U1003-13
+    ->
+    (net LP15V
+    (pins U703-13 U414-13 ))
+  -}
   case expr of
-    {-
-        eg.
-        (net LP15V
-        (pins U703-13 U414-13 U505-7 D404-3 U504-14 U301-3 U707-13 U1006-13 U907-7 U1003-13
-        ->
-        (net LP15V
-        (pins U703-13 U414-13 ))
-    -}
-
     -- the only differene between these matches - is the netClass which may be expressed as either a string literal or symbol
 
     List [(Symbol "net" ),
@@ -192,7 +197,6 @@ transformExpr sUnconnected expr =
                   (List ( (Symbol "pins") : pins2 ))]
 
 
-
     List [(Symbol "net"),
           (StringLit netClass ) ,
           (List ( (Symbol "pins"): pins ))]  ->
@@ -203,13 +207,63 @@ transformExpr sUnconnected expr =
                   (Symbol netClass  ) ,
                   (List ( (Symbol "pins") : pins2 ))]
 
-    List xs -> do
-
+    List xs ->
       -- recurse into child nodes
       List $  P.map (transformExpr sUnconnected) xs
 
 
     _ -> expr
+
+
+
+
+transformExpr2 ::  Expr -> Expr
+transformExpr2 expr =
+  {-
+    -- transformPruneEmptyNets empty nets from network
+    -- have to match at the network level in order
+    eg.
+    (net LP15V
+    (pins ) 
+    ->
+  -}
+
+  case expr of
+
+    List ( (Symbol "network" ) : nets )  ->
+
+      List ((Symbol "network" ) : nets2 )
+
+      where
+        nets2 =  P.filter f nets
+        -- f x = True
+        f x = case x of 
+          List [(Symbol "net" ),
+            (Symbol netClass  ) ,
+            (List ( (Symbol "pins") : pins))] | pins == [] -> False
+   
+          List [(Symbol "net" ),
+            (StringLit netClass) ,
+            (List ( (Symbol "pins") : pins))] | pins == [] -> False
+
+          _ -> True
+
+
+    List xs ->
+      -- recurse into child nodes
+      List $  P.map transformExpr2 xs
+
+
+    _ -> expr
+
+
+
+
+
+
+
+
+
 
 
 
@@ -234,7 +288,7 @@ doStuff drcExpr dsnExpr = do
   -- let isMember = S.member  ( Pad_  "12" "/ice40-2-200/C-MISO" "U212" "" ) sUnconnected
   -- T.putStrLn $ "isMember " `T.append` (pack . show $ isMember)
 
-  let trsfmExpr = transformExpr sUnconnected dsnExpr
+  let trsfmExpr = transformExpr2 . transformExpr sUnconnected $ dsnExpr
 
   printExpr 0 trsfmExpr
 
@@ -279,131 +333,4 @@ main =  do
   return ()
 
 
-
-
-
-
-
-
-
-
-
-{-
-normalize1 :: DRCError -> [ (Text, Text, Text ) ]
-normalize1  DRCError { _name = "unconnected_items"  , _explanation , _features  } =
-  -- | _name == "unconnected_items"  =
-
-    -- destructure FeatureItem to Feature.
-    Prelude.map ( f . _feature  ) _features where
-
-      f (Pad_  pad nc c l ) = ( nc, c, pad )
-      f (PadTH_ pad nc c  ) = ( nc, c, pad )
-      f (Geom_ pad nc   )   = ( nc, "geom", pad )
-      f (Track_ nc l len )  = ( nc, "track", "" )
-      f (Via_ nc l )        = ( nc, "via", "")
-
-normalize1  _  = [ ]
--}
-
-
-{-
-  if isLeft drcParseResult
-    then do
-      T.putStrLn $ "not a valid experssion or statemet"
-    else return ()
-
-
-  if isLeft dsnParseResult
-    then do
-      T.putStrLn $ "not a valid experssion or statemet"
-      -- exit...
-    else return ()
-
-
-      let Right drcExpr = drcParseResult
-
- --     mapM_ ( Prelude.putStrLn .  show ) expr
-
-
-      let xs = mconcat $ Prelude.map normalize1 expr
-      -- mapM_ ( Prelude.putStrLn .  show ) xs
-
-
-      -- T.putStrLn ""
-
-      let xs2 = mconcat $ Prelude.map matchUnconnected expr
-      -- mapM_ ( Prelude.putStrLn .  show ) xs2
-
-
-      let s  = S.fromList xs2
-
-      let exists = S.member  ( Pad_  "12" "/ice40-2-200/C-MISO" "U212" "" ) s
-
-      T.putStrLn $ T.concat [ "exists",  (pack. show $ exists) ]
-
--}
-
-
-
-
-{-
-
-f :: DRCError -> [ PCBFeature ]
-
-f  DRCError { _name   , _explanation , _features  }
-  | _name == "unconnected_items"  =
-
-    -- destructure FeatureItem to Feature.
-    Prelude.map ( f . _feature  ) _features where
-
-      -- normalize so we can look it up again.
-      f (Pad_  pad nc c l )  = Pad_  pad nc c ""
-
-      f (PadTH_ pad nc c  )  = PadTH_ pad nc c
-
-    -- [ ( _name , "whoot2", "whoot3" )  ]
-
-f  _  = [ ]
--}
-
-{-
-  EXTR.  rather than storing as a tripple.
-  instead. should several different sets...
-  eg. for vias, and
-  ---
-  AND. we can drop the layer. for Pad.
-  ---
-  Need to check the network/net again.
-  -----
-
-  - It is really only the pads. that are of interest.... and we can normalize
-  - By stuffing it in directly... and making layer empty.
-    -----
-  change the function name to normalize.
-  But need to return Maybe...
-
--}
-
-
-{-
-  --- pad num, netclass, component, layer
-  Pad_  Text Text Text Text
-
-
-  -- padnum, netclass, component
-  | PadTH_  Text Text Text
-
-  -- netclass, layer
-  | Geom_  Text Text
-
-  -- netclass, layer, length
-  | Track_  Text Text Text
-
-  -- netclass, layer
-  | Via_ Text Text
--}
-
-
--- OK. this is where we have the issue with the index. being numerical.
--- and it is quite complicated. could be double. or Int. etc.
 
