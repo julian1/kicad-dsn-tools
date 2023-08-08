@@ -23,6 +23,35 @@
           SO. move nets to a non-routable netclass. and then the output will keep the net, but the change in netclass will not confuse kicad.
 
           alternatively maybe there is an attribute that could be set per net.
+  --------
+  EXTR.   a per-net exclusion would be better than per netclass.  but some pins of a net we want to route. and some pins we don't , because already routed..
+
+  EXTR.  IN freerouting - in the code we changed, is the test per-net or per-pin?
+          i think it may be per pin.
+          So. we might be able to spit out a separate file - which was our original plan.
+
+  - Freerouting has Item. class which is a 'net' .  which is associated
+
+  - OK.  it is more complicated.  we wouldn't just have two netclasses - routable and non-routable..
+        But we would split the nets.
+        AGND routable. AGND not-routable.
+        No. changing the name of the net - would mean Kicad reimport won't work.
+
+
+    - the problem is that adding AGND with so many piis - exposes every single via. to being reworked by freerouting.
+
+      1727             Net net = this.board.rules.nets.get(net_no);
+      1728             if( ! net.get_class().get_is_routable() ) {
+      1729               return false;
+      1730             }
+
+
+    - The test is per net.   we need just need to change the code to indicate if the net is routable.    and then communicate that.
+       THIS IS GOOD.
+
+  - OK.
+        the pin -> net -> netclass.
+
 
 
   -----
@@ -92,7 +121,7 @@ printExpr level dsnExpr = do
   case dsnExpr of
 
     List xs -> do
-      -- do indentation
+      -- handle indentation
       T.putStrLn ""   -- new line.
       let pad = T.justifyRight (level * 2 ) ' ' T.empty -- pad.
       T.putStr pad
@@ -106,9 +135,7 @@ printExpr level dsnExpr = do
       T.putStr s
 
     Num s -> do
-      -- T.putStr "{"
       T.putStr s
-      -- T.putStr "}"
 
     SpecialIndex s -> do
       T.putStr s
@@ -126,10 +153,8 @@ printExpr level dsnExpr = do
 
 
 {-
-  given drc error for unconnected items, return a tupple for easy lookup.
-  not sure if really need this.  could just construct the feature at search to look it up.
-  and preserve more of the typing.
-  this does more than normalize - it pattern matches unconnected features.
+  return pcb features in the drc error expressions that are unconnected
+  also normalize pcb features, by removing layer information.
 -}
 
 
@@ -139,7 +164,7 @@ matchUnconnected DRCError { _name =   "unconnected_items" , _explanation , _feat
     -- destructure FeatureItem to Feature.
     P.map ( f . _feature  ) _features where
 
-      f (Pad_  pad nc c l ) = Pad_  pad nc c ""   -- remove layer, to support membership query without knowing layer
+      f (Pad_  pad nc c l ) = Pad_  pad nc c ""   -- remove layer info, to support set membership query without knowing layer
       f (PadTH_ pad nc c  ) = PadTH_ pad nc c
       f (Geom_ pad nc   )   = Geom_ pad nc
       f (Track_ nc l len )  = Track_ nc l len
@@ -153,17 +178,17 @@ matchUnconnected _ = [ ]
 
 getPinDesignator :: Text -> (Text, Text)
 getPinDesignator pin = (pinNum, designator)
-  where
-  {- component should follow the form 'designator-pinNum'
-    but should support the case if designator is itself hypenated.
+  {-
+    extract pin and designator from the specctra expr
+    support the case if designator is itself hypenated.
   -}
-
-  -- split on '-' separator
-  parts = T.split (=='-') pin
-  -- reverse to extract the last (first) element (eg. pinNum)
-  (pinNum : xs) = P.reverse parts
-  -- re-reverse and concatenate for designator
-  designator = T.concat . P.reverse $ xs
+  where
+    -- split on '-' separator
+    parts = T.split (=='-') pin
+    -- reverse to extract the last (first) element (eg. pinNum)
+    (pinNum : xs) = P.reverse parts
+    -- re-reverse and concatenate for designator
+    designator = T.concat . P.reverse $ xs
 
 
 
@@ -186,7 +211,7 @@ filterPins netClass sUnconnected pins =
 transformExpr :: S.Set PCBFeature -> Expr -> Expr
 transformExpr sUnconnected expr =
   {-
-    -- transformPruneUnconnectedPins
+    -- pruneUnconnectedPins
     -  component pins from net if they do not appear in the drc unconnected
     eg.
     (net LP15V
@@ -232,7 +257,7 @@ transformExpr sUnconnected expr =
 transformExpr2 ::  Expr -> Expr
 transformExpr2 expr =
   {-
-    -- transformPruneEmptyNets empty nets from network
+    -- pruneEmptyNets empty nets from network
     -- have to match at the network level in order
     eg.
     (net LP15V
