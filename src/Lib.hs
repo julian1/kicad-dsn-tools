@@ -30,8 +30,8 @@ data Expr =
     | Symbol Text
 
     -- if index - was treated as string - then we wouldn't require this.
-    -- | Amp Text Text
-    | Amp Text
+    -- | SpecialIndex Text Text
+    | SpecialIndex Text
 
 
     deriving (Eq, Show)

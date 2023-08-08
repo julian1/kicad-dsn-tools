@@ -208,7 +208,7 @@ printExpr sUnconnected level dsnExpr = do
       T.putStr s
       -- T.putStr "}"
 
-    Amp s -> do
+    SpecialIndex s -> do
       T.putStr s
 
     SingleQuote -> do

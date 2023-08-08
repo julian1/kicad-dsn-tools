@@ -55,7 +55,7 @@ import Lib (Expr(..))
 import Data.Text as T
 
 exprParser :: Parser Expr
-exprParser = ampParser <|> numParser <|>  listParser <|> stringParser <|> symbolParser  <|> singleQuoteParser
+exprParser = specialIndexParser <|> numParser <|>  listParser <|> stringParser <|> symbolParser  <|> singleQuoteParser
 
 -- | parse bool expression
 
@@ -170,24 +170,15 @@ numParser = do
 
 
 
-
-
-
-
-------------
-
--- NO. it cannot be OR it must include the '@' to avoid being parsed as regular number
--- special digit index with ampersand in the middle
--- must be before numParser
-
 isDecimal :: Char -> Bool
 isDecimal c = c >= '0' && c <= '9'
 
 
 
-ampParser :: Parser Expr
-ampParser = do
+specialIndexParser :: Parser Expr
+specialIndexParser = do
   skipSpace
+  -- must include the '@' char, to avoid being parsed as regular number
   -- this parses correctly, but doesn't give us the concatenated result
   -- j <- takeWhile1 isDecimal *> takeWhile1 (\c -> c == '@') *> takeWhile1 isDecimal
 
@@ -195,9 +186,17 @@ ampParser = do
   ampersand <- char '@'
   last      <- takeWhile1 isDecimal
 
-  -- // return (Amp (first <|> ampersand <|> last ))
-  -- return (Amp (append first last ))
-  return (Amp $ T.concat [ first, "@", last ]  )
+  -- // return (SpecialIndex (first <|> ampersand <|> last ))
+  -- return (SpecialIndex (append first last ))
+  return (SpecialIndex $ T.concat [ first, "@", last ]  )
+
+
+
+
+
+
+
+
 
 
 

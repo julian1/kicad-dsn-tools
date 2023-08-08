@@ -55,7 +55,7 @@ printExpr level expr = do
       -- Need a much better name for this.
       -- qualified index.
       -- Or use a (Integer,  Maybe Integer ).
-      Amp s -> do
+      SpecialIndex s -> do
         -- T.putStr "AMP"
         T.putStr s
 

@@ -58,6 +58,54 @@ import Data.Either(either)
 
 
 
+
+
+
+
+
+
+printExpr ::  Int -> Expr  ->  IO ()
+printExpr level dsnExpr = do
+
+  -- this can be our recursive walk of the dsn function. that tests membership
+  T.putStr " "
+
+  case dsnExpr of
+
+    List xs -> do
+      -- do indentation
+      T.putStrLn ""   -- new line.
+      let pad = T.justifyRight (level * 2 ) ' ' T.empty -- pad.
+      T.putStr pad
+
+      -- recurse on child items
+      T.putStr "("
+      mapM_ (printExpr (level + 1)) xs
+      T.putStr ")"
+
+    Symbol s -> do
+      T.putStr s
+
+    Num s -> do
+      -- T.putStr "{"
+      T.putStr s
+      -- T.putStr "}"
+
+    SpecialIndex s -> do
+      T.putStr s
+
+    SingleQuote -> do
+      T.putStr "\""
+
+    StringLit s -> do
+      T.putStr "\""
+      T.putStr s
+      T.putStr "\""
+
+
+
+
+
 {-
   -- given drc error for unconnected items, return a tupple for easy lookup.
   -- not sure if really need this.  could just construct the feature at search to look it up.
@@ -88,8 +136,9 @@ matchUnconnected _ = [ ]
 getPinDesignator :: Text -> (Text, Text)
 getPinDesignator pin = (pinNum, designator)
   where
-  -- component should follow the form 'designator-pinNum'
-  -- but handle the case if designator is itself hypenated.
+  {- component should follow the form 'designator-pinNum'
+    but handle the case if designator is itself hypenated.
+    -}
 
   -- split on '-' separator
   parts = T.split (=='-') pin
@@ -100,93 +149,8 @@ getPinDesignator pin = (pinNum, designator)
 
 
 
-printPins :: Text -> S.Set PCBFeature -> [ Expr ]  ->  IO ()
-printPins netClass sUnconnected pins = do
 
-  T.putStr "( pins "
-  mapM_ ( \(Symbol pin ) -> do
-
-        let (pinNum, designator) = getPinDesignator pin
-        let isMember = S.member ( Pad_  pinNum  netClass designator  "" ) sUnconnected
-        {-
-        T.putStr $ "pinNum " `T.append` pinNum
-        T.putStr $ "designator " `T.append` designator
-        T.putStr "     "
-        T.putStrLn $ "isMember " `T.append` (pack . show $ isMember)
-        -}
-        if(isMember) then
-          do
-            T.putStr pin
-            T.putStr " "
-        else
-          return ()
-
-    ) pins
-
-  T.putStr ")"
-
-  -- we have to split apart the componennt and the pin number according to the '-' character.
-  -- then construct a Pad, or PadTH
-  return ()
-
-
-
-
-
-
-
-
-{-
-    Actually needs an identity like transform - with function that returns the input.
-    then match on the List element - and transform.
-
--}
-
-printExpr ::  Int -> Expr  ->  IO ()
-printExpr level dsnExpr = do
-
-  -- this can be our recursive walk of the dsn function. that tests membership
-  T.putStr " "
-
-  case dsnExpr of
-
-    List xs -> do
-      -- do indentation
-      T.putStrLn ""   -- new line.
-      let pad = T.justifyRight (level * 2 ) ' ' T.empty -- pad.
-      T.putStr pad
-
-      -- recurse on the items.
-      T.putStr "("
-      mapM_ (printExpr (level + 1)) xs
-      T.putStr ")"
-
-
-
-    Symbol s -> do
-      T.putStr s
-
-    Num s -> do
-      -- T.putStr "{"
-      T.putStr s
-      -- T.putStr "}"
-
-    Amp s -> do
-      T.putStr s
-
-    SingleQuote -> do
-      T.putStr "\""
-
-    StringLit s -> do
-      T.putStr "\""
-      T.putStr s
-      T.putStr "\""
-
-
-
-
-
-filterPins :: Text -> S.Set PCBFeature -> [ Expr ]  ->  [ Expr ]
+filterPins :: Text -> S.Set PCBFeature -> [ Expr ]  -> [ Expr ]
 filterPins netClass sUnconnected pins =
 
   P.filter f pins
@@ -201,17 +165,13 @@ filterPins netClass sUnconnected pins =
 
 
 
+transformExpr :: S.Set PCBFeature -> Expr -> Expr
+transformExpr sUnconnected expr =
+  -- need a better name, action is to transform and non unconnected pins
 
-
-transformExpr :: S.Set PCBFeature -> Int -> Expr ->  Expr
-transformExpr sUnconnected level dsnExpr =
-
-  -- don't need level/depth here, but it *could* be useful on other transforms.
-  case dsnExpr of
-
+  case expr of
     {-
         eg.
-
         (net LP15V
         (pins U703-13 U414-13 U505-7 D404-3 U504-14 U301-3 U707-13 U1006-13 U907-7 U1003-13
         ->
@@ -219,38 +179,37 @@ transformExpr sUnconnected level dsnExpr =
         (pins U703-13 U414-13 ))
     -}
 
-    -- the only differene between these two - is if the netClass is expressed as string or symbol
+    -- the only differene between these matches - is the netClass which may be expressed as either a string literal or symbol
 
     List [(Symbol "net" ),
           (Symbol netClass {-|| StringLit netClass -} ) ,
-          (List ( (Symbol "pins") : pins))]  -> 
-          let 
+          (List ( (Symbol "pins") : pins))]  ->
+          let
             pins2 = filterPins netClass sUnconnected pins
           in
             List [(Symbol "net" ),
                   (Symbol netClass  ) ,
-                  (List ( (Symbol "pins") : pins2 ))]  
+                  (List ( (Symbol "pins") : pins2 ))]
 
 
 
     List [(Symbol "net"),
           (StringLit netClass ) ,
-          (List ( (Symbol "pins"): pins ))]  -> 
-          let 
+          (List ( (Symbol "pins"): pins ))]  ->
+          let
             pins2 = filterPins netClass sUnconnected pins
           in
             List [(Symbol "net" ),
                   (Symbol netClass  ) ,
-                  (List ( (Symbol "pins") : pins2 ))]  
+                  (List ( (Symbol "pins") : pins2 ))]
 
     List xs -> do
 
-      -- transform list elements
-      List $  P.map (transformExpr sUnconnected (level + 1)) xs
+      -- recurse into child nodes
+      List $  P.map (transformExpr sUnconnected) xs
 
 
-
-    _ -> dsnExpr
+    _ -> expr
 
 
 
@@ -275,7 +234,7 @@ doStuff drcExpr dsnExpr = do
   -- let isMember = S.member  ( Pad_  "12" "/ice40-2-200/C-MISO" "U212" "" ) sUnconnected
   -- T.putStrLn $ "isMember " `T.append` (pack . show $ isMember)
 
-  let trsfmExpr = transformExpr sUnconnected 0 dsnExpr
+  let trsfmExpr = transformExpr sUnconnected dsnExpr
 
   printExpr 0 trsfmExpr
 
