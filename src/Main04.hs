@@ -23,7 +23,10 @@
 
     - done - remove the prune empty nets.
 
-    - modify the clearance a little.  201 instead of 200.1 perhaps.
+    - change freerouting to use mm. as native format? spectra formatbbb
+      actually think it may be that kicad geometry carries excess precision (in .kicad_pcb file), that gets rounded by freerouting.
+
+    - the exported clearance is 201.1 which is odd. not 200. 
 
     - a separate program - with filter for small DRC errors on trace clearance.  Or just set clearance in kicad to 0.19.  so can change/increate when we create the file.
     - modify clearance a little.
@@ -56,6 +59,7 @@ import Data.Set as S
 
 import Data.Attoparsec.Text ( {-Number(I, D),-} parseOnly)
 
+import Data.Either(either)
 
 
 -- import Text.RawString.QQ
@@ -64,48 +68,8 @@ import Lib
 import DRCParser(drcParser )
 
 import ExprParser(exprParser)
+import ExprPrint(exprPrint)
 
-import Data.Either(either)
-
-
-
-
-
-printExpr ::  Handle -> Int -> Expr  ->  IO ()
-printExpr h level dsnExpr = do
-
-  -- this can be our recursive walk of the dsn function. that tests membership
-  T.hPutStr h " "
-
-  case dsnExpr of
-
-    List xs -> do
-      -- handle indentation
-      T.hPutStrLn h ""   -- new line.
-      let pad = T.justifyRight (level * 2 ) ' ' T.empty -- pad.
-      T.hPutStr h pad
-
-      -- recurse on child items
-      T.hPutStr h "("
-      mapM_ (printExpr h (level + 1)) xs
-      T.hPutStr h ")"
-
-    Symbol s -> do
-      T.hPutStr h s
-
-    Num s -> do
-      T.hPutStr h s
-
-    SpecialIndex s -> do
-      T.hPutStr h s
-
-    SingleQuote -> do
-      T.hPutStr h "\""
-
-    StringLit s -> do
-      T.hPutStr h "\""
-      T.hPutStr h s
-      T.hPutStr h "\""
 
 
 
@@ -343,8 +307,12 @@ doStuff h drcExpr dsnExpr = do
   let trsfmExpr = (transformAddLayerDirective  . transformAddPinsIgnore   sUnconnected ) $ dsnExpr
 
 
+  exprPrint h 0 trsfmExpr
 
-  printExpr h 0 trsfmExpr
+  T.hPutStrLn stdout "" -- newline
+
+
+
 
 
 main :: IO ()

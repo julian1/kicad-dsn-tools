@@ -1,85 +1,40 @@
 
 {-# LANGUAGE QuasiQuotes,  OverloadedStrings #-}
--- {-# LANGUAGE ScopedTypeSymboliables #-}
+
+{-
+  - usage
+    -  parse and write output expr .dsn
+    - takes single file argument of dsn file.
+-}
+
+
 
 module Main where
 
 
 
-import Data.Attoparsec.Text
--- import Data.Attoparsec.Number
+import Prelude as P
+import Data.Attoparsec.Text(parseOnly )
 
--- import System.IO
 import Data.Either
 import Lib
-import ExprParser
 
-import Text.RawString.QQ
-
---------
+-- import Text.RawString.QQ
 
 import Data.Text as T
 import Data.Text.IO as T
 
 
+import System.IO(stdout)
+import System.Environment (getArgs)
 
-printExpr :: Int -> Expr ->  IO ()
-printExpr level expr = do
+----
 
-  -- change name.
-  -- and moove to ExprParser.hs
+import ExprParser(exprParser)
+import ExprPrint(exprPrint)
 
-  -- only want this if it's not the first entry... in the list.
-  -- ACTUALLY it should be done by changing mapM_ mapM with index
-  T.putStr " "
 
-  case expr of
 
-      {-
-      -- we could parse numbers and leave as text, without conversion.
-      -- https://hackage.haskell.org/package/attoparsec-0.14.4/docs/Data-Attoparsec-Number.html
-      -- We don't have to decode these in the parser.
-      Num (I x) -> do
-
-        Prelude.putStr $ show x
-
-      Num (D x) -> do
-        Prelude.putStr $ show x
-      -}
-
-      Num s -> do
-        T.putStr "{"
-        T.putStr s
-        T.putStr "}"
-
-      -- Need a much better name for this.
-      -- qualified index.
-      -- Or use a (Integer,  Maybe Integer ).
-      SpecialIndex s -> do
-        -- T.putStr "AMP"
-        T.putStr s
-
-      -- SingleQuote -> T.putStr "SINGLEQUOTE"
-      SingleQuote -> T.putStr "\""
-
-      StringLit s -> do
-          T.putStr "\""
-          T.putStr s
-          T.putStr "\""
-
-      Symbol s -> do
-        T.putStr s
-
-      List xs -> do
-        -- do indentation
-        T.putStrLn ""   -- new line.
-        let pad = T.justifyRight (level * 2 ) ' ' T.empty -- pad.
-        T.putStr pad
-
-        -- recurse
-        T.putStr "("
-        mapM_ (printExpr (level + 1)) xs
-        T.putStr ")"
 
 
 
@@ -87,24 +42,24 @@ printExpr level expr = do
 main :: IO ()
 main =  do
 
+  args <- getArgs                  -- IO [String]
+  mapM P.putStrLn args
 
-  -- dsn <- T.readFile "data/test01.sexpr"
-  -- dsn <- readFile "data/test02.sexpr"
-  dsn <- T.readFile "data/main.dsn"
-  -- dsn <- T.readFile "data/main.ses"
-  -- dsn <- T.readFile "data/main-simple.dsn"
-
-  -- putStrLn dsn
+  let file = P.head args
 
 
-  -- eg. (or 1 1),    (+ 1 (+ 1 1 ))
-  --putStrLn "enter an expression!"
-  -- hFlush stdout
-  -- ls <- getLine
+  dsn <- T.readFile file
+
+
+  {- eg. (or 1 1),    (+ 1 (+ 1 1 ))
+      putStrLn "enter an expression!"
+      hFlush stdout
+      ls <- getLine
+  -}
 
   let exprParseResult = parseOnly exprParser dsn
 
-
+{-
   if isLeft exprParseResult
     then do
       T.putStrLn $ "not a valid experssion or statemet"
@@ -113,45 +68,27 @@ main =  do
       -- putStrLn $ show  exprParseResult
 
       let Right expr = exprParseResult
-      printExpr 0 expr
+
+
+      exprPrint stdout 0 expr
 
       -- T.putStrLn "\n\ndone"
+  -}
 
-
-
-
-{-
-  -- either :: (a -> c) -> (b -> c) -> Either a b -> c
-  either
-    (\x ->
-        T.putStrLn $ "not a valid experssion or statemet"
+  either (\_ -> do
+      T.putStrLn $ "not a valid expr"
     )
+    ( \expr -> do
 
-    (\x ->
-          T.putStrLn "ok"
-          -- putStrLn $ show  exprParseResult
+        exprPrint stdout 0 expr
 
-          -- // let Right expr = exprParseResult
-          -- printExpr x
+        T.hPutStrLn stdout "" -- newline
 
-          -- T.putStrLn "\n\ndone"
-    )
-  exprParseResult
--}
+    ) exprParseResult
 
 
--- if all the elements are list elements then print it flat...
 
-{-
-  designformats/specctra/Package.java:                    System.out.println("Package.read_pin_info: number expected");
 
-  - ampersand is used for specifying duplicate pins. so value is an index/integer.
-  - or probably needs special case handling.
 
-  247 ( pin Round[A]Pad_2700_um 1 0 -20300)
-  248 ( pin Round[A]Pad_2700_um 1@1 0 0)
-  249 ( pin Round[A]Pad_2700_um 2 52500 -20300)
-  250 ( pin Round[A]Pad_2700_um 2@1 52500 0))
--}
 
 
