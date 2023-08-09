@@ -1,14 +1,16 @@
 
 {-# LANGUAGE QuasiQuotes, OverloadedStrings #-}
 
-import Data.Either
--- import Data.Text
 
+import Prelude as P
+import Data.Either
 
 import Data.Text as T -- append, concat
 import Data.Text.IO as T
 
-import Data.Attoparsec.Text (Number(I, D), parseOnly)
+
+import System.Environment (getArgs)
+import Data.Attoparsec.Text ( parseOnly)
 
 -- import Text.RawString.QQ
 ---------------
@@ -19,24 +21,28 @@ import DRCParser(drcParser )
 main :: IO ()
 main =  do
 
+  args <- getArgs                  -- IO [String]
+  mapM P.putStrLn args
 
-  s <- T.readFile "data/DRC.rpt"
+  let file = P.head args
 
-  T.putStrLn s;
 
-  let exprParseResult = parseOnly drcParser s
+  content <- T.readFile file
 
-  if isLeft exprParseResult
-    then do
-      T.putStrLn $ "not a valid experssion or statemet"
-    else do
+  let exprParseResult = parseOnly drcParser content
 
-      let Right expr = exprParseResult
 
-      mapM ( Prelude.putStrLn .  show ) expr
 
-      return ()
+  either (\_ -> do
+      T.putStrLn $ "not a valid drc expr"
+    )
+    ( \expr -> do
 
+        mapM ( P.putStrLn .  show ) expr
+
+        P.putStrLn "" -- newline
+
+    ) exprParseResult
 
 
 
