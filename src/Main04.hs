@@ -22,11 +22,11 @@
     - done - pass a directory as argument.  and then let it find the input dsn, DRC and write the output file.
 
     - done - remove the prune empty nets.
+    - done - support reading kicad pcb files.
 
-    - change freerouting to use mm. as native format? spectra formatbbb
-      actually think it may be that kicad geometry carries excess precision (in .kicad_pcb file), that gets rounded by freerouting.
+    -  actually think issue with kicad geometry - is that kicad carries excess precision (in .kicad_pcb file), that gets rounded by freerouting on spectra import.
 
-    - the exported clearance is 201.1 which is odd. not 200. 
+    - and kicad tries to compensate - ie. exported clearance is 201.1 which is odd. not 200.  for 0.2mm
 
     - a separate program - with filter for small DRC errors on trace clearance.  Or just set clearance in kicad to 0.19.  so can change/increate when we create the file.
     - modify clearance a little.
