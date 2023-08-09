@@ -181,8 +181,8 @@ transformExpr sUnconnected expr =
           in
             List [(Symbol "net" ),
                   (Symbol netClass  ) ,
-                  (List ( (Symbol "pins") : pins )) --,
-                  -- (List ( (Symbol "off")  : pins2 ))
+                  (List ( (Symbol "pins") : pins )),
+                  (List ( (Symbol "off")  : pins2 ))
                 ]
 
 
@@ -194,8 +194,8 @@ transformExpr sUnconnected expr =
           in
             List [(Symbol "net" ),
                   (StringLit netClass  ) ,              -- StringLit.   BE VERY CAREFUL HERE, otherwise output will not be properly quoted.
-                  (List ( (Symbol "pins") : pins )) -- ,
-                  -- (List ( (Symbol "off")  : pins2 ))
+                  (List ( (Symbol "pins") : pins )),
+                  (List ( (Symbol "off")  : pins2 ))
                 ]
 
     List xs ->
