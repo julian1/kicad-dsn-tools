@@ -66,6 +66,9 @@
 -}
 
 
+
+import System.IO
+import System.Environment (getArgs)
 import Prelude as P
 
 import Data.Either
@@ -95,44 +98,52 @@ import Data.Either(either)
 
 
 
+{-
+  - could create a lazy text. or [ text ] and then we concatenate.
+  - or pass a file handle and just use IO.
 
+    hPutStr :: Handle -> Text -> IO ()
 
+    Write a string to a handle.
+    hPutStrLn :: Handle -> Text -> IO ()
 
-printExpr ::  Int -> Expr  ->  IO ()
-printExpr level dsnExpr = do
+-}
+
+printExpr ::  Handle -> Int -> Expr  ->  IO ()
+printExpr h level dsnExpr = do
 
   -- this can be our recursive walk of the dsn function. that tests membership
-  T.putStr " "
+  T.hPutStr h " "
 
   case dsnExpr of
 
     List xs -> do
       -- handle indentation
-      T.putStrLn ""   -- new line.
+      T.hPutStrLn h ""   -- new line.
       let pad = T.justifyRight (level * 2 ) ' ' T.empty -- pad.
-      T.putStr pad
+      T.hPutStr h pad
 
       -- recurse on child items
-      T.putStr "("
-      mapM_ (printExpr (level + 1)) xs
-      T.putStr ")"
+      T.hPutStr h "("
+      mapM_ (printExpr h (level + 1)) xs
+      T.hPutStr h ")"
 
     Symbol s -> do
-      T.putStr s
+      T.hPutStr h s
 
     Num s -> do
-      T.putStr s
+      T.hPutStr h s
 
     SpecialIndex s -> do
-      T.putStr s
+      T.hPutStr h s
 
     SingleQuote -> do
-      T.putStr "\""
+      T.hPutStr h "\""
 
     StringLit s -> do
-      T.putStr "\""
-      T.putStr s
-      T.putStr "\""
+      T.hPutStr h "\""
+      T.hPutStr h s
+      T.hPutStr h "\""
 
 
 
@@ -338,8 +349,8 @@ transformPruneEmptyNets expr =
 
 
 
-doStuff ::  [ DRCError ] -> Expr -> IO ()
-doStuff drcExpr dsnExpr = do
+doStuff ::  Handle -> [ DRCError ] -> Expr -> IO ()
+doStuff h drcExpr dsnExpr = do
 
 
   -- show the drc expressions
@@ -365,21 +376,33 @@ doStuff drcExpr dsnExpr = do
   let trsfmExpr = (transformAddLayerDirective  . transformAddPinsIgnore   sUnconnected ) $ dsnExpr
 
 
-  printExpr 0 trsfmExpr
+
+  printExpr h 0 trsfmExpr
+
+{-
+    -- now we can pass a directory.
+    -- but want to write an output file.
+    -- should assemble text first?
+
+-}
 
 
--- now we want a function that takes the expression and the est
-
+-- withFile :: FilePath -> IOMode -> (Handle -> IO r) -> IO r
 
 main :: IO ()
 main =  do
 
+  args <- getArgs                  -- IO [String]
+  mapM P.putStrLn args
 
-  drc <- T.readFile "data/DRC.rpt"
+  let dir  = P.head args
+
+  drc <- T.readFile $ dir ++ "/DRC.rpt"
   --  T.putStrLn drc;
 
-  dsn <- T.readFile "data/main.dsn"
+  dsn <- T.readFile $ dir ++ "/main.dsn"
   --  putStrLn dsn
+
 
 
   let dsnParseResult = parseOnly exprParser dsn
@@ -389,16 +412,22 @@ main =  do
   -- TODO we need to chain the Either destructuring
   -- should be an easier way to chain this, so that left produces an errro
   either (\_ -> do
-      T.putStrLn $ "drc file is not a valid experssion or statemet"
+      T.putStrLn $ "drc file not valid"
     )
     ( \drcExpr -> do
 
             either (\_ -> do
-                T.putStrLn $ "dsn file is not a valid experssion or statemet"
+                T.putStrLn $ "dsn file not valid"
               )
               (\dsnExpr -> do
 
-                  doStuff drcExpr dsnExpr
+
+                  -- we want the file handling to happen at top level.
+                  withFile  (dir ++ "/out.dsn") WriteMode  (\h -> do
+
+                      doStuff h drcExpr dsnExpr
+                    )
+
               ) dsnParseResult
 
     ) drcParseResult
