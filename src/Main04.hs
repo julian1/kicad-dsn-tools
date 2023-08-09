@@ -7,94 +7,6 @@
 
 {-
 
-  EXTR - even if there are a few odd errors related to planes, that prevent 'autoroute',  one can still run 'postroute' .
-
-  -- GAHHH. when we reimport in kicad, again. all the traces get removed.  HMMMMM.
-  -- So we would need to edit them back onto the session file???
-  -- or we need another strategy to hide the net from freerouting but allow pass-through.
-  ---
-  -- actually editing the nets back into the network, - may not work - because the actual copper features may get removed, not just the net dependency.
-  -- possible need to move nets to a non-routable netclass. if cannot otherwise disable.
-  -- OR. rename them. eg.  CR_RESET to CR_RESET-NOROUTE and then rename back again.
-  -- is it not possible to set an attribute?
-  ----------
-
-  EXTR.   .ses has 'network_out' rather than 'network'.  AND it doesn't include netclass information - which is good..
-          SO. move nets to a non-routable netclass. and then the output will keep the net, but the change in netclass will not confuse kicad.
-
-          alternatively maybe there is an attribute that could be set per net.
-  --------
-  EXTR.   a per-net exclusion would be better than per netclass.  but some pins of a net we want to route. and some pins we don't , because already routed..
-
-  EXTR.  IN freerouting - in the code we changed, is the test per-net or per-pin?
-          i think it may be per pin.
-          So. we might be able to spit out a separate file - which was our original plan.
-
-  - Freerouting has Item. class which is a 'net' .  which is associated
-
-  - OK.  it is more complicated.  we wouldn't just have two netclasses - routable and non-routable..
-        But we would split the nets.
-        AGND routable. AGND not-routable.
-        No. changing the name of the net - would mean Kicad reimport won't work.
-
-
-    - the problem is that adding AGND with so many piis - exposes every single via. to being reworked by freerouting.
-
-      1727             Net net = this.board.rules.nets.get(net_no);
-      1728             if( ! net.get_class().get_is_routable() ) {
-      1729               return false;
-      1730             }
-
-
-    - The test is per net.   we need just need to change the code to indicate if the net is routable.    and then communicate that.
-       THIS IS GOOD.
-
-  - OK.
-        the pin -> net -> netclass.
-
-      - issue is we don't have clear - component and pin.
-      item_should_be_ignored analog3, A400-5, board.Pin@1f2d5a31
-
-      Pin.java class derives from Item. and has the component.
-      also Via.java
-
-      Component component = board.components.get(this.get_component_no());
-
-      int padstack_no = component.get_package().get_pin(pin_no).padstack_no;
-
-    For Pin.java derives from Item.  So we should be able to get info.
-
-    -- look at the parser for pin. it might have an attribute as to whether it needs to be routed.
-
-  this has to have everything.
-
-715     public void print_info(ObjectInfoPanel p_window, java.util.Locale p_locale)
-716     {
-717         java.util.ResourceBundle resources =
-718                 java.util.ResourceBundle.getBundle("board.resources.ObjectInfoPanel", p_locale);
-719         p_window.append_bold(resources.getString("pin") + ": ");
-720         p_window.append(resources.getString("component_2") + " ");
-721         Component component = board.components.get(this.get_component_no());
-722         p_window.append(component.name, resources.getString("component_info"), component);
-723         p_window.append(", " + resources.getString("pin_2") + " ");
-724         p_window.append(component.get_package().get_pin(this.pin_no).name);
-725         p_window.append(", " + resources.getString("padstack") + " ");
-726         library.Padstack padstack = this.get_padstack();
-727         p_window.append(padstack.name, resources.getString("padstack_info"), padstack);
-728         p_window.append(" " +  resources.getString("at") + " ");
-729         p_window.append(this.get_center().to_float());
-730         this.print_connectable_item_info(p_window, p_locale);
-731         p_window.newline();
-732     }
-
-    -- EXTR. IT MAY BE EASIER - TO change FREEROUTING - so it can read a PIN attribute - rather than communicating with a separate file.
-        --  rather than have a separate file.
-        --  and then we don't have to even to pin number and component number matching.
-        -- the attribute would just be there.
-  
-        --- MUST CHECK.
-
-
 -}
 
 
@@ -236,7 +148,8 @@ transformExpr sUnconnected expr =
     (pins U703-13 U414-13 U505-7 D404-3 U504-14 U301-3 U707-13 U1006-13 U907-7 U1003-13
     ->
     (net LP15V
-    (pins U703-13 U414-13 ))
+    (pins U703-13 U414-13 U505-7 D404-3 U504-14 U301-3 U707-13 U1006-13 U907-7 U1003-13
+    (off U703-13 U414-13 ))
   -}
   case expr of
     -- the only differene between these matches - is the netClass which may be expressed as either a string literal or symbol
@@ -386,6 +299,129 @@ main =  do
 
 
   return ()
+
+
+
+
+{-
+  EXTR - even if there are a few odd errors related to planes, that prevent 'autoroute',  one can still run 'postroute' .
+
+  -- GAHHH. when we reimport in kicad, again. all the traces get removed.  HMMMMM.
+  -- So we would need to edit them back onto the session file???
+  -- or we need another strategy to hide the net from freerouting but allow pass-through.
+  ---
+  -- actually editing the nets back into the network, - may not work - because the actual copper features may get removed, not just the net dependency.
+  -- possible need to move nets to a non-routable netclass. if cannot otherwise disable.
+  -- OR. rename them. eg.  CR_RESET to CR_RESET-NOROUTE and then rename back again.
+  -- is it not possible to set an attribute?
+  ----------
+
+  EXTR.   .ses has 'network_out' rather than 'network'.  AND it doesn't include netclass information - which is good..
+          SO. move nets to a non-routable netclass. and then the output will keep the net, but the change in netclass will not confuse kicad.
+
+          alternatively maybe there is an attribute that could be set per net.
+  --------
+  EXTR.   a per-net exclusion would be better than per netclass.  but some pins of a net we want to route. and some pins we don't , because already routed..
+
+  EXTR.  IN freerouting - in the code we changed, is the test per-net or per-pin?
+          i think it may be per pin.
+          So. we might be able to spit out a separate file - which was our original plan.
+
+  - Freerouting has Item. class which is a 'net' .  which is associated
+
+  - OK.  it is more complicated.  we wouldn't just have two netclasses - routable and non-routable..
+        But we would split the nets.
+        AGND routable. AGND not-routable.
+        No. changing the name of the net - would mean Kicad reimport won't work.
+
+
+    - the problem is that adding AGND with so many piis - exposes every single via. to being reworked by freerouting.
+
+      1727             Net net = this.board.rules.nets.get(net_no);
+      1728             if( ! net.get_class().get_is_routable() ) {
+      1729               return false;
+      1730             }
+
+
+    - The test is per net.   we need just need to change the code to indicate if the net is routable.    and then communicate that.
+       THIS IS GOOD.
+
+  - OK.
+        the pin -> net -> netclass.
+
+      - issue is we don't have clear - component and pin.
+      item_should_be_ignored analog3, A400-5, board.Pin@1f2d5a31
+
+      Pin.java class derives from Item. and has the component.
+      also Via.java
+
+      Component component = board.components.get(this.get_component_no());
+
+      int padstack_no = component.get_package().get_pin(pin_no).padstack_no;
+
+    For Pin.java derives from Item.  So we should be able to get info.
+
+    -- look at the parser for pin. it might have an attribute as to whether it needs to be routed.
+
+  this has to have everything.
+
+    -- EXTR. IT MAY BE EASIER - TO change FREEROUTING - so it can read a PIN attribute - rather than communicating with a separate file.
+        --  rather than have a separate file.
+        --  and then we don't have to even to pin number and component number matching.
+        -- the attribute would just be there.
+
+        --- MUST CHECK.
+
+      parsing function is,
+      Network.read_net_pins: String expected
+
+      src/main/java/designformats/specctra/Network.java:    private static boolean read_net_pins(Scanner p_scanner, Collection<Net.Pin> p_pin_list)
+
+      Also, for reading the net.
+      read_net_scope(Scanner p_scanner, NetList p_net_list, RoutingBoard p_board
+
+      issue is that the Net structure is different to the Item.
+  -------------- -----------------
+
+
+    EXTR.  - something easier to parse - would be a list of 'pins_ignore'.
+    OR - a separate list of ignore_pins
+
+    -- scanner  is jflex. but not called by maven. so have to use a different word.
+
+      -- 'off'  or 'none'.
+
+    - it's very hard to see the handling of Net.Pin to Board.Pin
+
+      https://github.com/flypie/freeRouting/
+
+      ---------
+
+    where is Pin created?
+
+    src/main/java/board/BasicBoard.java:        Pin new_pin = new Pin(p_component_no, p_pin_no, p_net_no_arr, p_clearance_class, 0, p_fixed_state, this);
+
+
+    seems to be most obvious. in BasicBoard.java
+     public Pin insert_pin(int p_component_no, int p_pin_no, int[] p_net_no_arr, int p_clearance_class, FixedState p_fixed_state)
+
+    And it is used in Network... GOOD....
+
+    src/main/java/board/BasicBoard.java:    public Pin insert_pin(int p_component_no, int p_pin_no, int[] p_net_no_arr, int p_clearance_class, FixedState p_fixed_state)
+    src/main/java/designformats/specctra/Network.java:            routing_board.insert_pin(new_component.no, i, net_no_arr, clearance_class, fixed_state);
+
+    called by  in Network.java
+       private static void insert_component(ComponentPlacement.ComponentLocation p_location, String p_lib_key,
+
+
+    we could try adding extra variable. - and then hooking it up for the is_routable test.
+    then we only need to communicate the value in the spectra file.  perhaps with a global/ var.
+
+
+
+-}
+
+
 
 {-
     EXTR. just override the should ignore... method.
