@@ -6,61 +6,35 @@
 
 
 {-
+  - usage
+    - just pass argument, to point at directory containing a DRC.rpt and main.dsn
+      and it will write transformed out.dsn
+
+  ------
 
   there are a lot of PolyLineTrace.   that we may want to change to non-routable by default.
     not sure it matters.  this is a test of whether its routable. and it already is routed, not unconnected, so it should be ok.
 
-  done - remove the prune empty nets.
-
-  export dsn from kicad
-  run this to generate main.dsn
-  copy to spectra file.  edit to remove the cabal stuff at the top.
-
-  run modified freerouting.
-  export ses from freerouting
-  import  ses into kica.
-  the damn thing worked.
-
-  except freerouting looks like it might be a bit stalled.
-    maybe because old track is wrong for pin. need to fix in kicad.
-
   - ok. got no unconnected. when re-import into kicad. very good.
+
+  TODO -
+    - done - inject the use_layer directive
+    - done - pass a directory as argument.  and then let it find the input dsn, DRC and write the output file.
+
+    - done - remove the prune empty nets.
+
+    - modify the clearance a little.  201 instead of 200.1 perhaps.
+
+    - a separate program - with filter for small DRC errors on trace clearance.  Or just set clearance in kicad to 0.19.  so can change/increate when we create the file.
+    - modify clearance a little.
+
+    - for output formatting - use map with index.  modulo  5 or modulo 10 for new line.
   ------
   chaining applicative either
 
    (\x  ->  x +1) <$> (\x -> x + 1 ) <$> Right 123
   --------
 
-  TODO -
-    - filter for small DRC errors on trace clearance.  Or just set clearance in kicad to 0.19.  so can change/increate when we create the file.
-
-    - use map with index.  modulo  5 or modulo 10 for new line. for better formatting.
-
-    - inject the routing layer.
-    - modify the clearance a little.  201 instead of 200.1 perhaps.
-    - pass a directory as argument.  and then let it find the input dsn, DRC and write the output file.
-
-  ---------
-
-  - issue of matching.
-  - pattern match a node - somewhere in a list.
-  -
-
-20042     )
-20043     (class analog "/ref-1200/CGND" "/ref-800/CGND" "A400-6" "LO-LC" "Net-(C102-Pad1)"
-20084       "SEC-18V-1"
-20085       (circuit
-20086         (use_via Via[0-5]_800:400_um)
-20087         (use_layer  F.Cu In1.Cu In2.Cu  )
-20088       )
-20089       (rule
-20090         (width 400)
-20091         (clearance 200.1)
-20092       )
-
-    1. match on the class.  then call a - specialized function - that has an argument for the specific class - for each of the nodes.
-    then we can match on circuit.
-    this is easy.
 
 
 -}
@@ -96,18 +70,6 @@ import Data.Either(either)
 
 
 
-
-
-{-
-  - could create a lazy text. or [ text ] and then we concatenate.
-  - or pass a file handle and just use IO.
-
-    hPutStr :: Handle -> Text -> IO ()
-
-    Write a string to a handle.
-    hPutStrLn :: Handle -> Text -> IO ()
-
--}
 
 printExpr ::  Handle -> Int -> Expr  ->  IO ()
 printExpr h level dsnExpr = do
@@ -351,6 +313,11 @@ transformPruneEmptyNets expr =
 
 doStuff ::  Handle -> [ DRCError ] -> Expr -> IO ()
 doStuff h drcExpr dsnExpr = do
+  {-
+      TODO, this really doesn't need to run in the IO monad.
+      except for intermediate data/error reporting
+      should just return the transformed expression.
+  -}
 
 
   -- show the drc expressions
@@ -379,15 +346,6 @@ doStuff h drcExpr dsnExpr = do
 
   printExpr h 0 trsfmExpr
 
-{-
-    -- now we can pass a directory.
-    -- but want to write an output file.
-    -- should assemble text first?
-
--}
-
-
--- withFile :: FilePath -> IOMode -> (Handle -> IO r) -> IO r
 
 main :: IO ()
 main =  do
