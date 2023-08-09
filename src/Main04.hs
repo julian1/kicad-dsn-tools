@@ -25,6 +25,43 @@
     maybe because old track is wrong for pin. need to fix in kicad.
 
   - ok. got no unconnected. when re-import into kicad. very good.
+  ------
+  chaining applicative either
+
+   (\x  ->  x +1) <$> (\x -> x + 1 ) <$> Right 123
+  --------
+
+  TODO -
+    - filter for small DRC errors on trace clearance.  Or just set clearance in kicad to 0.19.  so can change/increate when we create the file.
+
+    - use map with index.  modulo  5 or modulo 10 for new line. for better formatting.
+
+    - inject the routing layer.
+    - modify the clearance a little.  201 instead of 200.1 perhaps.
+    - pass a directory as argument.  and then let it find the input dsn, DRC and write the output file.
+
+  ---------
+
+  - issue of matching.
+  - pattern match a node - somewhere in a list.
+  -
+
+20042     )
+20043     (class analog "/ref-1200/CGND" "/ref-800/CGND" "A400-6" "LO-LC" "Net-(C102-Pad1)"
+20084       "SEC-18V-1"
+20085       (circuit
+20086         (use_via Via[0-5]_800:400_um)
+20087         (use_layer  F.Cu In1.Cu In2.Cu  )
+20088       )
+20089       (rule
+20090         (width 400)
+20091         (clearance 200.1)
+20092       )
+
+    1. match on the class.  then call a - specialized function - that has an argument for the specific class - for each of the nodes.
+    then we can match on circuit.
+    this is easy.
+
 
 -}
 
@@ -151,15 +188,14 @@ filterPins netClass sUnconnected pins =
         let
           (pinNum, designator) = getPinDesignator pin
         in
-        -- S.member ( Pad_  pinNum  netClass designator  "" ) sUnconnected
         S.notMember ( Pad_  pinNum  netClass designator  "" ) sUnconnected    -- pins to ignore.
 
 
 
 
 
-transformExpr :: S.Set PCBFeature -> Expr -> Expr
-transformExpr sUnconnected expr =
+transformAddPinsIgnore :: S.Set PCBFeature -> Expr -> Expr
+transformAddPinsIgnore sUnconnected expr =
   {-
     -- add additional field 'pins_ignore' but called 'off ' in order to avoid having to modify the freerouting flexer/scanner.
 
@@ -174,51 +210,96 @@ transformExpr sUnconnected expr =
   case expr of
     -- the only differene between these matches - is the netClass which may be expressed as either a string literal or symbol
 
-    -- we don't even need the netclass
-    -- the predicate matches the unconnected.
-    -- while we want the inverted set.
+    List whoot@[
+        Symbol "net",
+        Symbol netClass ,
+        (List (Symbol "pins" : pins))
+      ]
+      -> List $ whoot ++ [ List ( Symbol "off" : pins_ignore ) ]
+        where
+          pins_ignore = filterPins netClass sUnconnected pins
 
 
-    List [(Symbol "net" ),
-          (Symbol netClass {-|| StringLit netClass -} ) ,
-          (List ( (Symbol "pins") : pins))]  ->
-          let
-            pins2 = filterPins netClass sUnconnected pins
-          in
-            List [(Symbol "net" ),
-                  (Symbol netClass  ) ,
-                  (List ( (Symbol "pins") : pins )),
-                  (List ( (Symbol "off")  : pins2 ))
-                ]
+    List whoot@[
+        Symbol "net",
+        StringLit netClass ,
+        (List (Symbol "pins": pins))
+        ]
+        -> List $ whoot ++ [ List ( Symbol "off" : pins_ignore ) ]
+        where
+          pins_ignore = filterPins netClass sUnconnected pins
 
-
-    List [(Symbol "net"),
-          (StringLit netClass ) ,
-          (List ( (Symbol "pins"): pins ))]  ->
-          let
-            pins2 = filterPins netClass sUnconnected pins
-          in
-            List [(Symbol "net" ),
-                  (StringLit netClass  ) ,              -- StringLit.   BE VERY CAREFUL HERE, otherwise output will not be properly quoted.
-                  (List ( (Symbol "pins") : pins )),
-                  (List ( (Symbol "off")  : pins2 ))
-                ]
-
-    List xs ->
-      -- recurse into child nodes
-      List $  P.map (transformExpr sUnconnected) xs
-
+    List xs
+      -> List $  P.map (transformAddPinsIgnore sUnconnected) xs
 
     _ -> expr
 
 
-{-
 
-transformExpr2 ::  Expr -> Expr
-transformExpr2 expr =
+
+
+
+
+transformAddLayerDirective ::  Expr -> Expr
+transformAddLayerDirective expr =
   {-
-    -- pruneEmptyNets empty nets from network
-    -- have to match at the network level in order
+      (circuit
+        (use_via Via[0-5]_800:400_um)
+    -> add
+      (circuit
+        (use_via Via[0-5]_800:400_um)
+        ( use_layer F.Cu))
+  -}
+  case expr of
+
+    -- match a class node, and extract class name, and pass it through recursion on children
+    List ( Symbol "class" : className : xs )
+      -> List ( (Symbol "class " ) : className : (P.map (helper className) xs ))
+
+    List xs
+      -> List $ P.map transformAddLayerDirective xs
+
+    _ -> expr
+
+  where
+
+    helper className expr =
+      case expr of
+
+        -- NICE pattern matching!.
+        List whoot@((Symbol "circuit") : xs  )
+
+          -> case className of
+                -- we could construct these with parsed strings, to ease syntax if we wanted.
+                -- https://wiki.haskell.org/MultiCase
+
+                Symbol s | s == "analog"  || s == "analog2"
+                  -> List $ whoot ++ [ List [ Symbol "use_layer", Symbol "F.Cu", Symbol "In1.Cu", Symbol "In2.Cu"  ] ]
+
+                Symbol "analog3" -> List $ whoot ++ [ List [ Symbol "use_layer", Symbol "F.Cu", Symbol "In1.Cu", Symbol "In2.Cu", Symbol "B.Cu"  ] ]
+
+                Symbol "digital" -> List $ whoot ++ [ List [ Symbol "use_layer", Symbol "F.Cu", Symbol "In4.Cu", Symbol "B.Cu"  ] ]
+
+                Symbol s | s == "hc" || s == "hc2"
+                    -> List $ whoot ++ [ List [ Symbol "use_layer", Symbol "F.Cu", Symbol "In1.Cu", Symbol "In4.Cu", Symbol "B.Cu" ] ]
+
+                Symbol "hv" -> List $ whoot ++ [ List [ Symbol "use_layer", Symbol "F.Cu", Symbol "In1.Cu" ] ]
+
+                Symbol "power" -> List $ whoot ++ [ List [ Symbol "use_layer", Symbol "F.Cu", Symbol "In2.Cu", Symbol "In4.Cu",  Symbol "B.Cu" ] ]
+
+                _ -> List whoot
+
+        _ -> expr
+
+
+
+
+{-
+transformPruneEmptyNets ::  Expr -> Expr
+transformPruneEmptyNets expr =
+  {-
+    -- transformPruneEmptyNets empty nets from network
+    -- this is not useful. doesn't work. because the nets will dropped on kicad re-imiport
     eg.
     (net LP15V
     (pins )
@@ -227,36 +308,29 @@ transformExpr2 expr =
 
   case expr of
 
-    List ( (Symbol "network" ) : nets )  ->
+    List ( Symbol "network" : nets )
 
-      List ((Symbol "network" ) : nets2 )
-
+      -> List (Symbol "network" : nets2 )
       where
         nets2 =  P.filter f nets
         -- f x = True
         f x = case x of
-          List [(Symbol "net" ),
+          List [Symbol "net",
             (Symbol netClass  ) ,
-            (List ( (Symbol "pins") : pins))] | pins == [] -> False
+            (List ( Symbol "pins" : pins))] | pins == [] -> False
 
           List [(Symbol "net" ),
             (StringLit netClass) ,
-            (List ( (Symbol "pins") : pins))] | pins == [] -> False
+            (List ( Symbol "pins" : pins))] | pins == [] -> False
 
           _ -> True
 
-
-    List xs ->
-      -- recurse into child nodes
-      List $  P.map transformExpr2 xs
-
+    List xs
+      -> List $  P.map transformPruneEmptyNets xs
 
     _ -> expr
 
-
 -}
-
-
 
 
 
@@ -285,7 +359,11 @@ doStuff drcExpr dsnExpr = do
   -- let isMember = S.member  ( Pad_  "12" "/ice40-2-200/C-MISO" "U212" "" ) sUnconnected
   -- T.putStrLn $ "isMember " `T.append` (pack . show $ isMember)
 
-  let trsfmExpr = transformExpr sUnconnected $ dsnExpr
+  -- let trsfmExpr = transformAddPinsIgnore sUnconnected $ dsnExpr
+  -- let trsfmExpr = transformAddLayerDirective dsnExpr
+  -- let trsfmExpr = transformAddLayerDirective  $ transformAddPinsIgnore sUnconnected $ dsnExpr   -- works.
+  let trsfmExpr = (transformAddLayerDirective  . transformAddPinsIgnore   sUnconnected ) $ dsnExpr
+
 
   printExpr 0 trsfmExpr
 
