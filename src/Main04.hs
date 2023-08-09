@@ -7,6 +7,9 @@
 
 {-
 
+  there are a lot of PolyLineTrace.   that we may want to change to non-routable by default.
+    not sure it matters.  this is a test of whether its routable. and it already is routed, not unconnected, so it should be ok.
+
   done - remove the prune empty nets.
 
   export dsn from kicad
