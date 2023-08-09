@@ -20,6 +20,8 @@
   except freerouting looks like it might be a bit stalled.
     maybe because old track is wrong for pin. need to fix in kicad.
 
+  - ok. got no unconnected. when re-import into kicad. very good.
+
 -}
 
 
