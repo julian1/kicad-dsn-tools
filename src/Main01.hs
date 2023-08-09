@@ -21,8 +21,8 @@ import Lib
 
 -- import Text.RawString.QQ
 
-import Data.Text as T
-import Data.Text.IO as T
+--import Data.Text as T
+import Data.Text.IO as T(readFile, putStrLn, hPutStrLn)
 
 
 import System.IO(stdout)
@@ -59,21 +59,6 @@ main =  do
 
   let exprParseResult = parseOnly exprParser dsn
 
-{-
-  if isLeft exprParseResult
-    then do
-      T.putStrLn $ "not a valid experssion or statemet"
-    else do
-      -- T.putStrLn "ok"
-      -- putStrLn $ show  exprParseResult
-
-      let Right expr = exprParseResult
-
-
-      exprPrint stdout 0 expr
-
-      -- T.putStrLn "\n\ndone"
-  -}
 
   either (\_ -> do
       T.putStrLn $ "not a valid expr"

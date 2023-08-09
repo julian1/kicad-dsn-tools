@@ -9,16 +9,14 @@ import Data.Attoparsec.Text (Number)    -- Comes from where???
 import Data.Text (Text, unpack)
 import qualified Data.Map as Map
 
--- type Symbol = String
 
 -- data type for expression
 -- change name Sexpr.
 
 data Expr =
 
+    -- eg. for  (string_quote ")
     SingleQuote
-
-    -- | Num Number
 
     -- treat numbers as text as long as can
     | Num Text
@@ -29,8 +27,7 @@ data Expr =
 
     | Symbol Text
 
-    -- if index - was treated as string - then we wouldn't require this.
-    -- | SpecialIndex Text Text
+    -- integer, with an amperand. eg. 123@456
     | SpecialIndex Text
 
 
@@ -39,24 +36,6 @@ data Expr =
 
 
 ------------------------
-
-{-
-    rather than imposing this structure.
-    Might be easier to just have named data constructors, for each element.
-
-    Item, Pad, Layer  etc.
-
-    and let the DRCExpr be recursive.
-    name, val.
-    or
-    name ( val )
-    name [ ] then list.
-    value probably
-    ----
-    - key value pairs can be pattern matched... OK. but not easily. because they have to be in order.
-    - so i think using structure.
--}
-
 
 
 
@@ -116,6 +95,24 @@ data DRCError = DRCError {
 
 } deriving (Eq, Show)
 
+
+
+{-
+    rather than imposing this structure.
+    Might be easier to just have named data constructors, for each element.
+
+    Item, Pad, Layer  etc.
+
+    and let the DRCExpr be recursive.
+    name, val.
+    or
+    name ( val )
+    name [ ] then list.
+    value probably
+    ----
+    - key value pairs can be pattern matched... OK. but not easily. because they have to be in order.
+    - so i think using structure.
+-}
 
 
 

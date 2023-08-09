@@ -97,7 +97,8 @@ lexeme p = do
     p
 
 
--- this is dumb. should return a string, and let the caller do the data constructor
+-- perhaps should return a string, and let the caller do the data constructor
+-- perhaps should restrict starting char - to alpha/digit.
 symbolParser :: Parser Expr
 symbolParser = do
     skipSpace
@@ -113,6 +114,7 @@ symbolParser = do
         || c == '[' || c == ']'
         || c == '/'
         || c == '~'
+        || c == '&'     --   (layers F&B.Cu) 
 
       )
     return (Symbol symbol )
