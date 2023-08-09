@@ -421,6 +421,8 @@ main =  do
               )
               (\dsnExpr -> do
 
+                  let outName  = (dir ++ "/out.dsn")
+                  P.putStrLn $ "writing to "  ++ outName
 
                   -- we want the file handling to happen at top level.
                   withFile  (dir ++ "/out.dsn") WriteMode  (\h -> do
