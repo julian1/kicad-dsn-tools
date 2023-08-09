@@ -7,18 +7,18 @@
 
 {-
 
-  OK. this seems to be dropping connections.
-  In the turnaround...
-  ---
-  perhaps pins are being recorded twice?
 
-  just goinig through import and export cycle - and we lose stuff??/
-  BECAUSE WE ARE not using the dsn.
-  -----
+  export dsn from kicad
+  run this to generate main.dsn
+  copy to spectra file.  edit to remove the cabal stuff at the top.
+  
+  run modified freerouting.
+  export ses from freerouting
+  import  ses into kica.
+  the damn thing worked.
 
-  It is weird. if don't have transform - then it's ok.
-  ----
-  It is ok. except if we add the off items. which is really weird.  it should not change anything.
+  except freerouting looks like it might be a bit stalled.
+    maybe because old track is wrong for pin. need to fix in kicad.
 
 -}
 
