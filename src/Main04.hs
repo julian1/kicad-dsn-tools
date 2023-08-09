@@ -7,6 +7,19 @@
 
 {-
 
+  OK. this seems to be dropping connections.
+  In the turnaround...
+  ---
+  perhaps pins are being recorded twice?
+
+  just goinig through import and export cycle - and we lose stuff??/
+  BECAUSE WE ARE not using the dsn.
+  -----
+
+  It is weird. if don't have transform - then it's ok.
+  ----
+  It is ok. except if we add the off items. which is really weird.  it should not change anything.
+
 -}
 
 
@@ -132,7 +145,8 @@ filterPins netClass sUnconnected pins =
         let
           (pinNum, designator) = getPinDesignator pin
         in
-        S.member ( Pad_  pinNum  netClass designator  "" ) sUnconnected
+        -- S.member ( Pad_  pinNum  netClass designator  "" ) sUnconnected
+        S.notMember ( Pad_  pinNum  netClass designator  "" ) sUnconnected    -- pins to ignore.
 
 
 
@@ -154,6 +168,11 @@ transformExpr sUnconnected expr =
   case expr of
     -- the only differene between these matches - is the netClass which may be expressed as either a string literal or symbol
 
+    -- we don't even need the netclass
+    -- the predicate matches the unconnected.
+    -- while we want the inverted set.
+
+
     List [(Symbol "net" ),
           (Symbol netClass {-|| StringLit netClass -} ) ,
           (List ( (Symbol "pins") : pins))]  ->
@@ -162,7 +181,9 @@ transformExpr sUnconnected expr =
           in
             List [(Symbol "net" ),
                   (Symbol netClass  ) ,
-                  (List ( (Symbol "pins") : pins2 ))]
+                  (List ( (Symbol "pins") : pins )) --,
+                  -- (List ( (Symbol "off")  : pins2 ))
+                ]
 
 
     List [(Symbol "net"),
@@ -172,8 +193,10 @@ transformExpr sUnconnected expr =
             pins2 = filterPins netClass sUnconnected pins
           in
             List [(Symbol "net" ),
-                  (Symbol netClass  ) ,
-                  (List ( (Symbol "pins") : pins2 ))]
+                  (StringLit netClass  ) ,              -- StringLit.   BE VERY CAREFUL HERE, otherwise output will not be properly quoted.
+                  (List ( (Symbol "pins") : pins )) -- ,
+                  -- (List ( (Symbol "off")  : pins2 ))
+                ]
 
     List xs ->
       -- recurse into child nodes
