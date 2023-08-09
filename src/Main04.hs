@@ -7,11 +7,12 @@
 
 {-
 
+  done - remove the prune empty nets.
 
   export dsn from kicad
   run this to generate main.dsn
   copy to spectra file.  edit to remove the cabal stuff at the top.
-  
+
   run modified freerouting.
   export ses from freerouting
   import  ses into kica.
@@ -157,8 +158,8 @@ filterPins netClass sUnconnected pins =
 transformExpr :: S.Set PCBFeature -> Expr -> Expr
 transformExpr sUnconnected expr =
   {-
-    -- pruneUnconnectedPins
-    -  component pins from net if they do not appear in the drc unconnected
+    -- add additional field 'pins_ignore' but called 'off ' in order to avoid having to modify the freerouting flexer/scanner.
+
     eg.
     (net LP15V
     (pins U703-13 U414-13 U505-7 D404-3 U504-14 U301-3 U707-13 U1006-13 U907-7 U1003-13
@@ -208,7 +209,7 @@ transformExpr sUnconnected expr =
     _ -> expr
 
 
-
+{-
 
 transformExpr2 ::  Expr -> Expr
 transformExpr2 expr =
@@ -250,7 +251,7 @@ transformExpr2 expr =
     _ -> expr
 
 
-
+-}
 
 
 
@@ -281,7 +282,7 @@ doStuff drcExpr dsnExpr = do
   -- let isMember = S.member  ( Pad_  "12" "/ice40-2-200/C-MISO" "U212" "" ) sUnconnected
   -- T.putStrLn $ "isMember " `T.append` (pack . show $ isMember)
 
-  let trsfmExpr = transformExpr2 . transformExpr sUnconnected $ dsnExpr
+  let trsfmExpr = transformExpr sUnconnected $ dsnExpr
 
   printExpr 0 trsfmExpr
 
