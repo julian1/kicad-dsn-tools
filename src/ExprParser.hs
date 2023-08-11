@@ -97,8 +97,10 @@ lexeme p = do
     p
 
 
--- perhaps should return a string, and let the caller do the data constructor
--- perhaps should restrict starting char - to alpha/digit.
+{-
+  perhaps should return a string, and let the caller add the data constructor
+  since this is the lowest priority construction  - we could just glob anything char here - except for a single quote char.
+-}
 symbolParser :: Parser Expr
 symbolParser = do
     skipSpace
@@ -114,20 +116,15 @@ symbolParser = do
         || c == '[' || c == ']'
         || c == '/'
         || c == '~'
-        || c == '&'     --   (layers F&B.Cu) 
+        || c == '&'     --   (layers F&B.Cu)
 
       )
     return (Symbol symbol )
 
 
--- a integer will be picked up as a double.
--- the only way to do this is parse integer , and check the final digit is not a dot '.'.
-
 
 
 numParser ::  Parser Expr
--- numParser ::  Parser Text
-
 numParser = do
     skipSpace
 
@@ -182,14 +179,12 @@ specialIndexParser = do
   skipSpace
   -- must include the '@' char, to avoid being parsed as regular number
   -- this parses correctly, but doesn't give us the concatenated result
-  -- j <- takeWhile1 isDecimal *> takeWhile1 (\c -> c == '@') *> takeWhile1 isDecimal
 
   first     <- takeWhile1 isDecimal
   ampersand <- char '@'
   last      <- takeWhile1 isDecimal
+  -- next char expected to be whitespace.
 
-  -- // return (SpecialIndex (first <|> ampersand <|> last ))
-  -- return (SpecialIndex (append first last ))
   return (SpecialIndex $ T.concat [ first, "@", last ]  )
 
 
