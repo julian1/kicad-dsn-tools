@@ -92,6 +92,7 @@ matchUnconnected DRCError { _name =   "unconnected_items" , _explanation , _feat
       f (Geom_ pad nc   )   = Geom_ pad nc
       f (Track_ nc l len )  = Track_ nc l len
       f (Via_ nc l )        = Via_ nc l
+      f (Zone_ nc layer)    = Zone_ nc layer
 
 matchUnconnected _ = [ ]
 
@@ -292,7 +293,10 @@ doStuff h drcExpr dsnExpr = do
   let lunconnected = mconcat $ P.map matchUnconnected drcExpr
 
   -- print the unconnected features
-  mapM_ ( P.putStrLn . show ) lunconnected
+  -- mapM_ ( P.putStrLn . show ) lunconnected
+
+  -- P.putStrLn $ "unconnected items " ++ (P.show . P.length) $ lunconnected
+  P.putStrLn $ "unconnected items " ++ (P.show . P.length) lunconnected
 
   -- convert to a set for easy lookup
   let sUnconnected  = S.fromList lunconnected
