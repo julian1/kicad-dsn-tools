@@ -59,6 +59,9 @@ data PCBFeature  =
   -- netclass, layer, length
   | Track_  Text Text Text
 
+  -- netclass layer
+  | Zone_  Text Text
+
   -- netclass, layer
   | Via_ Text Text
 

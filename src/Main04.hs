@@ -26,7 +26,7 @@
 
     -  actually think issue with kicad geometry - is that kicad carries excess precision (in .kicad_pcb file), that gets rounded by freerouting on spectra import.
 
-    - and kicad tries to compensate - ie. exported clearance is 201.1 which is odd. not 200.  for 0.2mm
+    - and kicad tries to compensate - ie. exported clearance is 201.1 which is odd. not 200.  for 0.2m
 
     - a separate program - with filter for small DRC errors on trace clearance.  Or just set clearance in kicad to 0.19.  so can change/increate when we create the file.
     - modify clearance a little.
@@ -292,7 +292,7 @@ doStuff h drcExpr dsnExpr = do
   let lunconnected = mconcat $ P.map matchUnconnected drcExpr
 
   -- print the unconnected features
-  -- mapM_ ( Prelude.putStrLn . show ) lunconnected
+  mapM_ ( P.putStrLn . show ) lunconnected
 
   -- convert to a set for easy lookup
   let sUnconnected  = S.fromList lunconnected

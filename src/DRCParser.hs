@@ -7,7 +7,7 @@ module DRCParser
     (
       drcParser,
       main
-    ) 
+    )
 where
 
 import Control.Applicative ((<|>), (<$>), some, many ) -- JA
@@ -113,7 +113,7 @@ drcTHPadParser = do
   string "Through hole pad"
   skipSpace
 
-  {- 
+  {-
     OK. so padNum is optional here (eg. for a Mounting Hole) . how do we handle this?
     OK. this works/compiles...  to handle missing value.
     alternatively create a decimal to return a Maybe/ Just value.
@@ -122,7 +122,7 @@ drcTHPadParser = do
   -}
   -- padNum <- option (-1) decimal
 
-  padNum <- A.takeWhile isDecimal -- may be empty.
+  padNum <- A.takeWhile (\c -> isAlpha c || isDigit c )  -- may be empty.
 
 
   -- parse netclass
@@ -133,7 +133,7 @@ drcTHPadParser = do
 
   -- parse component
   skipSpace
-  component <- takeWhile1 ( \c -> isAlpha c || isDigit c )
+  component <- takeWhile1 (\c -> isAlpha c || isDigit c )
 
   return $ PadTH_ padNum netClass component
   -- return $ Pad_ padNum netClass component ""
@@ -169,6 +169,35 @@ drcGeomParser = do
 
 
 
+{-
+
+222     @(250.7617 mm, 125.9692 mm): Track [AGND] on B.Cu, length 1.6078 mm
+223     @(249.1539 mm, 125.9692 mm): Track [AGND] on In2.Cu, length 2.7817 mm
+224 [unconnected_items]: Missing connection between items
+225     Local override; Severity: error
+226     @(153.0350 mm, 63.5000 mm): Zone [AGND] on F.Cu and 2 more
+-}
+
+
+
+drcZoneParser :: Parser PCBFeature
+drcZoneParser = do
+
+  -- Zone [Net-(U102-Pad11)] on F.Cu, length 1.0827 mm
+
+  skipSpace
+  string "Zone"
+
+  -- parse netclass
+  netClass <- parseNetclass
+
+  skipSpace
+  string "on"     -- keyword 'on'. not 'of'
+
+  skipSpace
+  layer <- takeWhile1 ( \c -> c /= '\n' )
+
+  return $ Zone_ netClass layer
 
 
 
@@ -236,7 +265,7 @@ pcbFeatureParser = do
   lexeme $ char ':'
 
   -- parse feature
-  feature <- drcPadParser <|> drcTHPadParser <|> drcTrackParser <|> drcViaParser <|> drcGeomParser
+  feature <- drcPadParser <|> drcTHPadParser <|> drcTrackParser <|> drcViaParser <|> drcGeomParser <|> drcZoneParser
 
 
   -- this could probably be a tuple instead .
