@@ -6,6 +6,9 @@
 
 
 {-
+  - could filter by area/location.
+  - or the component designator .
+
   - usage
     - just pass argument, to point at directory containing a DRC.rpt and main.dsn
       and it will write transformed out.dsn
@@ -38,7 +41,36 @@
    (\x  ->  x +1) <$> (\x -> x + 1 ) <$> Right 123
   --------
 
+  =====================
+  there's an issue - some things that need to be connected are marked off.
 
+    J301-Pad2. is off in the dsn. but it's unconnected.
+
+    But it's marked - in the DRC as unconnected...
+
+    [unconnected_items]: Missing connection between items
+    Local override; Severity: error
+    @(270.8450 mm, 43.7100 mm): Through hole pad 2 [Net-(J301-Pad2)] of J301
+
+
+  It is marked as unconnected in the drc list.
+  Issue with quoting? perhaps
+
+    PadTH_ "2" "Net-(J301-Pad2)" "J301"
+
+
+  happens on the through-hole connectors. J. designators.
+
+  we could simplify the board.
+
+  DRC looks like this.  No way to tell if through-hole.
+  SO.
+
+  ( net "Net-(J301-Pad2)"
+      ( pins J301-2 SW301-5))
+
+
+  So membership test. must be for both.
 
 -}
 
@@ -126,10 +158,20 @@ filterPins netClass sUnconnected pins =
         let
           (pinNum, designator) = getPinDesignator pin
         in
-        S.notMember ( Pad_  pinNum  netClass designator  "" ) sUnconnected    -- pins to ignore.
+        not (
+          S.member ( Pad_  pinNum  netClass designator  "" ) sUnconnected    -- is SMD connected.
+          ||
+          S.member ( PadTH_ pinNum  netClass designator  ) sUnconnected    -- or is TH pad connected
+        )
 
+{-
+  -- this logic doesn't work. because it's inverted.
 
+  -- having an AND turns it off
 
+  -- this logic is hard.
+  - we need to print the count of excluded pins.
+-}
 
 
 transformAddPinsIgnore :: S.Set PCBFeature -> Expr -> Expr
@@ -292,22 +334,19 @@ doStuff h drcExpr dsnExpr = do
   -- better to change matchUnconnected name. to getUnconnected. or matchUnconnected
   let lunconnected = mconcat $ P.map matchUnconnected drcExpr
 
+  P.putStrLn $ "unconnected items " ++ (P.show . P.length) lunconnected
+
   -- print the unconnected features
   -- mapM_ ( P.putStrLn . show ) lunconnected
 
-  -- P.putStrLn $ "unconnected items " ++ (P.show . P.length) $ lunconnected
-  P.putStrLn $ "unconnected items " ++ (P.show . P.length) lunconnected
 
   -- convert to a set for easy lookup
   let sUnconnected  = S.fromList lunconnected
 
-  -- see if we can lookup a feature
+  -- test lookup a feature
   -- let isMember = S.member  ( Pad_  "12" "/ice40-2-200/C-MISO" "U212" "" ) sUnconnected
   -- T.putStrLn $ "isMember " `T.append` (pack . show $ isMember)
 
-  -- let trsfmExpr = transformAddPinsIgnore sUnconnected $ dsnExpr
-  -- let trsfmExpr = transformAddLayerDirective dsnExpr
-  -- let trsfmExpr = transformAddLayerDirective  $ transformAddPinsIgnore sUnconnected $ dsnExpr   -- works.
   let trsfmExpr = (transformAddLayerDirective  . transformAddPinsIgnore   sUnconnected ) $ dsnExpr
 
 
