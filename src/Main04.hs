@@ -10,8 +10,8 @@
   - or the component designator .
 
   - usage
-    - just pass argument, to point at directory containing a DRC.rpt and main.dsn
-      and it will write transformed out.dsn
+    - just pass directory argument, in which to find main.dsn and DRC.rpt
+      and write transformed out.dsn,
 
   ------
 
@@ -19,6 +19,8 @@
     not sure it matters.  this is a test of whether its routable. and it already is routed, not unconnected, so it should be ok.
 
   - ok. got no unconnected. when re-import into kicad. very good.
+
+
 
   TODO -
     - done - inject the use_layer directive
@@ -48,36 +50,6 @@
    (\x  ->  x +1) <$> (\x -> x + 1 ) <$> Right 123
   --------
 
-  =====================
-  there's an issue - some things that need to be connected are marked off.
-
-    J301-Pad2. is off in the dsn. but it's unconnected.
-
-    But it's marked - in the DRC as unconnected...
-
-    [unconnected_items]: Missing connection between items
-    Local override; Severity: error
-    @(270.8450 mm, 43.7100 mm): Through hole pad 2 [Net-(J301-Pad2)] of J301
-
-
-  It is marked as unconnected in the drc list.
-  Issue with quoting? perhaps
-
-    PadTH_ "2" "Net-(J301-Pad2)" "J301"
-
-
-  happens on the through-hole connectors. J. designators.
-
-  we could simplify the board.
-
-  DRC looks like this.  No way to tell if through-hole.
-  SO.
-
-  ( net "Net-(J301-Pad2)"
-      ( pins J301-2 SW301-5))
-
-
-  So membership test. must be for both.
 
 -}
 
@@ -418,6 +390,38 @@ main =  do
   return ()
 
 
+{-
+  =====================
+  there's an issue - some things that need to be connected are marked off.
+
+    J301-Pad2. is off in the dsn. but it's unconnected.
+
+    But it's marked - in the DRC as unconnected...
+
+    [unconnected_items]: Missing connection between items
+    Local override; Severity: error
+    @(270.8450 mm, 43.7100 mm): Through hole pad 2 [Net-(J301-Pad2)] of J301
+
+
+  It is marked as unconnected in the drc list.
+  Issue with quoting? perhaps
+
+    PadTH_ "2" "Net-(J301-Pad2)" "J301"
+
+
+  happens on the through-hole connectors. J. designators.
+
+  we could simplify the board.
+
+  DRC looks like this.  No way to tell if through-hole.
+  SO.
+
+  ( net "Net-(J301-Pad2)"
+      ( pins J301-2 SW301-5))
+
+
+  So membership test. must be for both.
+-}
 
 
 {-
