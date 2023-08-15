@@ -26,6 +26,10 @@
       when find the Fab node, we can return a reconstructed/ node with adjusted position.
 
 
+  - rename dsn-kicad-tools.
+
+  - looks like may be  issue with inner pads. that get off directive. even though everything works?
+
   TODO -
     - done - inject the use_layer directive
     - done - pass a directory as argument.  and then let it find the input dsn, DRC and write the output file.
