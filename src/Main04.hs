@@ -35,6 +35,13 @@
     - modify clearance a little.
 
     - for output formatting - use map with index.  modulo  5 or modulo 10 for new line.
+    -------
+
+    - component fab layer position,  same position as silk.
+    - check silk is always above or to left.
+    - remove text comments.
+
+
   ------
   chaining applicative either
 
@@ -265,10 +272,10 @@ transformAddLayerDirective expr =
 
                 Symbol "hv" -> List $ whoot ++ [ List [ Symbol "use_layer", Symbol "F.Cu", Symbol "In1.Cu" ] ]
 
-                -- add power from In2, In4 to ->   In1, In2. for inner layer star footprint fan-out can work?
+                -- add power from (In2, In4) to ->   (In1, In2, In4). for inner layer star footprint fan-out can work?
                 -- In2, and In4
-                -- try it.
-                Symbol "power" -> List $ whoot ++ [ List [ Symbol "use_layer", Symbol "F.Cu", Symbol "In1.Cu", Symbol "In2.Cu",  Symbol "B.Cu" ] ]
+                -- review. try it.
+                Symbol "power" -> List $ whoot ++ [ List [ Symbol "use_layer", Symbol "F.Cu", Symbol "In1.Cu", Symbol "In2.Cu", Symbol "In4.Cu",   Symbol "B.Cu" ] ]
 
                 _ -> List whoot
 
