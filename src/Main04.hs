@@ -21,6 +21,10 @@
   - ok. got no unconnected. when re-import into kicad. very good.
 
 
+  - the way to do kicad_pcb Silk, Fab attributes -
+      is match on the head. then find the reference attribute the listc - Fab. then pass down in the recursion.
+      when find the Fab node, we can return a reconstructed/ node with adjusted position.
+
 
   TODO -
     - done - inject the use_layer directive
