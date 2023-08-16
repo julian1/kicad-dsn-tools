@@ -255,7 +255,8 @@ transformAddLayerDirective expr =
                 -- add power from (In2, In4) to ->   (In1, In2, In4). for inner layer star footprint fan-out can work?
                 -- In2, and In4
                 -- review. try it.
-                Symbol "power" -> List $ whoot ++ [ List [ Symbol "use_layer", Symbol "F.Cu", Symbol "In1.Cu", Symbol "In2.Cu", Symbol "In4.Cu",   Symbol "B.Cu" ] ]
+                -- Symbol "power" -> List $ whoot ++ [ List [ Symbol "use_layer", Symbol "F.Cu", Symbol "In1.Cu", Symbol "In2.Cu", Symbol "In4.Cu",   Symbol "B.Cu" ] ]
+                Symbol "power" -> List $ whoot ++ [ List [ Symbol "use_layer", Symbol "F.Cu", Symbol "In1.Cu",  Symbol "In4.Cu",   Symbol "B.Cu" ] ]
 
                 _ -> List whoot
 
