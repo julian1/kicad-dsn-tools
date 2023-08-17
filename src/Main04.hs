@@ -256,7 +256,12 @@ transformAddLayerDirective expr =
                 -- In2, and In4
                 -- review. try it.
                 -- Symbol "power" -> List $ whoot ++ [ List [ Symbol "use_layer", Symbol "F.Cu", Symbol "In1.Cu", Symbol "In2.Cu", Symbol "In4.Cu",   Symbol "B.Cu" ] ]
-                Symbol "power" -> List $ whoot ++ [ List [ Symbol "use_layer", Symbol "F.Cu", Symbol "In1.Cu",  Symbol "In4.Cu",   Symbol "B.Cu" ] ]
+                -- Symbol "power" -> List $ whoot ++ [ List [ Symbol "use_layer", Symbol "F.Cu", Symbol "In1.Cu",  Symbol "In4.Cu",   Symbol "B.Cu" ] ]
+
+                -- In3. is power. so we have to add it specifically.as well. if treating the layer as signal rather than power.
+                -- treating as power - produces the thin traces error.
+
+                Symbol "power" -> List $ whoot ++ [ List [ Symbol "use_layer", Symbol "F.Cu", Symbol "In1.Cu",  Symbol "In3.Cu", Symbol "In4.Cu",   Symbol "B.Cu" ] ]
 
                 _ -> List whoot
 
