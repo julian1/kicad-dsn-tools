@@ -6,6 +6,10 @@
 
 
 {-
+  format, 
+  https://cdn.hackaday.io/files/1666717130852064/specctra.pdf
+
+  -----
   - could filter by area/location.
   - or the component designator .
 
@@ -50,6 +54,10 @@
     - component fab layer position,  same position as silk.
     - check silk is always above or to left.
     - remove text comments.
+
+      ---------
+
+    - must check if rules items in .rules are respected if placed in dsn.
 
 
   ------

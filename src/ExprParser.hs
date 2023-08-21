@@ -6,7 +6,18 @@
 
 -- combine the 'exprParse' functions into one module
 
+
+
 {-
+  format, 
+  https://cdn.hackaday.io/files/1666717130852064/specctra.pdf
+
+  https://docs.kicad.org/doxygen/classDSN_1_1PCB.html
+ 
+  freerouting, 
+    designformats/specctra/SpecctraFileDescription.flex
+
+
   we can probably calc the error position, by having a catch-all that globs the text of remaining file.
   then count the number of newline chars til the end.
   then subtract from file size
