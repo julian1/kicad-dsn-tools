@@ -158,7 +158,7 @@ transformAddPinsIgnore sUnconnected expr =
 transUnconnected :: [ DRCError ] -> Expr -> Expr
 transUnconnected drcExpr dsnExpr =
 
-  let 
+  let
     -- convert the drcExpression to the set of unconnected features, for easy lookup.
     -- better to change matchUnconnected name. to getUnconnected. or matchUnconnected
     lunconnected = mconcat $ P.map matchUnconnected drcExpr
@@ -174,6 +174,7 @@ transUnconnected drcExpr dsnExpr =
 
 trans8layer ::  Expr -> Expr
 trans8layer expr =
+  -- add use_layer directives for eight layer
   {-
       (circuit
         (use_via Via[0-5]_800:400_um)
@@ -183,7 +184,6 @@ trans8layer expr =
         ( use_layer F.Cu))
   -}
   case expr of
-
     -- match a class node, and extract class name, and pass it through recursion on children
     List ( Symbol "class" : className : xs )
       -> List ( (Symbol "class " ) : className : (P.map (helper className) xs ))
@@ -194,7 +194,6 @@ trans8layer expr =
     _ -> expr
 
   where
-
     helper className expr =
       case expr of
 
@@ -211,14 +210,59 @@ trans8layer expr =
 
                   | s == "hv" -> List $ whoot ++ [ List [ Symbol "use_layer", Symbol "F.Cu", Symbol "In1.Cu" ] ]
 
-                  | s == "digital" || s == "power"  -> List $ whoot ++ [ List [ Symbol "use_layer", Symbol "F.Cu", Symbol "B.Cu", Symbol "In5.Cu", Symbol "In6.Cu"  ] ]
+                  | s == "digital"  -> List $ whoot ++ [ List [ Symbol "use_layer", Symbol "F.Cu", Symbol "B.Cu", Symbol "In5.Cu", Symbol "In6.Cu"  ] ]
 
-                -- deep in a recursion - what value is failing???  "nc" "kicad_default" "no_clearance"
-                -- SHOULD FAIL
+                  -- same as digital - but include In4, as local copper fill (gnd).
+                  | s == "power"  -> List $ whoot ++ [ List [ Symbol "use_layer", Symbol "F.Cu", Symbol "B.Cu", Symbol "In4.Cu", Symbol "In5.Cu", Symbol "In6.Cu"  ] ]
+
+
+                -- append error for unknown netclass
                 -- _ -> List $ whoot ++ [ Symbol "ERROR"   ]
                 _ -> List $ whoot
 
         _ -> expr
+
+
+
+
+
+trans6layer ::  Expr -> Expr
+trans6layer expr =
+  case expr of
+    -- add use_layer directives for six layer
+    List ( Symbol "class" : className : xs )
+      -> List ( (Symbol "class " ) : className : (P.map (helper className) xs ))
+
+    List xs
+      -> List $ P.map trans6layer xs    -- 6 layer. careful. not to call co-recursively!!
+
+    _ -> expr
+
+  where
+    helper className expr =
+      case expr of
+
+        List whoot@((Symbol "circuit") : xs  )
+
+          -> case className of
+
+                Symbol s
+                  | s == "analog"  || s == "analog2" || s == "analog3" || s == "hc" || s == "hc2" || s == "digital"
+                      -> List $ whoot ++  [ List [ Symbol "use_layer", Symbol "F.Cu", Symbol "B.Cu", Symbol "In1.Cu", Symbol "In2.Cu", Symbol "In4.Cu" ] ]
+
+
+                  | s == "hv" -> List $ whoot ++ [ List [ Symbol "use_layer", Symbol "F.Cu", Symbol "In1.Cu" ] ]
+
+                  -- power is allowed to use In3 for gnd. but has high routing cost.
+                  | s == "power"
+                      -> List $ whoot ++  [ List [ Symbol "use_layer", Symbol "F.Cu", Symbol "B.Cu", Symbol "In1.Cu", Symbol "In2.Cu", Symbol "In3.Cu", Symbol "In4.Cu" ] ]
+
+                _ -> List $ whoot
+
+        _ -> expr
+
+
+
 
 
 
@@ -248,38 +292,46 @@ main =  do
   let dsnParseResult = parseOnly exprParser dsn
   let drcParseResult = parseOnly drcParser drc
 
-  -- let layerTransform = foldl(\f xf ->  case (P.head args_) of
-
-  --  EXTR. actually can chain the transforms together with a fold. and using id as the base case.
-  -- so put the directory argument first.
-  -- or don't even have to pre-construct the transform... just
-
 
   -- fold over the arguments and build a transform function
 
-  let layerTransform = P.foldl  f  id (args_)
-        -- where f arg transform = id
-        where 
-        f transform  arg = 
+  let transform = P.foldl  f  id (args_)
+        where
+        f transform  arg =
           case arg of
             "id" -> id . transform
-            
-            "8" -> ( trans8layer)  . transform
 
-            "drc" ->  case drcParseResult of 
+            "6" -> trans6layer . transform
 
-                               Right drcExpr -> transUnconnected  drcExpr
+            "8" -> trans8layer . transform
+
+            "drc" ->
+              case drcParseResult of
+                Right drcExpr -> (transUnconnected  drcExpr) . transform
 
             _ -> error "unrecognized arg"
 
+
+  {-
+    -- stdout.
+    case dsnParseResult of
+      Right  dsnExpr ->
+        exprPrint stdout 0 (transform dsnExpr)
+  -}
+
+
+  let outName  = (dir ++ "/out.dsn")
   
-  -- Ok. we really only want to destructure - files . if valid.
+  P.putStrLn $ "writing to "  ++ outName
 
-  -- stdout.
-  case dsnParseResult of
-    Right  dsnExpr -> 
+  -- we want the file handling to happen at top level.
+  withFile  (dir ++ "/out.dsn") WriteMode  (\h -> do
 
-      exprPrint stdout 0 (layerTransform dsnExpr)
+    case dsnParseResult of
+      Right  dsnExpr ->
+        exprPrint h 0 (transform dsnExpr)
+    )
+
 
 
   return ()
