@@ -230,6 +230,8 @@ trans6layer ::  Expr -> Expr
 trans6layer expr =
   case expr of
     -- add use_layer directives for six layer
+    -- remember - we just give hi layer cost - to stop routing on top/gnd/bottom layers.
+
     List ( Symbol "class" : className : xs )
       -> List ( (Symbol "class " ) : className : (P.map (helper className) xs ))
 
