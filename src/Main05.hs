@@ -249,19 +249,73 @@ trans6layer expr =
           -> case className of
 
                 Symbol s
-                  | s == "analog"  || s == "analog2" || s == "analog3" || s == "hc" || s == "hc2" || s == "digital"
+                  | s == "analog"  || s == "analog2" || s == "hc" || s == "hc2" || s == "digital"
                       -> List $ whoot ++  [ List [ Symbol "use_layer", Symbol "F.Cu", Symbol "B.Cu", Symbol "In1.Cu", Symbol "In2.Cu", Symbol "In4.Cu" ] ]
 
-
+                  -- hv constrained to top layers
                   | s == "hv" -> List $ whoot ++ [ List [ Symbol "use_layer", Symbol "F.Cu", Symbol "In1.Cu" ] ]
 
-                  -- power is allowed to use In3 for gnd. but has high routing cost.
-                  | s == "power"
+                  -- power or guard - any layer. we reduce routing using high routing cost parameter.
+                  | s == "power" || s == "guard"
                       -> List $ whoot ++  [ List [ Symbol "use_layer", Symbol "F.Cu", Symbol "B.Cu", Symbol "In1.Cu", Symbol "In2.Cu", Symbol "In3.Cu", Symbol "In4.Cu" ] ]
 
                 _ -> List $ whoot
 
         _ -> expr
+
+
+
+
+
+
+
+trans65layer ::  Expr -> Expr
+trans65layer expr =
+  case expr of
+    -- add use_layer directives for six layer
+    -- remember - we just give hi layer cost - to stop routing on top/gnd/bottom layers.
+
+    List ( Symbol "class" : className : xs )
+      -> List ( (Symbol "class " ) : className : (P.map (helper className) xs ))
+
+    List xs
+      -> List $ P.map trans65layer xs    -- 6 layer. careful. not to call co-recursively!!
+
+    _ -> expr
+
+  where
+    helper className expr =
+      case expr of
+
+        List whoot@((Symbol "circuit") : xs  )
+
+          -> case className of
+
+                Symbol s
+                  | s == "analog"  || s == "analog2" || s == "hc" || s == "hc2"
+                      -> List $ whoot ++  [ List [ Symbol "use_layer", Symbol "F.Cu", Symbol "B.Cu", Symbol "In1.Cu", Symbol "In2.Cu" ] ]
+
+                  -- digital and analog are constrained to top and bottom. although both share In1 with 6 layer.
+                  |  s == "digital"
+                      -> List $ whoot ++  [ List [ Symbol "use_layer", Symbol "F.Cu", Symbol "B.Cu", Symbol "In2.Cu", Symbol "In4.Cu" ] ]
+
+                  -- hv constrained to top layers
+                  | s == "hv" -> List $ whoot ++ [ List [ Symbol "use_layer", Symbol "F.Cu", Symbol "In1.Cu" ] ]
+
+                  -- power or guard - prefer bottom layers like digital - must have access to In3 for copper fill to gnd.
+                  -- we reduce routing using high routing cost parameter.
+                  -- No. use bottom layers.
+                  | s == "power" || s == "guard"
+                      -> List $ whoot ++  [ List [ Symbol "use_layer", Symbol "F.Cu", Symbol "B.Cu",  Symbol "In2.Cu", Symbol "In3.Cu", Symbol "In4.Cu" ] ]
+
+
+                _ -> List $ whoot
+
+        _ -> expr
+
+
+
+
 
 
 
@@ -303,7 +357,8 @@ main =  do
           case arg of
             "id" -> id . transform
 
-            "6" -> trans6layer . transform
+            "6"  -> trans6layer . transform
+            "65" -> trans65layer . transform
 
             "8" -> trans8layer . transform
 
@@ -323,7 +378,7 @@ main =  do
 
 
   let outName  = (dir ++ "/out.dsn")
-  
+
   P.putStrLn $ "writing to "  ++ outName
 
   -- we want the file handling to happen at top level.
