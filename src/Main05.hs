@@ -382,11 +382,8 @@ main =  do
 
 
 
-  -- we can do exactly the same thing - use a fold to pick out args - to write to stdout etc.
-  -- tupple (use-stdout, something. )
 
-  -- TODO probably change behavior so stdout is default, except if argument is -write
-  -- to avoid overwriting files.
+  -- fold over arguments with a '-' prefix, to extract flags
 
   let flags = P.foldl  f False (args_)
         where
@@ -407,7 +404,7 @@ main =  do
               exprPrint stdout 0 (transform dsnExpr)
 
 
-      -- really write
+      -- really write a file as output
       True ->  do
 
         let outName  = (dir ++ "/out.dsn")
@@ -415,7 +412,7 @@ main =  do
         P.putStrLn $ "writing to "  ++ outName
 
         -- we want the file handling to happen at top level.
-        withFile  (dir ++ "/out.dsn") WriteMode  (\h -> do
+        withFile  outName WriteMode  (\h -> do
 
           case dsnParseResult of
             Right  dsnExpr ->
