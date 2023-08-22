@@ -1,4 +1,12 @@
 
+{-
+  Use '--' to distinguish cabal and program args
+
+  cabal  run main05 -- /home/me/devel/kicad6/projects/dmm05/specctra231-6-layer/ drc 65    -y | less
+
+-}
+
+
 {-# LANGUAGE QuasiQuotes, OverloadedStrings #-}
 {-# LANGUAGE NamedFieldPuns #-}
 
@@ -366,32 +374,68 @@ main =  do
               case drcParseResult of
                 Right drcExpr -> (transUnconnected  drcExpr) . transform
 
-            _ -> error "unrecognized arg"
+
+            -- ignrore arguments prefixed with '-'
+            _ -> case P.head arg of
+                  '-' -> transform
+                  _   -> error "unrecognized transform arg"
 
 
-  {-
-    -- stdout.
-    case dsnParseResult of
-      Right  dsnExpr ->
-        exprPrint stdout 0 (transform dsnExpr)
-  -}
+
+  -- we can do exactly the same thing - use a fold to pick out args - to write to stdout etc.
+  -- tupple (use-stdout, something. )
+
+  -- TODO probably change behavior so stdout is default, except if argument is -write
+  -- to avoid overwriting files.
+
+  let flags = P.foldl  f False (args_)
+        where
+        f flags' arg =
+          case arg of
+            "-write" -> True
+
+            -- ignore unrecognized flags
+            _ -> flags'
 
 
-  let outName  = (dir ++ "/out.dsn")
+  -- write to file or to stdout
+  case flags of
+      -- use stdout
+      False ->
+        case dsnParseResult of
+            Right  dsnExpr ->
+              exprPrint stdout 0 (transform dsnExpr)
 
-  P.putStrLn $ "writing to "  ++ outName
 
-  -- we want the file handling to happen at top level.
-  withFile  (dir ++ "/out.dsn") WriteMode  (\h -> do
+      -- really write
+      True ->  do
 
-    case dsnParseResult of
-      Right  dsnExpr ->
-        exprPrint h 0 (transform dsnExpr)
-    )
+        let outName  = (dir ++ "/out.dsn")
+
+        P.putStrLn $ "writing to "  ++ outName
+
+        -- we want the file handling to happen at top level.
+        withFile  (dir ++ "/out.dsn") WriteMode  (\h -> do
+
+          case dsnParseResult of
+            Right  dsnExpr ->
+              exprPrint h 0 (transform dsnExpr)
+          )
+
 
 
 
   return ()
+
+
+
+
+
+
+
+
+
+
 
 
 
