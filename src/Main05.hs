@@ -310,11 +310,14 @@ trans65layer expr =
                   -- hv constrained to top layers
                   | s == "hv" -> List $ whoot ++ [ List [ Symbol "use_layer", Symbol "F.Cu", Symbol "In1.Cu" ] ]
 
-                  -- power or guard - prefer bottom layers like digital - must have access to In3 for copper fill to gnd.
-                  -- we reduce routing using high routing cost parameter.
-                  -- No. use bottom layers.
-                  | s == "power" || s == "guard"
+                  -- power prefer bottom layers like digital - must have access to In3 for copper fill to gnd.
+                  | s == "power"
                       -> List $ whoot ++  [ List [ Symbol "use_layer", Symbol "F.Cu", Symbol "B.Cu",  Symbol "In2.Cu", Symbol "In3.Cu", Symbol "In4.Cu" ] ]
+
+                  -- guard is tricky, when congested and lots of traces, allow any layer.
+                  | s == "guard"
+                      -> List $ whoot ++  [ List [ Symbol "use_layer", Symbol "F.Cu", Symbol "B.Cu",  Symbol "In1.Cu", Symbol "In2.Cu", Symbol "In3.Cu", Symbol "In4.Cu" ] ]
+
 
 
                 _ -> List $ whoot
