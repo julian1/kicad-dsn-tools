@@ -111,7 +111,8 @@ main =  do
   -- how do we combine these?? function...
   -- cleaner way to combine
   
-  let (ignore, bad) = (L.partition (\x -> matchUnconnected x || clearanceWithCircle x || matchStarPad x) drcExpr)
+  -- let (ignore, bad) = (L.partition (\x -> matchUnconnected x || clearanceWithCircle x || matchStarPad x) drcExpr)
+  let (ignore, bad) = (L.partition (\x -> clearanceWithCircle x || matchStarPad x) drcExpr)
 
 
 
