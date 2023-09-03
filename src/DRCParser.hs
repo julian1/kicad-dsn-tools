@@ -153,7 +153,7 @@ drcGeomParser = do
   -- no netclass????
 
   skipSpace
-  geometry <- string "Polygon" <|> "Arc" <|> "Line"
+  geometry <- string "Polygon" <|> "Arc" <|> "Line" <|> "Circle"
 
   skipSpace
   string "on"

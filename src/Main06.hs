@@ -97,7 +97,7 @@ main =  do
 
     -- convert the drcExpression to the set of unconnected features, for easy lookup.
     -- better to change matchUnconnected name. to getUnconnected. or matchUnconnected
-  let lunconnected = mconcat $ P.map matchUnconnected drcExpr
+  -- let lunconnected = mconcat $ P.map matchUnconnected drcExpr
 
  
   mapM_ ( P.putStrLn .  show ) drcExpr
