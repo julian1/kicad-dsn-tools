@@ -146,11 +146,13 @@ drcTHPadParser = do
 
 drcGeomParser :: Parser PCBFeature
 drcGeomParser = do
+  {-
+    geometry, without an assigned netclass
 
-  -- Polygon on F.Cu
-  -- Arc on Edge.Cuts
-  -- Line on Edge.Cuts
-  -- no netclass????
+  Polygon on F.Cu
+    Arc on Edge.Cuts
+    Line on Edge.Cuts
+  -}
 
   skipSpace
   geometry <- string "Polygon" <|> "Arc" <|> "Line" <|> "Circle"

@@ -2,7 +2,7 @@
 {-
   Use '--' to distinguish cabal and program args
 
-  cabal run Main06 ./data/DRC-232.rpt 
+  cabal run Main06 ./data/DRC-232.rpt
 
 
 -}
@@ -11,9 +11,6 @@
 {-# LANGUAGE QuasiQuotes, OverloadedStrings #-}
 {-# LANGUAGE NamedFieldPuns #-}
 
--- {-# LANGUAGE  RecordDotSyntax  #-}
-
-
 
 
 import System.IO
@@ -21,13 +18,13 @@ import System.Environment (getArgs)
 import Prelude as P
 
 import Data.Either
+import Data.List as L(partition)
 
 
-import Data.Text as T -- append, concat
-import Data.Text.IO as T
+-- import Data.Text as T -- append, concat
+import Data.Text.IO as T(readFile)
 
 
--- import Data.Set as S
 
 import Data.Attoparsec.Text ( {-Number(I, D),-} parseOnly)
 
@@ -44,29 +41,46 @@ import DRCParser(drcParser )
 
 
 
-{-
-  return pcb features in the drc error expressions that are unconnected
-  also normalize pcb features, by removing layer information.
--}
 
 
-matchUnconnected :: DRCError -> [ PCBFeature  ]
-matchUnconnected DRCError { _name =   "unconnected_items" , _explanation , _features  } =
-
-    -- destructure FeatureItem to Feature.
-    P.map ( f . _feature  ) _features where
-
-      f (Pad_  pad nc c l ) = Pad_  pad nc c ""   -- remove layer info, to support set membership query without knowing layer
-      f (PadTH_ pad nc c  ) = PadTH_ pad nc c
-      f (Geom_ pad nc   )   = Geom_ pad nc
-      f (Track_ nc l len )  = Track_ nc l len
-      f (Via_ nc l )        = Via_ nc l
-      f (Zone_ nc layer)    = Zone_ nc layer
-
-matchUnconnected _ = [ ]
+-- don't care about unconnected
+matchUnconnected :: DRCError -> Bool
+matchUnconnected
+  DRCError { _name = "unconnected_items" , _explanation , _features  } = True
+matchUnconnected _  = False
 
 
 
+-- chage name clearace with circle or polygon geometry
+clearanceWithCircle :: DRCError -> Bool
+clearanceWithCircle
+  DRCError { _name = "clearance" , _explanation , _features  }
+    | P.any f _features
+    = True
+  where
+    f PCBFeatureItem { _feature = Geom_ "Circle" _ }  = True    -- for star
+    f PCBFeatureItem { _feature = Geom_ "Polygon" _ }  = True   -- for netties
+    f _   = False
+
+clearanceWithCircle _  = False
+
+
+
+
+
+-- a pad of a star connector
+matchStarPad :: DRCError -> Bool
+matchStarPad
+  DRCError { _name = "clearance" , _explanation , _features  }
+      | P.any  f  _features
+      = True
+  where
+    f PCBFeatureItem { _feature = Pad_ _ _ connector  _  }
+          | connector == "J308" || connector == "J310" || connector == "J311" || connector == "J312"   = True
+
+    f _  = False
+
+matchStarPad _ = False
 
 
 
@@ -94,13 +108,14 @@ main =  do
   let Right drcExpr = drcParseResult
 
 
+  -- how do we combine these?? function...
+  -- cleaner way to combine
+  
+  let (ignore, bad) = (L.partition (\x -> matchUnconnected x || clearanceWithCircle x || matchStarPad x) drcExpr)
 
-    -- convert the drcExpression to the set of unconnected features, for easy lookup.
-    -- better to change matchUnconnected name. to getUnconnected. or matchUnconnected
-  -- let lunconnected = mconcat $ P.map matchUnconnected drcExpr
 
- 
-  mapM_ ( P.putStrLn .  show ) drcExpr
+
+  mapM_ ( P.putStrLn .  show ) bad
 
 
   return ()
@@ -114,7 +129,7 @@ main =  do
     -- convert to a set for easy lookup
   -- let sUnconnected  = S.fromList lunconnected
   -- T.putStrLn lunconnected
- 
+
 
 
 
