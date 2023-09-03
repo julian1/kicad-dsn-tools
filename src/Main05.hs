@@ -2,7 +2,7 @@
 {-
   Use '--' to distinguish cabal and program args
 
-  cabal  run main05 -- /home/me/devel/kicad6/projects/dmm05/specctra231-6-layer/ drc 65    -write | less
+  cabal  run main05 -- /home/me/devel/kicad6/projects/dmm05/specctra231-6-layer/ drc 65    -x  | less
 
 -}
 
@@ -23,7 +23,9 @@ import Data.Either
 
 
 import Data.Text as T -- append, concat
-import Data.Text.IO as T
+
+import Data.Text.IO as T(readFile, putStrLn)
+-- import Data.Text.IO as T
 
 
 import Data.Set as S
