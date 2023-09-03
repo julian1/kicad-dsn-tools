@@ -6,6 +6,9 @@
 
 
 {-
+
+  Just a test now. Use Main05.
+
   format, 
   https://cdn.hackaday.io/files/1666717130852064/specctra.pdf
 

@@ -2,7 +2,7 @@
 {-
   Use '--' to distinguish cabal and program args
 
-  cabal  run main05 -- /home/me/devel/kicad6/projects/dmm05/specctra231-6-layer/ drc 65    -y | less
+  cabal  run main05 -- /home/me/devel/kicad6/projects/dmm05/specctra231-6-layer/ drc 65    -write | less
 
 -}
 
