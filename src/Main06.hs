@@ -2,6 +2,9 @@
 {-
   Use '--' to distinguish cabal and program args
 
+  Filter DRC report, for some common patterns
+
+
   cabal run Main06 ./data/DRC-232.rpt
 
 
@@ -107,9 +110,7 @@ main =  do
 
 
   -- how do we combine these?? function...
-  -- cleaner way to combine
 
-  -- let (ignore, bad) = (L.partition (\x -> matchUnconnected x || clearanceWithCircle x || matchStarPad x) drcExpr)
   let (ignore, bad) = (L.partition (\x -> clearanceWithCircle x || matchStarPad x) drcExpr)
 
 
