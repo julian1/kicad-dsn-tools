@@ -3,9 +3,10 @@ cd test01
 nix-shell haskell.nix
 
 ---
-cabal init
+# cabal init
 cabal update
-cabal run
+cabal build
+cabal run Main01 data/main.dsn
 
 cabal install
 ~/.cabal/bin/main01
