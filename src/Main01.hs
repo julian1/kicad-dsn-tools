@@ -43,7 +43,9 @@ main :: IO ()
 main =  do
 
   args <- getArgs                  -- IO [String]
-  mapM P.putStrLn args
+
+  -- output filename
+  -- mapM P.putStrLn args
 
   let file = P.head args
 
