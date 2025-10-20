@@ -9,12 +9,12 @@
 
 
 {-
-  format, 
+  format,
   https://cdn.hackaday.io/files/1666717130852064/specctra.pdf
 
   https://docs.kicad.org/doxygen/classDSN_1_1PCB.html
- 
-  freerouting, 
+
+  freerouting,
     designformats/specctra/SpecctraFileDescription.flex
 
 
@@ -53,59 +53,92 @@
 module ExprParser
     (
       exprParser
-    , lexeme
+    -- , lexeme
     , symbolParser
     ) where
 
 import Control.Applicative ((<|>), (<$>), some, many ) -- JA
-import Data.Attoparsec.Text as A (Parser, Number, skipSpace, digit, char,  number  {- double, rational, decimal, signed -}, string, anyChar, takeWhile1, takeWhile, letter, satisfy, option, choice )
+import Data.Attoparsec.Text as A (Parser, Number, skipSpace, digit, char,  number  {- double, rational, decimal, signed -}, string, anyChar, takeWhile1, takeWhile, letter, satisfy, option, choice, asciiCI, many1 )
 import Data.Functor (($>))
 -- import Data.Text (unpack)
 import Lib (Expr(..))
 
 import Data.Text as T
 
-exprParser :: Parser Expr
-exprParser = specialIndexParser <|> numParser <|>  listParser <|> stringParser <|> symbolParser  <|> singleQuoteParser
-
--- | parse bool expression
-
--- | parse floating-point expression
 
 
 listParser :: Parser Expr
 listParser = do
-    lexeme $ char '('
+
+    skipSpace
+    char '('
+
+      -- should have symbol first.
 
     j  <- many exprParser
 
-    lexeme $ char ')'
+
+    skipSpace
+    char ')'
+
     return (List j)
 
 
-stringParser = do
-    lexeme $ char '"'
 
-    -- has to handle brackets ()
-    j <- A.takeWhile (\c -> c /= '"' && c /= '\n'  )
-    lexeme $ char '"'
-    return (StringLit  j)
+
+
+exprParser :: Parser Expr
+exprParser = specialIndexParser <|> numParser <|>  listParser <|> stringLiteralParser <|> symbolParser  <|> singleQuoteParser
+
+-- | parse bool expression
+-- | parse floating-point expression
+
+
+-- should remove
+
+
+stringLiteralParser :: Parser Expr
+stringLiteralParser = do
+
+    skipSpace
+
+    -- must be takeWhile1, so returns false, to force the second part expression to evaluate
+    -- must use 'many' (zero or more). rather than 'many1'. to pick up an empty string. ie.
+
+    char '"'
+    j <- mconcat <$> many
+      (   A.takeWhile1 (\c -> c /= '"' && c /= '\\' )
+        <|>  string "\\\""
+        <|>  string "\\n"
+      )
+    char '"'
+    return (StringLit j)
+
+
+
 
 
 {-
   to handle quotation directive.
     (string_quote ")
 -}
+
+singleQuoteParser :: Parser Expr
 singleQuoteParser = do
-  lexeme $ char '"'
+
+  skipSpace
+  char '"'
   return SingleQuote
 
 
-
+{-
 lexeme :: Parser a -> Parser a
 lexeme p = do
     skipSpace
     p
+-}
+
+
 
 
 {-
@@ -115,7 +148,7 @@ lexeme p = do
 symbolParser :: Parser Expr
 symbolParser = do
     skipSpace
-    -- could probably be anything except whitespace
+    -- we should probably just take anything here whitespace
     symbol <- takeWhile1 (\c ->
         c >= 'a' && c <= 'z'
         || c >= 'A' && c <= 'Z'
@@ -128,6 +161,7 @@ symbolParser = do
         || c == '/'
         || c == '~'
         || c == '&'     --   (layers F&B.Cu)
+        -- || c == '{' || c == '}'
 
       )
     return (Symbol symbol )
@@ -201,8 +235,113 @@ specialIndexParser = do
 
 
 
+{-
+  it doesn't like the comma.
+  probably something previous - is getting it screwed u
 
 
+
+  (property "Datasheet" "" (id 3) (at 0 0 0)          <- it is the empty string. that is the problem
+    (effects (font (size 1.27 1.27)) hide)
+  )
+
+
+
+  (property "ki_description"   "bbb,aaa"  (id 5) (at 0 0 0)
+    (effects (font (size 1.27 1.27)) hide)
+  )
+
+-}
+
+-- need many.  and T.concat.
+
+
+
+
+-- https://stackoverflow.com/questions/35300812/fast-parsing-of-string-that-allows-escaped-characters
+-- https://stackoverflow.com/questions/75403532/efficient-attoparsec-parser-combinating-general-parsers-and-anychar
+
+
+
+
+{-
+    -- this works when when input has a single escaped quote
+    char '"'         -- start literal
+    A.takeWhile (\c -> c /= '"' && c /= '\\')       -- consume any char except end literal, or start of escape '\'
+    string "\\\""                                    -- eat escaped quote
+    A.takeWhile (\c -> c /= '"')                    -- take the rest
+    char '"'         -- end literal
+-}
+    -- attempt to generalize to handle string literal with multiple escaped chars. does not work.
+    -- any use of 'many'  just hangs with 100% cpu.
+
+
+
+
+{-
+
+
+{-
+    j <- many1 $
+          A.takeWhile (\c -> c /= '"' && c /= '\\')       -- consume any char except end literal, or start of escape '\'
+          <|> string "\\\""                                    -- eat escaped quote
+-}
+
+
+
+
+    -- OK. many just ends in an infinite loop.
+
+    j <- many1 $ (A.takeWhile (\c -> c /= '"' && c /= '\\'   )     -- while not end quote or \
+          <|>
+          do
+            lexeme $ char '\\'
+            lexeme $ char '"'
+            A.takeWhile (\c -> c /= '"'   )
+          )
+
+
+
+
+whoot :: Parser Expr
+whoot = do
+    -- string "\\\"" <|>  A.takeWhile (\c -> c /= '"' {- && c /= '\n' -} )
+  A.takeWhile (\c -> c /= '"' {- && c /= '\n' -} )
+
+-}
+
+
+
+
+
+{-
+--import Data.Attoparsec.Text as AT
+-- import qualified Data.Text as T
+-- import Data.Text (Text)
+
+
+escaped, quoted, brackted :: Parser Text
+normal =  A.takeWhile (/= '\\' )
+-- normal =  A.takeWhile (\c -> c /= '\\' && c /= '\n'  )
+escaped = do r <- normal
+             rs <- many escaped'
+             return $ T.concat $ r:rs
+  where escaped' = do r1 <- normal
+                      r2 <- quoted <|> brackted
+                      return $ r1 <> r2
+
+quoted = do string "\\\""
+            res <- normal
+            string "\\\""
+            return $ "\""<>res <>"\""
+
+brackted = do string "\\["
+              res <- normal
+              string "\\]"
+              return $ "["<>res<>"]"
+
+
+-}
 
 
 
