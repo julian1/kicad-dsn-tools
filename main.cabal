@@ -27,7 +27,8 @@ library
                       
 
   -- build-depends:       base >=4.13 && <4.18
-  build-depends:       base >=4.13 && <4.18
+  -- build-depends:       base >=4.13 && <4.18
+  build-depends:       base >=4.13 && <4.20
                      , mtl
                      -- , ghc
                      , text
@@ -36,14 +37,14 @@ library
                      , containers
 
 -- TODO rename these because some are test. and some are useful binaries/tools.
--- feb 2024. update base to 4.14 -> 4.18 for nixos 23.11
+-- feb 2024. update base to 4.14 -> 4.20 for nixos 23.11
 
 executable main01
   hs-source-dirs:      src
   main-is:             Main01.hs
   other-modules:       ExprParser ExprPrint Lib
   -- other-extensions:
-  build-depends:       base >=4.13 && <4.18 , text , raw-strings-qq , attoparsec , containers
+  build-depends:       base >=4.13 && <4.20 , text , raw-strings-qq , attoparsec , containers
   default-language:    Haskell2010
 
 
@@ -52,7 +53,7 @@ executable main02
   main-is:             Main02.hs
   other-modules:       DRCParser Lib
   -- other-extensions:
-  build-depends:       base >=4.13 && <4.18 , text , raw-strings-qq , attoparsec , containers
+  build-depends:       base >=4.13 && <4.20 , text , raw-strings-qq , attoparsec , containers
   default-language:    Haskell2010
 
 
@@ -63,7 +64,7 @@ executable main04
   main-is:             Main04.hs
   other-modules:       DRCParser ExprParser ExprPrint Lib
   -- other-extensions:
-  build-depends:       base >=4.13 && <4.18 , text , raw-strings-qq , attoparsec , containers
+  build-depends:       base >=4.13 && <4.20 , text , raw-strings-qq , attoparsec , containers
   default-language:    Haskell2010
 
 
@@ -72,7 +73,7 @@ executable main05
   main-is:             Main05.hs
   other-modules:       DRCParser ExprParser ExprPrint Lib
   -- other-extensions:
-  build-depends:       base >=4.13 && <4.18 , text , raw-strings-qq , attoparsec , containers
+  build-depends:       base >=4.13 && <4.20 , text , raw-strings-qq , attoparsec , containers
   default-language:    Haskell2010
 
 
@@ -82,7 +83,7 @@ executable main06
   main-is:             Main06.hs
   other-modules:       DRCParser Lib
   -- other-extensions:
-  build-depends:       base >=4.13 && <4.18 , text , raw-strings-qq , attoparsec , containers
+  build-depends:       base >=4.13 && <4.20 , text , raw-strings-qq , attoparsec , containers
   default-language:    Haskell2010
 
 

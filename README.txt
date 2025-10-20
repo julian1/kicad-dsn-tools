@@ -1,8 +1,7 @@
 
-cd test01
-nix-shell haskell.nix
 
----
+nix-shell
+
 # cabal init
 cabal update
 cabal build
