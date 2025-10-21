@@ -8,7 +8,7 @@ module ExprPrint
     (
       exprPrint
       --, main
-    ) 
+    )
 where
 
 
@@ -43,9 +43,17 @@ exprPrint h level expr = do
       T.hPutStr h ")"
 
     Symbol s -> do
+      -- T.hPutStr h "S:"
       T.hPutStr h s
 
     Num s -> do
+      -- T.hPutStr h "N:"
+      T.hPutStr h s
+
+
+    Uuid s -> do
+      -- T.hPutStr h "U:"
+      T.hPutStr h "uuid "
       T.hPutStr h s
 
     SpecialIndex s -> do
@@ -86,4 +94,4 @@ exprPrint h level expr = do
     T.putStr s
 
   -- SingleQuote -> T.putStr "SINGLEQUOTE"
--} 
+-}

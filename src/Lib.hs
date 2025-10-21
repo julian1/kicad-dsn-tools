@@ -30,6 +30,8 @@ data Expr =
     -- integer, with an amperand. eg. 123@456
     | SpecialIndex Text
 
+    | Uuid Text
+
 
     deriving (Eq, Show)
 

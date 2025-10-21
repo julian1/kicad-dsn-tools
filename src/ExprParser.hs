@@ -88,13 +88,26 @@ listParser = do
 
 
 exprParser :: Parser Expr
-exprParser = specialIndexParser <|> numParser <|>  listParser <|> stringLiteralParser <|> symbolParser  <|> singleQuoteParser
+exprParser = specialIndexParser <|> uuidParser <|> numParser <|>  listParser <|> stringLiteralParser <|> symbolParser  <|> singleQuoteParser
 
 -- | parse bool expression
 -- | parse floating-point expression
 
 
 -- should remove
+
+
+
+{-
+vowel = inClass "aeiou"
+
+Range notation is supported.
+
+halfAlphabet = inClass "a-nA-N"
+
+  should use inclass.  as faster
+
+-}
 
 
 stringLiteralParser :: Parser Expr
@@ -131,12 +144,26 @@ singleQuoteParser = do
   return SingleQuote
 
 
-{-
-lexeme :: Parser a -> Parser a
-lexeme p = do
-    skipSpace
-    p
--}
+
+
+uuidParser :: Parser Expr
+uuidParser = do
+
+  -- simpler to parse this explicitly. using the keyword
+  -- instead of trying to match the form 6c - 4c - 4c -4c -  12c
+  skipSpace
+  string "uuid"
+
+  skipSpace
+  val <- A.takeWhile (\c ->
+      c >= 'a' && c <= 'z'
+      || c >= 'A' && c <= 'Z'
+      || c >= '0' && c <= '9'
+      || c == '-'
+    )
+
+  return (Uuid val )
+
 
 
 
@@ -149,7 +176,17 @@ symbolParser :: Parser Expr
 symbolParser = do
     skipSpace
     -- we should probably just take anything here whitespace
-    symbol <- takeWhile1 (\c ->
+
+
+    -- using 'satisfy' for first character.  would be better.
+    prefix <- satisfy (\c ->
+        c >= 'a' && c <= 'z'
+        || c >= 'A' && c <= 'Z'
+        || c =='_'
+      )
+
+
+    suffix <- A.takeWhile (\c ->
         c >= 'a' && c <= 'z'
         || c >= 'A' && c <= 'Z'
         || c =='_'
@@ -164,7 +201,7 @@ symbolParser = do
         -- || c == '{' || c == '}'
 
       )
-    return (Symbol symbol )
+    return (Symbol (prefix `T.cons` suffix ) )
 
 
 
@@ -231,6 +268,20 @@ specialIndexParser = do
   -- next char expected to be whitespace.
 
   return (SpecialIndex $ T.concat [ first, "@", last ]  )
+
+
+
+
+
+
+
+
+{-
+lexeme :: Parser a -> Parser a
+lexeme p = do
+    skipSpace
+    p
+-}
 
 
 
