@@ -48,7 +48,35 @@
   I !Integer
   D !Double
 
+  ---
+
+
+  Parser is a monad, so you can just inspect the return value and fail if the length's not right:
+
+  takeWhileLo :: (Char -> Bool) -> Int -> Parser Text
+  takeWhileLo f lo = do
+    text <- takeWhile f
+    case T.compareLength text lo of
+      LT -> empty
+      _  -> return text
+
+  compareLength is from the text package. It's more efficient than comparing text's length, because compareLength may short-circuit.
+
+    https://stackoverflow.com/questions/31146547/how-can-i-write-a-more-general-but-efficient-version-of-attoparsecs-takewhile
+
+
+
+
+    vowel = inClass "aeiou"
+    Range notation is supported.
+    halfAlphabet = inClass "a-nA-N"
+      should use inclass.  as faster
+
+
 -}
+
+
+
 
 module ExprParser
     (
@@ -58,7 +86,7 @@ module ExprParser
     ) where
 
 import Control.Applicative ((<|>), (<$>), some, many ) -- JA
-import Data.Attoparsec.Text as A (Parser, Number, skipSpace, digit, char,  number  {- double, rational, decimal, signed -}, string, anyChar, takeWhile1, takeWhile, letter, satisfy, option, choice, asciiCI, many1 )
+import Data.Attoparsec.Text as AT (Parser, Number, skipSpace, digit, char,  number  {- double, rational, decimal, signed -}, string, anyChar, takeWhile1, takeWhile, letter, satisfy, option, choice, asciiCI, many1, takeText )
 import Data.Functor (($>))
 -- import Data.Text (unpack)
 import Lib (Expr(..))
@@ -67,16 +95,33 @@ import Data.Text as T
 
 
 
+
+
+exprParser :: Parser Expr
+exprParser = specialIndexParser <|> uuidParser <|> numParser <|>  listParser <|> stringLiteralParser <|> symbolParser  <|> singleQuoteParser
+
+
+
+
+-- doesn't seem to work.
+-- if add it at the end.
+remainParser :: Parser Expr
+remainParser = do
+
+    j <- AT.takeText
+    return (Rest j)
+
+
+
+
+
 listParser :: Parser Expr
 listParser = do
 
-    skipSpace
+    AT.skipSpace
     char '('
 
-      -- should have symbol first.
-
     j  <- many exprParser
-
 
     skipSpace
     char ')'
@@ -87,40 +132,17 @@ listParser = do
 
 
 
-exprParser :: Parser Expr
-exprParser = specialIndexParser <|> uuidParser <|> numParser <|>  listParser <|> stringLiteralParser <|> symbolParser  <|> singleQuoteParser
-
--- | parse bool expression
--- | parse floating-point expression
-
-
--- should remove
-
-
-
-{-
-vowel = inClass "aeiou"
-
-Range notation is supported.
-
-halfAlphabet = inClass "a-nA-N"
-
-  should use inclass.  as faster
-
--}
-
-
 stringLiteralParser :: Parser Expr
 stringLiteralParser = do
 
     skipSpace
 
-    -- must be takeWhile1, so returns false, to force the second part expression to evaluate
+    -- must use takeWhile1, to return false on lhs, to force the second part expression to evaluate as alternative
     -- must use 'many' (zero or more). rather than 'many1'. to pick up an empty string. ie.
 
     char '"'
     j <- mconcat <$> many
-      (   A.takeWhile1 (\c -> c /= '"' && c /= '\\' )
+      (   AT.takeWhile1 (\c -> c /= '"' && c /= '\\' )
         <|>  string "\\\""
         <|>  string "\\n"
       )
@@ -152,17 +174,17 @@ uuidParser = do
   -- simpler to parse this explicitly. using the keyword
   -- instead of trying to match the form 6c - 4c - 4c -4c -  12c
   skipSpace
-  string "uuid"
+  prefix <- string "uuid" <|> string "tstamp"
 
   skipSpace
-  val <- A.takeWhile (\c ->
+  val <- AT.takeWhile (\c ->
       c >= 'a' && c <= 'z'
       || c >= 'A' && c <= 'Z'
       || c >= '0' && c <= '9'
       || c == '-'
     )
 
-  return (Uuid val )
+  return (Uuid prefix val )
 
 
 
@@ -178,15 +200,19 @@ symbolParser = do
     -- we should probably just take anything here whitespace
 
 
-    -- using 'satisfy' for first character.  would be better.
+    -- use 'satisfy' for first character prefix
+    -- rename first/rest
+
+    -- (layers *.Cu *.Mask)
+
     prefix <- satisfy (\c ->
         c >= 'a' && c <= 'z'
         || c >= 'A' && c <= 'Z'
-        || c =='_'
+        || c =='*'
+        -- || c =='_'
       )
 
-
-    suffix <- A.takeWhile (\c ->
+    suffix <- AT.takeWhile (\c ->
         c >= 'a' && c <= 'z'
         || c >= 'A' && c <= 'Z'
         || c =='_'
@@ -218,16 +244,16 @@ numParser = do
     -- j <- choice [ char '+', char '-', pure ' ' ]
 
     -- this doesn't work. not sure why.
-    -- x <- A.takeWhile ( (==) '+') <|>  A.takeWhile ( (==) '-' )
+    -- x <- AT.takeWhile ( (==) '+') <|>  AT.takeWhile ( (==) '-' )
 
 
-    x <- A.takeWhile (\c -> c == '+' || c == '-' )   -- takeWhile is 'zero or more' while we want 'zero or one'.  could add predicate that one char was taken only.
+    x <- AT.takeWhile (\c -> c == '+' || c == '-' )   -- takeWhile is 'zero or more' while we want 'zero or one'.  could add predicate that one char was taken only.
 
     -- Must have at least one digit.
     y <- takeWhile1 isDecimal
     -- optional decimal point
-    z <- A.takeWhile (\c -> c == '.' )
-    w <- A.takeWhile isDecimal
+    z <- AT.takeWhile (\c -> c == '.' )
+    w <- AT.takeWhile isDecimal
 
     return (Num ( T.concat [ x, y,z,w ] ) )
 
@@ -237,13 +263,13 @@ numParser = do
     -- *> drops the value? weird.
     -- <$> is for composing functions.
    {-
-    x <- A.takeWhile (\c -> c == '+' || c == '-' )   -- takeWhile is 'zero or more' while we want 'zero or one'.  could add predicate that one char was taken only.
+    x <- AT.takeWhile (\c -> c == '+' || c == '-' )   -- takeWhile is 'zero or more' while we want 'zero or one'.  could add predicate that one char was taken only.
       (.*>)
       takeWhile1 isDecimal
       (.*>)
-      A.takeWhile (\c -> c == '.' )
+      AT.takeWhile (\c -> c == '.' )
       (.*>)
-      A.takeWhile isDecimal
+      AT.takeWhile isDecimal
 
       return $ Num x
     -}

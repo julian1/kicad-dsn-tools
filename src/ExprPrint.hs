@@ -51,10 +51,12 @@ exprPrint h level expr = do
       T.hPutStr h s
 
 
-    Uuid s -> do
+    Uuid prefix val -> do
+      -- uuid or tstamp
       -- T.hPutStr h "U:"
-      T.hPutStr h "uuid "
-      T.hPutStr h s
+      T.hPutStr h prefix
+      T.hPutStr h " "
+      T.hPutStr h val
 
     SpecialIndex s -> do
       T.hPutStr h s
