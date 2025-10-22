@@ -39,10 +39,11 @@ import ExprPrint(exprPrint)
 
 
 {-
-  the problem with using a map  rather than a fold, is that we cannot discard the node expression.
+  the problem with using a map  rather than a fold, is that we cannot discard a child node expression.
 
-  the problem with a filter,  is that we dont just need accept/reject.  but need to transform.
-      actually we dont
+  the problem with a filter,  is that we dont just want to include/reject a child.  but also want need to transform.
+
+  but we could actually handle these ok.
 
     instead of Maybe.   why not use an empty list.  if have nothing.
 
@@ -56,28 +57,28 @@ trans8layer expr =
   -}
 
   case expr of
-    -- match a class node, and extract class name, and pass it through recursion on children
+    -- match node we want to work with
 
     -- node we want to remove
     List ( Symbol "text" : (StringLit s) : xs )
-      -> if T.take 2 s == "##"
-          then  Just expr
-          else Nothing
+
+      | T.take 2 s /= "##"
+      -> Nothing
 
 
-    -- recursive case
+    -- handle recursion
     List xs
       -> Just $ List $ P.foldr f []  xs
+      where
+        -- recursion and filter
+        f x xs =
+          case trans8layer x of
+            Just j -> j : xs
+            Nothing ->  xs
+
 
     -- catch all.
     _ -> Just expr
-
-    where
-      -- recursion and filter
-      f x xs =
-        case trans8layer x of
-          Just j -> j : xs
-          Nothing ->  xs
 
 
 
