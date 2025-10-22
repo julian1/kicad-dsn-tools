@@ -86,7 +86,8 @@ module ExprParser
     ) where
 
 import Control.Applicative ((<|>), (<$>), some, many ) -- JA
-import Data.Attoparsec.Text as AT (Parser, Number, skipSpace, digit, char,  number  {- double, rational, decimal, signed -}, string, anyChar, takeWhile1, takeWhile, letter, satisfy, option, choice, asciiCI, many1, takeText )
+import Data.Attoparsec.Text as AT (Parser, Number, skipSpace, digit, char,  number,  string, anyChar, takeWhile1, takeWhile, letter, satisfy, option, choice, asciiCI, many1, takeText, take, try  )
+{- double, rational, decimal, signed -}
 import Data.Functor (($>))
 -- import Data.Text (unpack)
 import Lib (Expr(..))
@@ -168,24 +169,59 @@ singleQuoteParser = do
 
 
 
+{-
+  https://hackage.haskell.org/package/attoparsec-0.14.4/docs/Data-Attoparsec-Text.html
+
+-}
+
 uuidParser :: Parser Expr
 uuidParser = do
 
-  -- simpler to parse this explicitly. using the keyword
-  -- instead of trying to match the form 6c - 4c - 4c -4c -  12c
+  -- for uuid or tstamp. eg. (uuid 05b827f0-00be-490f-8522-955651526074)
+  -- match the form 8c - 4c - 4c -4c -  12c
+
+  {-
+  we could also use takeWith :: Int -> (Text -> Bool) -> Parser Text
+  eg.    a <- AT.takeWith 8 predicate
+  except takeWith is deprecated, or not exported from the module
+  -}
   skipSpace
-  prefix <- string "uuid" <|> string "tstamp"
 
-  skipSpace
-  val <- AT.takeWhile (\c ->
-      c >= 'a' && c <= 'z'
-      || c >= 'A' && c <= 'Z'
-      || c >= '0' && c <= '9'
-      || c == '-'
-    )
+  a <- AT.take 8
+  char '-'
+  b <- AT.take 4
+  char '-'
+  c <- AT.take 4
+  char '-'
+  d <- AT.take 4
+  char '-'
+  e <- AT.take 12
 
-  return (Uuid prefix val )
+  let val = T.concat [ a, "-", b, "-", c, "-", d, "-", e ]  ;
 
+  if T.all (\c ->
+    c == '-'
+    || c >= '0' && c <= '9'
+    || c >= 'a' && c <= 'z'
+    || c >= 'A' && c <= 'Z' )  val
+  then
+    return $ Symbol val
+  else
+    -- using return. does not seem to work to force parse rewind, when the predicate fails
+    -- return T.empty
+    -- OK. fail works. good.
+    fail "uuidParser"
+
+
+
+{-
+takeWith :: Int -> (Text -> Bool) -> Parser Text
+takeWith n p = do
+  (k,s) <- ensure n
+  if p s
+    then advance k >> return s
+    else fail "takeWith"
+-}
 
 
 
@@ -196,38 +232,36 @@ uuidParser = do
 -}
 symbolParser :: Parser Expr
 symbolParser = do
-    skipSpace
-    -- we should probably just take anything here whitespace
 
+    skipSpace
 
     -- use 'satisfy' for first character prefix
-    -- rename first/rest
 
-    -- (layers *.Cu *.Mask)
-
-    prefix <- satisfy (\c ->
+    prefix <- (satisfy (\c ->
         c >= 'a' && c <= 'z'
-        || c >= 'A' && c <= 'Z'
-        || c =='*'
-        -- || c =='_'
-      )
+        || c >= 'A' && c <= 'Z')
+        >>= ( return . T.singleton))                  -- convert Char to Text.
+
+        <|> string "*."    -- eg.  match *.Cu.
 
     suffix <- AT.takeWhile (\c ->
         c >= 'a' && c <= 'z'
         || c >= 'A' && c <= 'Z'
-        || c =='_'
         || c >= '0' && c <= '9'
-        || c == '.'                 -- be careful can match double
-        || c == '*' || c == '-'
-        || c == '@' || c == ':'
-        || c == '[' || c == ']'
-        || c == '/'
-        || c == '~'
-        || c == '&'     --   (layers F&B.Cu)
+        || c =='_'          -- 'lib_symbols'
+        || c == '.'         -- '.Cu'
+        || c == '&'         -- '(layers F&B.Cu)'
+
+--        || c == '*' || c == '-'
+ --       || c == '@' || c == ':'
+ --       || c == '[' || c == ']'
+--        || c == '/'
+--        || c == '~'
         -- || c == '{' || c == '}'
 
       )
-    return (Symbol (prefix `T.cons` suffix ) )
+    return (Symbol (T.concat [  prefix , suffix  ] ) )
+    -- return (Symbol (prefix `T.cons` suffix  ) )
 
 
 

@@ -32,7 +32,7 @@ data Expr =
 
 
     -- uuid or tstamp
-    | Uuid Text Text
+    -- | Uuid Text Text
 
 
     -- error
