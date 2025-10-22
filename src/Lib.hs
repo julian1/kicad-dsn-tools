@@ -36,7 +36,7 @@ data Expr =
 
 
     -- error
-    | Rest Text
+    -- | Rest Text
 
     deriving (Eq, Show)
 

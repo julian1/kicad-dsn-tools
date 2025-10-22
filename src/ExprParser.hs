@@ -103,7 +103,7 @@ exprParser = specialIndexParser <|> uuidParser <|> numParser <|>  listParser <|>
 
 
 
-
+{-
 -- doesn't seem to work.
 -- if add it at the end.
 remainParser :: Parser Expr
@@ -111,7 +111,7 @@ remainParser = do
 
     j <- AT.takeText
     return (Rest j)
-
+-}
 
 
 
@@ -119,15 +119,15 @@ remainParser = do
 listParser :: Parser Expr
 listParser = do
 
-    AT.skipSpace
-    char '('
+  AT.skipSpace
+  char '('
 
-    j  <- many exprParser
+  j  <- many exprParser
 
-    skipSpace
-    char ')'
+  skipSpace
+  char ')'
 
-    return (List j)
+  return (List j)
 
 
 
@@ -136,19 +136,19 @@ listParser = do
 stringLiteralParser :: Parser Expr
 stringLiteralParser = do
 
-    skipSpace
+  skipSpace
 
-    -- must use takeWhile1, to return false on lhs, to force the second part expression to evaluate as alternative
-    -- must use 'many' (zero or more). rather than 'many1'. to pick up an empty string. ie.
+  -- must use takeWhile1, to return false on lhs, to force the second part expression to evaluate as alternative
+  -- must use 'many' (zero or more). rather than 'many1'. to pick up an empty string. ie.
 
-    char '"'
-    j <- mconcat <$> many
-      (   AT.takeWhile1 (\c -> c /= '"' && c /= '\\' )
-        <|>  string "\\\""
-        <|>  string "\\n"
-      )
-    char '"'
-    return (StringLit j)
+  char '"'
+  j <- mconcat <$> many
+    (   AT.takeWhile1 (\c -> c /= '"' && c /= '\\' )
+      <|>  string "\\\""
+      <|>  string "\\n"
+    )
+  char '"'
+  return (StringLit j)
 
 
 
@@ -183,7 +183,7 @@ uuidParser = do
   {-
   we could also use takeWith :: Int -> (Text -> Bool) -> Parser Text
   eg.    a <- AT.takeWith 8 predicate
-  except takeWith is deprecated, or not exported from the module
+  except takeWith is not exported from the Attoparsec module
   -}
   skipSpace
 
@@ -233,80 +233,81 @@ takeWith n p = do
 symbolParser :: Parser Expr
 symbolParser = do
 
-    skipSpace
+  skipSpace
 
-    -- use 'satisfy' for first character prefix
+  -- use 'satisfy' for first character prefix
 
-    prefix <- (satisfy (\c ->
-        c >= 'a' && c <= 'z'
-        || c >= 'A' && c <= 'Z')
-        >>= ( return . T.singleton))                  -- convert Char to Text.
+  prefix <- (satisfy (\c ->
+      c >= 'a' && c <= 'z'
+      || c >= 'A' && c <= 'Z')
+      >>= ( return . T.singleton))                  -- convert Char to Text.
 
-        <|> string "*."    -- eg.  match *.Cu.
+      <|> string "*."    -- eg.  match *.Cu.
 
-    suffix <- AT.takeWhile (\c ->
-        c >= 'a' && c <= 'z'
-        || c >= 'A' && c <= 'Z'
-        || c >= '0' && c <= '9'
-        || c =='_'          -- 'lib_symbols'
-        || c == '.'         -- '.Cu'
-        || c == '&'         -- '(layers F&B.Cu)'
+  suffix <- AT.takeWhile (\c ->
+      c >= 'a' && c <= 'z'
+      || c >= 'A' && c <= 'Z'
+      || c >= '0' && c <= '9'
+      || c =='_'          -- 'lib_symbols'
+      || c == '.'         -- '.Cu'
+      || c == '&'         -- '(layers F&B.Cu)'
 
 --        || c == '*' || c == '-'
- --       || c == '@' || c == ':'
- --       || c == '[' || c == ']'
+--       || c == '@' || c == ':'
+--       || c == '[' || c == ']'
 --        || c == '/'
 --        || c == '~'
-        -- || c == '{' || c == '}'
+      -- || c == '{' || c == '}'
 
-      )
-    return (Symbol (T.concat [  prefix , suffix  ] ) )
-    -- return (Symbol (prefix `T.cons` suffix  ) )
+    )
+  return (Symbol (T.concat [  prefix , suffix  ] ) )
+  -- return (Symbol (prefix `T.cons` suffix  ) )
 
 
 
 
 numParser ::  Parser Expr
 numParser = do
-    skipSpace
 
-    -- cannot find a 'zero or one' parsing action.
-    -- use choice [  ] with a true. pure True.
+  skipSpace
 
-    -- using choice, and a guaranteed value - forces us to handle/test the return value
-    -- use mconcat
-    -- j <- choice [ char '+', char '-', pure ' ' ]
+  -- cannot find a 'zero or one' parsing action.
+  -- use choice [  ] with a true. pure True.
 
-    -- this doesn't work. not sure why.
-    -- x <- AT.takeWhile ( (==) '+') <|>  AT.takeWhile ( (==) '-' )
+  -- using choice, and a guaranteed value - forces us to handle/test the return value
+  -- use mconcat
+  -- j <- choice [ char '+', char '-', pure ' ' ]
 
-
-    x <- AT.takeWhile (\c -> c == '+' || c == '-' )   -- takeWhile is 'zero or more' while we want 'zero or one'.  could add predicate that one char was taken only.
-
-    -- Must have at least one digit.
-    y <- takeWhile1 isDecimal
-    -- optional decimal point
-    z <- AT.takeWhile (\c -> c == '.' )
-    w <- AT.takeWhile isDecimal
-
-    return (Num ( T.concat [ x, y,z,w ] ) )
+  -- this doesn't work. not sure why.
+  -- x <- AT.takeWhile ( (==) '+') <|>  AT.takeWhile ( (==) '-' )
 
 
+  x <- AT.takeWhile (\c -> c == '+' || c == '-' )   -- takeWhile is 'zero or more' while we want 'zero or one'.  could add predicate that one char was taken only.
 
-    -- return (Num ( T.concat $ mconcat [ [ x], y,z,w ] ) )
-    -- *> drops the value? weird.
-    -- <$> is for composing functions.
-   {-
-    x <- AT.takeWhile (\c -> c == '+' || c == '-' )   -- takeWhile is 'zero or more' while we want 'zero or one'.  could add predicate that one char was taken only.
-      (.*>)
-      takeWhile1 isDecimal
-      (.*>)
-      AT.takeWhile (\c -> c == '.' )
-      (.*>)
-      AT.takeWhile isDecimal
+  -- Must have at least one digit.
+  y <- takeWhile1 isDecimal
+  -- optional decimal point
+  z <- AT.takeWhile (\c -> c == '.' )
+  w <- AT.takeWhile isDecimal
 
-      return $ Num x
-    -}
+  return (Num ( T.concat [ x, y,z,w ] ) )
+
+
+
+  -- return (Num ( T.concat $ mconcat [ [ x], y,z,w ] ) )
+  -- *> drops the value? weird.
+  -- <$> is for composing functions.
+ {-
+  x <- AT.takeWhile (\c -> c == '+' || c == '-' )   -- takeWhile is 'zero or more' while we want 'zero or one'.  could add predicate that one char was taken only.
+    (.*>)
+    takeWhile1 isDecimal
+    (.*>)
+    AT.takeWhile (\c -> c == '.' )
+    (.*>)
+    AT.takeWhile isDecimal
+
+    return $ Num x
+  -}
 
 
 

@@ -27,6 +27,7 @@ exprPrint ::  Handle -> Int -> Expr  ->  IO ()
 exprPrint h level expr = do
 
   -- this can be our recursive walk of the dsn function. that tests membership
+
   T.hPutStr h " "
 
   case expr of
@@ -50,6 +51,22 @@ exprPrint h level expr = do
       -- T.hPutStr h "N:"
       T.hPutStr h s
 
+    SpecialIndex s -> do
+      T.hPutStr h s
+
+    SingleQuote -> do
+      T.putStr "SINGLEQUOTE"
+      T.hPutStr h "\""
+
+    StringLit s -> do
+      T.hPutStr h "\""
+      T.hPutStr h s
+      T.hPutStr h "\""
+
+
+
+
+
 {-
     Uuid prefix val -> do
       -- uuid or tstamp
@@ -58,18 +75,6 @@ exprPrint h level expr = do
       T.hPutStr h " "
       T.hPutStr h val
 -}
-
-    SpecialIndex s -> do
-      T.hPutStr h s
-
-    -- SingleQuote -> T.putStr "SINGLEQUOTE"
-    SingleQuote -> do
-      T.hPutStr h "\""
-
-    StringLit s -> do
-      T.hPutStr h "\""
-      T.hPutStr h s
-      T.hPutStr h "\""
 
 
 {-
