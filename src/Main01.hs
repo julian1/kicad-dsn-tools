@@ -3,7 +3,7 @@
 
 {-
   - usage
-    -  parse and write output expr .dsn
+    -  parse and write output expr for kicad_sch, kicad_pcb files
     - takes single file argument of dsn file.
 -}
 
@@ -49,7 +49,6 @@ main =  do
 
   let file = P.head args
 
-
   dsn <- T.readFile file
 
 
@@ -60,7 +59,6 @@ main =  do
   -}
 
   let exprParseResult = parseOnly exprParser dsn
-
 
   either (\_ -> do
       T.putStrLn $ "not a valid expr"
